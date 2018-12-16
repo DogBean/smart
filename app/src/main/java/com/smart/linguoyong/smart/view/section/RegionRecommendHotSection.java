@@ -1,17 +1,20 @@
 package com.smart.linguoyong.smart.view.section;
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.CardView;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.smart.linguoyong.data.source.RecommendBean;
 import com.smart.linguoyong.smart.R;
+import com.smart.linguoyong.smart.app.SmartApplication;
+import com.smart.linguoyong.smart.loader.GlideImageLoader;
 import com.smart.linguoyong.smart.view.sectioned.StatelessSection;
 
 
@@ -20,12 +23,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by hcc on 2016/10/21 23:28
- * 100332338@qq.com
- * <p>
- * 分区推荐热门推荐section
- */
 
 public class RegionRecommendHotSection extends StatelessSection {
     private Context mContext;
@@ -56,21 +53,10 @@ public class RegionRecommendHotSection extends StatelessSection {
     public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
         RecommendBean recommendBean = recommends.get(position);
+        new GlideImageLoader().displayImage(mContext, recommendBean.cover(), itemViewHolder.mImageCover);
 
-        Glide.with(mContext)
-                .load(recommendBean.getCover())
-                .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .placeholder(R.drawable.bili_default_image_tv)
-                .dontAnimate()
-                .into(itemViewHolder.mImage);
-
-        itemViewHolder.mTitle.setText(recommendBean.getTitle());
-        itemViewHolder.mPlay.setText(NumberUtil.converString(recommendBean.getPlay()));
-        itemViewHolder.mReview.setText(NumberUtil.converString(recommendBean.getDanmaku()));
-        itemViewHolder.mCardView.setOnClickListener(
-                v -> VideoDetailsActivity.launch((Activity) mContext,
-                        Integer.valueOf(recommendBean.getParam()), recommendBean.getCover()));
+        itemViewHolder.mRecycleView.setAdapter(new SingleAdapter(recommendBean.getRecommendList()));
+        itemViewHolder.mRecycleView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
     }
 
 
@@ -83,16 +69,60 @@ public class RegionRecommendHotSection extends StatelessSection {
     @Override
     public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder) {
         HeadViewHolder headViewHolder = (HeadViewHolder) holder;
-//        if (rid == ConstantUtil.ADVERTISING_RID) {
-//            headViewHolder.mRankBtn.setVisibility(View.GONE);
-//        } else {
-//            headViewHolder.mRankBtn.setOnClickListener(v -> startRankActivityById());
-//        }
+        headViewHolder.mGetMore.setOnClickListener(v -> startGetMoreActivityById());
     }
 
 
-    private void startRankActivityById() {
+    private void startGetMoreActivityById() {
+        //todo 获取更多的点击事件 ,
 
+    }
+
+    static class SingleItemHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.single_item_type_title)
+        TextView mTitle;
+
+        @BindView(R.id.single_item_type_time)
+        TextView mPlayTime;
+
+        public SingleItemHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+
+        }
+    }
+
+    public class SingleAdapter extends RecyclerView.Adapter<SingleItemHolder> {
+
+        public SingleAdapter(List<RecommendBean.PlayBean> playBeans) {
+            this.playBeans = playBeans;
+        }
+
+        private List<RecommendBean.PlayBean> playBeans;
+
+        @NonNull
+        @Override
+        public SingleItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View itemView = LayoutInflater.from(mContext).inflate(R.layout.layout_single_item, null);
+            return new SingleItemHolder(itemView);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull SingleItemHolder holder, int position) {
+            if (playBeans == null || playBeans.isEmpty()) {
+                Log.e(SmartApplication.TAG, "playBeans is null or empty");
+                return;
+            }
+
+            RecommendBean.PlayBean playBean = playBeans.get(position);
+            holder.mPlayTime.setText(String.valueOf(playBean.playtime));
+            holder.mTitle.setText(playBean.title);
+        }
+
+        @Override
+        public int getItemCount() {
+            return playBeans == null ? 0 : playBeans.size();
+        }
     }
 
 
@@ -105,18 +135,14 @@ public class RegionRecommendHotSection extends StatelessSection {
             ButterKnife.bind(this, itemView);
         }
     }
-//
+
     static class ItemViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.card_view)
-        CardView mCardView;
-        @BindView(R.id.item_img)
-        ImageView mImage;
-        @BindView(R.id.item_title)
-        TextView mTitle;
-        @BindView(R.id.item_play)
-        TextView mPlay;
-        @BindView(R.id.item_review)
-        TextView mReview;
+        @BindView(R.id.item_type_cover)
+        ImageView mImageCover;
+
+        @BindView(R.id.item_type_recycle)
+        RecyclerView mRecycleView;
+
 
         public ItemViewHolder(View itemView) {
             super(itemView);

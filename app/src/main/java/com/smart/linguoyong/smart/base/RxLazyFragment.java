@@ -1,8 +1,10 @@
 package com.smart.linguoyong.smart.base;
 
 
-
+import com.smart.linguoyong.smart.main.MainContract;
 import com.trello.rxlifecycle.components.support.RxFragment;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 
 /**
@@ -11,6 +13,9 @@ import com.trello.rxlifecycle.components.support.RxFragment;
  * <p/>
  * Fragment基类
  */
-public abstract class RxLazyFragment extends RxFragment {
+public class RxLazyFragment extends RxFragment {
+
+    public BasePresenter mPresenter;
+
 
 }

@@ -11,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
+import com.smart.linguoyong.data.source.RecommendBean;
 import com.smart.linguoyong.smart.R;
 import com.smart.linguoyong.smart.base.RxLazyFragment;
 import com.smart.linguoyong.data.source.Banner;
 import com.smart.linguoyong.smart.view.banner.RegionRecommendBannerSection;
+import com.smart.linguoyong.smart.view.section.RegionRecommendHotSection;
 import com.smart.linguoyong.smart.view.section.RegionRecommendTypesSection;
 import com.smart.linguoyong.smart.view.sectioned.SectionedRecyclerViewAdapter;
 
@@ -37,7 +39,6 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     @BindView(R.id.main_swipe_refresh_layout)
     SwipeRefreshLayout mRefreshLayout;
 
-    private MainContract.Presenter mPresenter;
 
     private List<Banner.BannerEntity> bannerEntities = new ArrayList<>();
 
@@ -98,7 +99,13 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     @Override
     public void setBannerSection(List<Banner.BannerEntity> bannerEntities) {
         mSectionedRecyclerViewAdapter.addSection(new RegionRecommendBannerSection(bannerEntities));
-        mSectionedRecyclerViewAdapter.addSection(new RegionRecommendTypesSection(getActivity(), 0) );
+        mSectionedRecyclerViewAdapter.addSection(new RegionRecommendTypesSection(getActivity(), 0));
+        mSectionedRecyclerViewAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setRecommedSection(List<RecommendBean> recommendBeans) {
+        mSectionedRecyclerViewAdapter.addSection(new RegionRecommendHotSection(getContext(), 0, recommendBeans));
         mSectionedRecyclerViewAdapter.notifyDataSetChanged();
     }
 }
