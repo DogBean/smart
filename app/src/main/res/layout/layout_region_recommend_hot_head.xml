@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/home_recommend_head_layout_height"
+    android:paddingEnd="@dimen/default_general_margin"
+    android:paddingStart="@dimen/default_general_margin"
+    android:paddingTop="@dimen/default_general_margin">
+
+
+    <TextView
+        android:id="@+id/item_type_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="@dimen/default_tiny_padding"
+        android:gravity="center"
+        android:text="今日必聼"
+        android:textColor="@color/font_normal"
+        android:textSize="@dimen/default_small_text_size" />
+
+
+    <TextView
+        android:id="@+id/item_type_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:padding="@dimen/default_tiny_padding"
+        android:text="更多"
+        android:textSize="@dimen/default_tiny_text_size" />
+
+
+</RelativeLayout>
+

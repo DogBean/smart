@@ -15,6 +15,7 @@ import com.smart.linguoyong.smart.R;
 import com.smart.linguoyong.smart.base.RxLazyFragment;
 import com.smart.linguoyong.data.source.Banner;
 import com.smart.linguoyong.smart.view.banner.RegionRecommendBannerSection;
+import com.smart.linguoyong.smart.view.section.RegionRecommendTypesSection;
 import com.smart.linguoyong.smart.view.sectioned.SectionedRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -97,6 +98,7 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     @Override
     public void setBannerSection(List<Banner.BannerEntity> bannerEntities) {
         mSectionedRecyclerViewAdapter.addSection(new RegionRecommendBannerSection(bannerEntities));
+        mSectionedRecyclerViewAdapter.addSection(new RegionRecommendTypesSection(getActivity(), 0) );
         mSectionedRecyclerViewAdapter.notifyDataSetChanged();
     }
 }
