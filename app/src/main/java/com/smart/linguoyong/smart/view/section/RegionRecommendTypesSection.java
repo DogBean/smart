@@ -76,7 +76,6 @@ public class RegionRecommendTypesSection extends StatelessSection {
         RegionRecommendTypesAdapter mAdapter = null;
         switch (rid) {
             case 0:
-                //番剧
                 typesViewHolder.mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 4));
                 mAdapter = new RegionRecommendTypesAdapter(typesViewHolder.mRecyclerView, bangumiIcons, bangumiTitles);
                 break;

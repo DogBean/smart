@@ -42,13 +42,29 @@ public class MainRepository implements TasksDataSource {
         // mock data
         Banner banner = new Banner();
         List<Banner.BannerEntity> banners = new ArrayList<>();
-        banners.add(new Banner.BannerEntity("Title", null,"http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
-        banners.add(new Banner.BannerEntity("Title", null,"http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
-        banners.add(new Banner.BannerEntity("Title", null,"http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
-        banners.add(new Banner.BannerEntity("Title", null,"http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
-        banners.add(new Banner.BannerEntity("Title", null,"http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
-        banners.add(new Banner.BannerEntity("Title", null,"http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
+        banners.add(new Banner.BannerEntity("Title", null, "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
+        banners.add(new Banner.BannerEntity("Title", null, "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
+        banners.add(new Banner.BannerEntity("Title", null, "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
+        banners.add(new Banner.BannerEntity("Title", null, "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
+        banners.add(new Banner.BannerEntity("Title", null, "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
+        banners.add(new Banner.BannerEntity("Title", null, "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
         banner.setTop(banners);
         return Flowable.just(banner);
+    }
+
+
+    public Flowable<List<RecommendBean>> getRecommendList() {
+        // mock data
+        List<RecommendBean> list = new ArrayList<>();
+        RecommendBean bean = new RecommendBean();
+        bean.setCover("http://i1.hdslb.com/bfs/archive/bd7586e4da669ae33f35c77ee32031e79fc9cbf2.jpg");
+        List<RecommendBean.PlayBean> objects = new ArrayList<>();
+        objects.add(new RecommendBean.PlayBean("三字经", 20));
+        objects.add(new RecommendBean.PlayBean("三字经", 20));
+        objects.add(new RecommendBean.PlayBean("三字经", 20));
+        objects.add(new RecommendBean.PlayBean("三字经", 20));
+        bean.setPlayBeans(objects);
+        list.add(bean);
+        return Flowable.just(list);
     }
 }

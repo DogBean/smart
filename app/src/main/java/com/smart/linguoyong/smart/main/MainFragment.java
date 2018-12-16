@@ -12,10 +12,12 @@ import android.view.ViewGroup;
 
 
 import com.smart.linguoyong.data.source.RecommendBean;
+import com.smart.linguoyong.data.source.RecommendDailyBean;
 import com.smart.linguoyong.smart.R;
 import com.smart.linguoyong.smart.base.RxLazyFragment;
 import com.smart.linguoyong.data.source.Banner;
 import com.smart.linguoyong.smart.view.banner.RegionRecommendBannerSection;
+import com.smart.linguoyong.smart.view.section.RegionRecommendDailySection;
 import com.smart.linguoyong.smart.view.section.RegionRecommendHotSection;
 import com.smart.linguoyong.smart.view.section.RegionRecommendTypesSection;
 import com.smart.linguoyong.smart.view.sectioned.SectionedRecyclerViewAdapter;
@@ -106,6 +108,15 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     @Override
     public void setRecommedSection(List<RecommendBean> recommendBeans) {
         mSectionedRecyclerViewAdapter.addSection(new RegionRecommendHotSection(getContext(), 0, recommendBeans));
+
+        List<RecommendDailyBean> arrayList = new ArrayList();
+        RecommendDailyBean recommendBean = new RecommendDailyBean("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
+        RecommendDailyBean recommendBean2 = new RecommendDailyBean("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
+        arrayList.add(recommendBean);
+        arrayList.add(recommendBean2);
+
+        mSectionedRecyclerViewAdapter.addSection(new RegionRecommendDailySection(getContext(), 0, arrayList));
+
         mSectionedRecyclerViewAdapter.notifyDataSetChanged();
     }
 }
