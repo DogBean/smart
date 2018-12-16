@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--banner height size-->
+    <dimen name="general_banner_height">240dp</dimen>
+
+    <dimen name="default_general_margin">10dp</dimen>
+
+</resources>
