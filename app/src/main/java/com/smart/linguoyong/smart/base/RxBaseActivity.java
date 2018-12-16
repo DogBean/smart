@@ -2,6 +2,7 @@ package com.smart.linguoyong.smart.base;
 
 import android.os.Bundle;
 
+import com.smart.linguoyong.smart.app.AppManager;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import butterknife.ButterKnife;
@@ -13,6 +14,7 @@ public abstract class RxBaseActivity extends RxAppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppManager.getAppManager().addActivity(this);
         //设置布局内容
         setContentView(getLayoutId());
         //初始化黄油刀控件绑定框架
@@ -33,7 +35,6 @@ public abstract class RxBaseActivity extends RxAppCompatActivity {
     /**
      * 初始化views
      *
-     * @param savedInstanc.32eState
      */
     public abstract void initViews(Bundle savedInstanceState);
 
@@ -82,5 +83,6 @@ public abstract class RxBaseActivity extends RxAppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         bind.unbind();
+        AppManager.getAppManager().finishActivity(this);
     }
 }
