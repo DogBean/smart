@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.smart.linguoyong.smart.main;
+package com.smart.linguoyong.smart.module.main;
 
 
 import com.smart.linguoyong.data.source.Banner;
+import com.smart.linguoyong.data.source.RecommendBean;
 import com.smart.linguoyong.smart.base.BasePresenter;
 import com.smart.linguoyong.smart.base.BaseView;
 
@@ -31,6 +32,8 @@ public interface MainContract {
     interface View extends BaseView<Presenter> {
 
         void setBannerSection(List<Banner.BannerEntity> bannerEntities);
+
+        void setRecommedSection(List<RecommendBean> recommendBeans);
 
 
     }

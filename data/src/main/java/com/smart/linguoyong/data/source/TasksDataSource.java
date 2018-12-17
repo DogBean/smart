@@ -9,5 +9,5 @@ public interface TasksDataSource {
 
     Flowable<Banner> getBanner();
 
-
+    Flowable<List<RecommendBean>> getRecommendList();
 }

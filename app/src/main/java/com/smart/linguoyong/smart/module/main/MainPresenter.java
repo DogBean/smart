@@ -1,9 +1,11 @@
-package com.smart.linguoyong.smart.main;
+package com.smart.linguoyong.smart.module.main;
 
 import android.support.annotation.NonNull;
 
 import com.smart.linguoyong.data.source.Banner;
 import com.smart.linguoyong.data.source.MainRepository;
+import com.smart.linguoyong.data.source.RecommendBean;
+import com.smart.linguoyong.smart.module.main.MainContract;
 import com.smart.linguoyong.smart.utils.schedulers.BaseSchedulerProvider;
 
 
@@ -13,7 +15,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.subscribers.SafeSubscriber;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -69,7 +70,16 @@ public class MainPresenter implements MainContract.Presenter {
             }
         });
 
+        Disposable disposableGetRecommendList = mMainRepository.getRecommendList().subscribe(new Consumer<List<RecommendBean>>() {
+            @Override
+            public void accept(List<RecommendBean> recommendBeans) throws Exception {
+                mView.setRecommedSection(recommendBeans);
+            }
+        });
+
+
         mCompositeDisposable.add(disposable);
+        mCompositeDisposable.add(disposableGetRecommendList);
     }
 
     @Override

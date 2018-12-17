@@ -15,6 +15,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.smart.linguoyong.data.source.Banner;
 import com.smart.linguoyong.smart.R;
+import com.smart.linguoyong.smart.loader.GlideImageLoader;
 import com.smart.linguoyong.smart.utils.DisplayUtil;
 
 import java.util.ArrayList;
@@ -132,16 +133,8 @@ public class BannerView extends RelativeLayout implements BannerAdapter.ViewPage
         for (int i = 0; i < bannerList.size(); i++) {
             ImageView mImageView = new ImageView(getContext());
 
-            RequestOptions options = new RequestOptions()
-                    .centerCrop()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.bili_default_image_tv)
-                    .dontAnimate();
+            new GlideImageLoader().displayImage(getContext(), bannerList.get(i).img, mImageView);
 
-            Glide.with(getContext())
-                    .load(bannerList.get(i).img)
-                    .apply(options)
-                    .into(mImageView);
             imageViewList.add(mImageView);
         }
         //监听图片轮播，改变指示器状态

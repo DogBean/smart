@@ -1,10 +1,11 @@
-package com.smart.linguoyong.smart;
+package com.smart.linguoyong.smart.module.main;
 
 import android.os.Bundle;
 
+import com.smart.linguoyong.smart.R;
 import com.smart.linguoyong.smart.base.RxBaseActivity;
-import com.smart.linguoyong.smart.main.MainFragment;
-import com.smart.linguoyong.smart.main.MainPresenter;
+import com.smart.linguoyong.smart.module.main.MainFragment;
+import com.smart.linguoyong.smart.module.main.MainPresenter;
 import com.smart.linguoyong.smart.utils.Injection;
 
 public class MainActivity extends RxBaseActivity {

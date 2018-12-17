@@ -23,4 +23,9 @@
         <item name="android:imeOptions">actionSearch</item>
         <item name="android:singleLine">true</item>
     </style>
+
+    <!--ToolBar TextSize style-->
+    <style name="ToolBar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>
