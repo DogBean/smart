@@ -1,9 +1,6 @@
 package com.smart.linguoyong.smart.base;
 
-
 import com.trello.rxlifecycle.components.support.RxFragment;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 
 /**

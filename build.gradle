@@ -48,4 +48,5 @@ ext {
     butterKnifeVersion = '8.4.0'
     gsonVersion = '2.8.5'
     FlycoTabLayoutVersion = '2.0.0'
+    daggerVersion = '2.0'
 }

@@ -15,6 +15,6 @@ public class SmartApplication extends Application {
     public void onCreate() {
         super.onCreate();
         //屏幕适配
-        ScreenAdapter.init(this, 720, ScreenAdapter.MATCH_BASE_WIDTH, ScreenAdapter.MATCH_UNIT_DP);
+//        ScreenAdapter.init(this, 720, ScreenAdapter.MATCH_BASE_WIDTH, ScreenAdapter.MATCH_UNIT_DP);
     }
 }

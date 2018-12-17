@@ -91,7 +91,9 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
     implementation "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterKnifeVersion"
-    compile "com.flyco.tablayout:FlycoTabLayout_Lib:$rootProject.FlycoTabLayoutVersion@aar"
+    implementation "com.flyco.tablayout:FlycoTabLayout_Lib:$rootProject.FlycoTabLayoutVersion@aar"
+//    implementation "com.google.dagger:dagger:$rootProject.daggerVersion"
+//    annotationProcessor "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
 
     // Dependencies for local unit tests
     testImplementation "junit:junit:$rootProject.ext.junitVersion"

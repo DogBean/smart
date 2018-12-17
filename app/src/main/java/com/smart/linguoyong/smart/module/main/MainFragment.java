@@ -6,17 +6,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
+import com.smart.linguoyong.data.source.Banner;
 import com.smart.linguoyong.data.source.RecommendBean;
 import com.smart.linguoyong.data.source.RecommendDailyBean;
 import com.smart.linguoyong.smart.R;
+import com.smart.linguoyong.smart.app.SmartApplication;
+import com.smart.linguoyong.smart.base.RxBus;
 import com.smart.linguoyong.smart.base.RxLazyFragment;
-import com.smart.linguoyong.data.source.Banner;
-import com.smart.linguoyong.smart.module.main.MainContract;
+import com.smart.linguoyong.smart.utils.Navigator;
 import com.smart.linguoyong.smart.view.banner.RegionRecommendBannerSection;
 import com.smart.linguoyong.smart.view.section.RegionRecommendDailySection;
 import com.smart.linguoyong.smart.view.section.RegionRecommendHotSection;
@@ -28,6 +30,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.android.schedulers.AndroidSchedulers;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -36,12 +39,13 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * 首页模块
  **/
 public class MainFragment extends RxLazyFragment implements MainContract.View {
+    private static final String TAG = SmartApplication.TAG;
 
     @BindView(R.id.main_recycle)
     RecyclerView mRecyclerView;
     @BindView(R.id.main_swipe_refresh_layout)
     SwipeRefreshLayout mRefreshLayout;
-
+    private boolean mIsRefreshing = false;
 
     private List<Banner.BannerEntity> bannerEntities = new ArrayList<>();
 
@@ -72,11 +76,13 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, root);
         initRecyclerView();
+        initRxBus();
         return root;
     }
 
     protected void initRecyclerView() {
         mSectionedRecyclerViewAdapter = new SectionedRecyclerViewAdapter();
+
         GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
         mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
@@ -89,6 +95,12 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
                 }
             }
         });
+
+        mRecyclerView.post(() -> {
+            mRefreshLayout.setRefreshing(true);
+            mIsRefreshing = true;
+        });
+
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mSectionedRecyclerViewAdapter);
     }
@@ -117,6 +129,22 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
 
         mSectionedRecyclerViewAdapter.addSection(new RegionRecommendDailySection(getContext(), 0, arrayList));
 
+        mRefreshLayout.setRefreshing(false);
+        mIsRefreshing = false;
         mSectionedRecyclerViewAdapter.notifyDataSetChanged();
+
+    }
+
+    private void initRxBus() {
+        // 首页类别 item 点击事件
+        RxBus.getInstance().toObserverable(Integer.class)
+                .compose(bindToLifecycle())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::performMainType);
+    }
+
+    private void performMainType(int type) {
+        Log.e(TAG, "performMainType:" + type);
+        Navigator.navigateToSort(getContext(), type);
     }
 }
