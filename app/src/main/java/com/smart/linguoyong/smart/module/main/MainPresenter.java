@@ -1,10 +1,11 @@
-package com.smart.linguoyong.smart.main;
+package com.smart.linguoyong.smart.module.main;
 
 import android.support.annotation.NonNull;
 
 import com.smart.linguoyong.data.source.Banner;
 import com.smart.linguoyong.data.source.MainRepository;
 import com.smart.linguoyong.data.source.RecommendBean;
+import com.smart.linguoyong.smart.module.main.MainContract;
 import com.smart.linguoyong.smart.utils.schedulers.BaseSchedulerProvider;
 
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.smart.linguoyong.smart.main;
+package com.smart.linguoyong.smart.module.main;
 
 
 import com.smart.linguoyong.data.source.Banner;

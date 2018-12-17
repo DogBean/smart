@@ -1,4 +1,4 @@
-package com.smart.linguoyong.smart.main;
+package com.smart.linguoyong.smart.module.main;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +16,7 @@ import com.smart.linguoyong.data.source.RecommendDailyBean;
 import com.smart.linguoyong.smart.R;
 import com.smart.linguoyong.smart.base.RxLazyFragment;
 import com.smart.linguoyong.data.source.Banner;
+import com.smart.linguoyong.smart.module.main.MainContract;
 import com.smart.linguoyong.smart.view.banner.RegionRecommendBannerSection;
 import com.smart.linguoyong.smart.view.section.RegionRecommendDailySection;
 import com.smart.linguoyong.smart.view.section.RegionRecommendHotSection;
@@ -69,7 +70,6 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_main, container, false);
-        mRecyclerView = root.findViewById(R.id.main_recycle);
         ButterKnife.bind(this, root);
         initRecyclerView();
         return root;
