@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.FrameLayout;
@@ -55,8 +56,6 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
     TextView hot_nodata;
     @BindView(R.id.sliding_tabs)
     SlidingTabLayout mSlidingTabLayout;
-    @BindView(R.id.view_pager)
-    NoScrollViewPager mViewPager;
     @BindView(R.id.iv_search_loading)
     ImageView mLoadingView;
     @BindView(R.id.search_layout)
@@ -65,6 +64,7 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
     FrameLayout fl_result;
     @BindView(R.id.ll_search_tag)
     LinearLayout ll_search_tag;
+    NoScrollViewPager mViewPager;
     SearchContract.Presenter mPresenter;
     private SearchResultBean searchResultBean = new SearchResultBean();
     private List<String> titles;
@@ -81,13 +81,12 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
 
     @Override
     public void initViews(Bundle savedInstanceState) {
+        mViewPager = findViewById(R.id.view_pager);
         mPresenter = new SearchPresenter(this);
-        searchEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        searchEditText.setOnFocusListener(new SearchEditText.OnFocusListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
-                    showTagLayout();
-                }
+            public void onFocus() {
+                showTagLayout();
             }
         });
         searchEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -316,4 +315,14 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
         });
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if (InputUtils.isShouldHideKeyboard(v, ev)) {
+                InputUtils.hideKeyboard(searchEditText);
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
 }

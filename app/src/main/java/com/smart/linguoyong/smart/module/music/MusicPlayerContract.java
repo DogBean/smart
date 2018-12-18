@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.smart.linguoyong.smart.base.BasePresenter;
 import com.smart.linguoyong.smart.base.BaseView;
+import com.smart.linguoyong.smart.base.MvpPresenter;
 import com.smart.linguoyong.smart.module.music.model.Song;
 import com.smart.linguoyong.smart.module.music.player.PlayMode;
 import com.smart.linguoyong.smart.module.music.player.PlaybackService;
@@ -35,7 +36,7 @@ public interface MusicPlayerContract {
         void updateFavoriteToggle(boolean favorite);
     }
 
-    interface Presenter extends BasePresenter {
+    interface Presenter extends MvpPresenter {
 
         void retrieveLastPlayMode();
 

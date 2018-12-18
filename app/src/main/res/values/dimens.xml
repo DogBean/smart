@@ -83,4 +83,38 @@
     <dimen name="load_more_layout_circle_progress_size">20dp</dimen>
     <dimen name="load_more_layout_circle_progress_width">2dp</dimen>
 
+
+    <!-- Music -->
+    <dimen name="mp_music_album_size">260dp</dimen>
+    <dimen name="mp_music_seekBar_marginTop">50dp</dimen>
+    <dimen name="mp_music_playControls_marginTop">24dp</dimen>
+    <dimen name="mp_music_playControls_marginBottom">8dp</dimen>
+
+    <!-- Common -->
+    <dimen name="mp_divider_line">1px</dimen>
+    <dimen name="mp_divider_small">4dp</dimen>
+    <dimen name="mp_divider_normal">8dp</dimen>
+    <dimen name="mp_divider_large">16dp</dimen>
+    <dimen name="mp_divider_xlarge">24dp</dimen>
+
+    <dimen name="mp_padding_small">4dp</dimen>
+    <dimen name="mp_padding_normal">8dp</dimen>
+    <dimen name="mp_padding_large">16dp</dimen>
+    <dimen name="mp_padding_xlarge">24dp</dimen>
+
+    <dimen name="mp_margin_small">4dp</dimen>
+    <dimen name="mp_margin_normal">8dp</dimen>
+    <dimen name="mp_margin_large">16dp</dimen>
+    <dimen name="mp_margin_xlarge">24dp</dimen>
+
+    <dimen name="mp_text_list_title">14sp</dimen>
+    <dimen name="mp_text_list_hint">12sp</dimen>
+    <dimen name="mp_text_hint">12sp</dimen>
+
+    <dimen name="mp_toolbar_paddingTop">0dp</dimen>
+
+    <dimen name="mp_material_marginLeft">72dp</dimen>
+
+    <dimen name="mp_list_itemHeight">54dp</dimen>
+    <dimen name="mp_list_scrollbarSize">4dp</dimen>
 </resources>

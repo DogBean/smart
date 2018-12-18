@@ -97,6 +97,10 @@ public class SearchEditText extends android.support.v7.widget.AppCompatEditText 
 				if (drawable != null && event.getX() <= (getWidth() - getPaddingRight())
 						&& event.getX() >= (getWidth() - getPaddingRight() - drawable.getBounds().width())) {
 					setText("");
+				}else {
+					if(onFocusListener != null){
+						onFocusListener.onFocus();
+					}
 				}
 				// 判断条件说明
 				// event.getX() ：抬起时的位置坐标
@@ -112,5 +116,12 @@ public class SearchEditText extends android.support.v7.widget.AppCompatEditText 
 		return super.onTouchEvent(event);
 	}
 
+	private OnFocusListener onFocusListener;
+	public interface OnFocusListener{
+		void onFocus();
+	}
+	public void setOnFocusListener(OnFocusListener onFocusListener){
+		this.onFocusListener = onFocusListener;
+	}
 
 }

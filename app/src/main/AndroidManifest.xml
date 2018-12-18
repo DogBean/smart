@@ -24,7 +24,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".module.search.SearchActivity"/>
-        <activity android:name=".module.sort.SortActivity"></activity>
         <activity
             android:name=".module.sort.SortActivity"
             android:screenOrientation="portrait"/>

@@ -23,6 +23,7 @@ public abstract class RxBaseActivity extends RxAppCompatActivity {
         bind = ButterKnife.bind(this);
         initViews(savedInstanceState);
         initToolBar();
+        subscribeRxbus();
     }
 
     /**
@@ -83,19 +84,10 @@ public abstract class RxBaseActivity extends RxAppCompatActivity {
         super.onDestroy();
         bind.unbind();
         AppManager.getAppManager().finishActivity(this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        subscribeRxbus();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
         unsubscribeRxbus();
     }
+
+
     protected void subscribeRxbus(){}
     private void unsubscribeRxbus(){
         for(Subscription subscription : subscriptions){

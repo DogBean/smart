@@ -41,7 +41,7 @@ public class MainActivity extends RxBaseActivity {
                 .show(mMainFragment).commit();
 
         // Create the presenter
-        mMainPresenter = new MainPresenter(Injection.provideMainRepository(getApplicationContext()),
+        mMainPresenter = new MainPresenter(Injection.provideMainRepository(),
                 mMainFragment,
                 false,
                 Injection.provideSchedulerProvider());

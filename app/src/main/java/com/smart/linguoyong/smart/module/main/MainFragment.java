@@ -1,5 +1,6 @@
 package com.smart.linguoyong.smart.module.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ import com.smart.linguoyong.smart.R;
 import com.smart.linguoyong.smart.app.SmartApplication;
 import com.smart.linguoyong.smart.base.RxBus;
 import com.smart.linguoyong.smart.base.RxLazyFragment;
+import com.smart.linguoyong.smart.module.search.SearchActivity;
 import com.smart.linguoyong.smart.utils.Navigator;
 import com.smart.linguoyong.smart.view.banner.RegionRecommendBannerSection;
 import com.smart.linguoyong.smart.view.section.RegionRecommendDailySection;
@@ -30,6 +32,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import rx.android.schedulers.AndroidSchedulers;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -84,6 +87,12 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
         return root;
     }
 
+    @OnClick({R.id.rl_search})
+    public void onClick(View view){
+        if(view.getId() == R.id.rl_search){
+            startActivity(new Intent(getActivity(),SearchActivity.class));
+        }
+    }
     protected void initRecyclerView() {
         mSectionedRecyclerViewAdapter = new SectionedRecyclerViewAdapter();
 
