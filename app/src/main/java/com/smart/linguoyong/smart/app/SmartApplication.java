@@ -9,6 +9,8 @@ import com.smart.linguoyong.smart.utils.ScreenAdapter;
  */
 public class SmartApplication extends Application {
 
+    private static SmartApplication sInstance;
+
     public static final String TAG = "Smart";
 
     @Override
@@ -16,5 +18,9 @@ public class SmartApplication extends Application {
         super.onCreate();
         //屏幕适配
 //        ScreenAdapter.init(this, 720, ScreenAdapter.MATCH_BASE_WIDTH, ScreenAdapter.MATCH_UNIT_DP);
+    }
+
+    public static SmartApplication getInstance() {
+        return sInstance;
     }
 }

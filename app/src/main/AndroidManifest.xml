@@ -25,7 +25,8 @@
         </activity>
         <activity
             android:name=".module.sort.SortActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".module.music.MusicPlayerActivity"></activity>
     </application>
 
 </manifest>

@@ -21,6 +21,7 @@ import android.support.annotation.NonNull;
 
 
 import com.smart.linguoyong.data.source.MainRepository;
+import com.smart.linguoyong.smart.app.SmartApplication;
 import com.smart.linguoyong.smart.utils.schedulers.BaseSchedulerProvider;
 import com.smart.linguoyong.smart.utils.schedulers.SchedulerProvider;
 
@@ -37,5 +38,9 @@ public class Injection {
         checkNotNull(context);
         return MainRepository.getInstance(null,
                 null);
+    }
+
+    public static Context provideContext() {
+        return SmartApplication.getInstance();
     }
 }

@@ -13,8 +13,8 @@ import com.smart.linguoyong.smart.base.RxLazyFragment;
 import butterknife.ButterKnife;
 
 /**
- * @Description :
- * @Author oh
+ * @Description:
+ * @Author GuoYong.Lin
  * @Time 2018/12/17
  */
 public class SortFragment extends RxLazyFragment {

@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.smart.linguoyong.smart.R;
 
 /**
  * Created by Guoyong.Lin on 2018/12/17
