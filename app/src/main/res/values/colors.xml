@@ -4,9 +4,14 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <!-- Common -->
+    <color name="transparent">#00000000</color>
     <color name="white">#FFFFFF</color>
     <color name="gray_bg">#EEEEEE</color>
     <color name="gray_txt">#9A9898</color>
+    <color name="black">#000000</color>
+
+
 
     <color name="font_normal">#555555</color>
 
@@ -14,4 +19,12 @@
     <color name="base_select">#dfdfdf</color>
     <color name="gray_light_30">#E5E5E5</color>
     <color name="black_alpha_45">#71000000</color>
+
+    <color name="line_bg">#e6e6e6</color>
+
+
+    <color name="google_red">#ea5a4f</color>
+    <color name="google_blue">#6099f5</color>
+    <color name="google_yellow">#edc855</color>
+    <color name="google_green">#5cb171</color>
 </resources>

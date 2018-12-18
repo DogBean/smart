@@ -14,7 +14,6 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_marginStart="18dp"
-        android:gravity="center"
         android:text="三字经"
         android:textColor="@color/font_normal"
         android:textSize="@dimen/default_small_text_size" />
@@ -25,9 +24,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
         android:padding="@dimen/default_tiny_padding"
-        android:text="时长: 20分钟"
         android:textSize="@dimen/default_tiny_text_size" />
 
 

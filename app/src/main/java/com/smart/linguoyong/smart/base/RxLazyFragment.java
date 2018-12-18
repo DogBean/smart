@@ -1,9 +1,12 @@
 package com.smart.linguoyong.smart.base;
 
+import android.os.Bundle;
+import android.view.View;
 
 import com.trello.rxlifecycle.components.support.RxFragment;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import rx.Subscription;
+import rx.subscriptions.CompositeSubscription;
 
 
 /**
@@ -16,5 +19,31 @@ public class RxLazyFragment extends RxFragment {
 
     public MvpPresenter mPresenter;
 
+    private CompositeSubscription mSubscriptions;
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        addSubscription(subscribeEvents());
+    }
+
+    protected Subscription subscribeEvents() {
+        return null;
+    }
+
+    protected void addSubscription(Subscription subscription) {
+        if (subscription == null) return;
+        if (mSubscriptions == null) {
+            mSubscriptions = new CompositeSubscription();
+        }
+        mSubscriptions.add(subscription);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mSubscriptions != null) {
+            mSubscriptions.clear();
+        }
+    }
 }

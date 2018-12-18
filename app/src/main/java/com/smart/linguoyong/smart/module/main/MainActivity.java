@@ -5,10 +5,13 @@ import android.os.Bundle;
 
 import com.smart.linguoyong.smart.R;
 import com.smart.linguoyong.smart.base.RxBaseActivity;
+import com.smart.linguoyong.smart.module.guide.GuideActivity;
 import com.smart.linguoyong.smart.module.main.MainFragment;
 import com.smart.linguoyong.smart.module.main.MainPresenter;
 import com.smart.linguoyong.smart.module.search.SearchActivity;
 import com.smart.linguoyong.smart.utils.Injection;
+import com.smart.linguoyong.smart.utils.Navigator;
+import com.smart.linguoyong.smart.utils.SPUtils;
 
 public class MainActivity extends RxBaseActivity {
     private static final String TAG = "MainActivity";
@@ -21,6 +24,11 @@ public class MainActivity extends RxBaseActivity {
 
     @Override
     public void initViews(Bundle savedInstanceState) {
+        if (SPUtils.getInstance().getBoolean(GuideActivity.IS_FIRST, true)) {
+            Navigator.navigateToGuide(this);
+            finish();
+            return;
+        }
         initFragment();
     }
 
@@ -33,7 +41,7 @@ public class MainActivity extends RxBaseActivity {
                 .show(mMainFragment).commit();
 
         // Create the presenter
-        mMainPresenter = new MainPresenter(Injection.provideMainRepository(),
+        mMainPresenter = new MainPresenter(Injection.provideMainRepository(getApplicationContext()),
                 mMainFragment,
                 false,
                 Injection.provideSchedulerProvider());

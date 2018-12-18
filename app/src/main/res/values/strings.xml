@@ -8,4 +8,9 @@
     <string name="load_more">加载更多</string>
     <string name="load_more_audio">查看全部%d个音频</string>
     <string name="load_more_album">查看全部%d个专辑</string>
+
+
+    <!--module music-->
+    <string name="music_default_duration">00:00</string>
+
 </resources>

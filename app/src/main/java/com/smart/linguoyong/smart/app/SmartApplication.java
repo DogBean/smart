@@ -13,6 +13,8 @@ import com.socks.library.KLog;
  */
 public class SmartApplication extends Application {
 
+    private static SmartApplication sInstance;
+
     public static final String TAG = "Smart";
 
     @Override
