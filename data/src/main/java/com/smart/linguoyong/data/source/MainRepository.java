@@ -2,11 +2,17 @@ package com.smart.linguoyong.data.source;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.smart.linguoyong.data.utils.SPUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 
 import static android.support.v4.util.Preconditions.checkNotNull;
 
@@ -66,5 +72,45 @@ public class MainRepository implements TasksDataSource {
         bean.setPlayBeans(objects);
         list.add(bean);
         return Flowable.just(list);
+    }
+
+    @Override
+    public Observable<Boolean> insertSearchNearlyTag(String tag) {
+        String strJson = SPUtils.getString("nearlyTag");
+        Gson gson = new Gson();
+        List<String> datalist = gson.fromJson(strJson, new TypeToken<List<String>>() {
+        }.getType());
+        if (datalist == null) datalist = new ArrayList<>();
+        if (!datalist.contains(tag)) {
+            if (datalist.size() < 8) {
+                datalist.add(tag);
+            } else {
+                datalist.remove(datalist.size() - 1);
+                datalist.add(0, tag);
+            }
+        } else {
+            datalist.remove(tag);
+            datalist.add(0, tag);
+        }
+        SPUtils.putString("nearlyTag", gson.toJson(datalist));
+        return Observable.just(true);
+    }
+
+    @Override
+    public Observable<List<String>> getSearchNearlyTag() {
+        String strJson = SPUtils.getString("nearlyTag");
+        if (!TextUtils.isEmpty(strJson)) {
+            Gson gson = new Gson();
+            List<String> datalist = gson.fromJson(strJson, new TypeToken<List<String>>() {
+            }.getType());
+            return Observable.just(datalist);
+        } else {
+            return Observable.empty();
+        }
+    }
+    @Override
+    public Observable<Boolean> clearSearchNearlyTag() {
+        SPUtils.putString("nearlyTag", "");
+        return Observable.just(true);
     }
 }

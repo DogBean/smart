@@ -5,12 +5,16 @@ import android.os.Bundle;
 import com.smart.linguoyong.smart.app.AppManager;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import rx.Subscription;
 
 public abstract class RxBaseActivity extends RxAppCompatActivity {
     private Unbinder bind;
-
+    private List<Subscription> subscriptions = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,5 +83,27 @@ public abstract class RxBaseActivity extends RxAppCompatActivity {
         super.onDestroy();
         bind.unbind();
         AppManager.getAppManager().finishActivity(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        subscribeRxbus();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unsubscribeRxbus();
+    }
+    protected void subscribeRxbus(){}
+    private void unsubscribeRxbus(){
+        for(Subscription subscription : subscriptions){
+            subscription.unsubscribe();
+        }
+        subscriptions.clear();
+    }
+    protected void addSubscribe(Subscription subscription){
+        subscriptions.add(subscription);
     }
 }

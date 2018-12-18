@@ -19,8 +19,8 @@ package com.smart.linguoyong.smart.module.main;
 
 import com.smart.linguoyong.data.source.Banner;
 import com.smart.linguoyong.data.source.RecommendBean;
-import com.smart.linguoyong.smart.base.BasePresenter;
 import com.smart.linguoyong.smart.base.BaseView;
+import com.smart.linguoyong.smart.base.MvpPresenter;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public interface MainContract {
 
     }
 
-    interface Presenter extends BasePresenter {
+    interface Presenter extends MvpPresenter {
 
 
     }

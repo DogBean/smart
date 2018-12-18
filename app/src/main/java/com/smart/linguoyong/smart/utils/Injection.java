@@ -33,8 +33,7 @@ public class Injection {
         return SchedulerProvider.getInstance();
     }
 
-    public static MainRepository provideMainRepository(@NonNull Context context) {
-        checkNotNull(context);
+    public static MainRepository provideMainRepository() {
         return MainRepository.getInstance(null,
                 null);
     }

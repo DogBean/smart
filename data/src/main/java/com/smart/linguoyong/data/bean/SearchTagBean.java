@@ -1,4 +1,4 @@
-package com.smart.linguoyong.smart.bean;
+package com.smart.linguoyong.data.bean;
 
 /**
  * Created by Dino on 1/25 0025.
@@ -15,6 +15,12 @@ public class SearchTagBean {
     private String element;
     private int score;
     private String binaryElement;
+
+    public SearchTagBean(String element, int score, String binaryElement) {
+        this.element = element;
+        this.score = score;
+        this.binaryElement = binaryElement;
+    }
 
     public String getElement() {
         return element;

@@ -14,7 +14,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class RxLazyFragment extends RxFragment {
 
-    public BasePresenter mPresenter;
+    public MvpPresenter mPresenter;
 
 
 }

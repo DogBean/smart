@@ -20,5 +20,5 @@ dependencies {
     implementation "com.squareup.sqlbrite2:sqlbrite:$rootProject.sqlbriteVersion"
     implementation "com.android.support:design:$rootProject.supportLibraryVersion"
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
-
+    compile 'com.github.zhaokaiqiang.klog:library:1.6.0'
 }

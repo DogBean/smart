@@ -23,7 +23,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".mvp.search.SearchActivity"/>
+        <activity android:name=".module.search.SearchActivity"/>
         <activity android:name=".module.sort.SortActivity"></activity>
     </application>
 

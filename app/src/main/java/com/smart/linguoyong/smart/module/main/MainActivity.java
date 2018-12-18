@@ -1,11 +1,13 @@
 package com.smart.linguoyong.smart.module.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.smart.linguoyong.smart.R;
 import com.smart.linguoyong.smart.base.RxBaseActivity;
 import com.smart.linguoyong.smart.module.main.MainFragment;
 import com.smart.linguoyong.smart.module.main.MainPresenter;
+import com.smart.linguoyong.smart.module.search.SearchActivity;
 import com.smart.linguoyong.smart.utils.Injection;
 
 public class MainActivity extends RxBaseActivity {
@@ -31,7 +33,7 @@ public class MainActivity extends RxBaseActivity {
                 .show(mMainFragment).commit();
 
         // Create the presenter
-        mMainPresenter = new MainPresenter(Injection.provideMainRepository(getApplicationContext()),
+        mMainPresenter = new MainPresenter(Injection.provideMainRepository(),
                 mMainFragment,
                 false,
                 Injection.provideSchedulerProvider());
@@ -42,4 +44,9 @@ public class MainActivity extends RxBaseActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        startActivity(new Intent(this,SearchActivity.class));
+    }
 }

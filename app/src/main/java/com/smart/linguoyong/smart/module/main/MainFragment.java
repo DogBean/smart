@@ -54,7 +54,9 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.subscribe();
+        if(mPresenter != null){
+            mPresenter.subscribe();
+        }
     }
 
     @Override
@@ -62,7 +64,9 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
         super.onPause();
         mSectionedRecyclerViewAdapter.removeAllSections();
         mSectionedRecyclerViewAdapter.notifyDataSetChanged();
-        mPresenter.unsubscribe();
+        if(mPresenter!=null){
+            mPresenter.unsubscribe();
+        }
     }
 
 

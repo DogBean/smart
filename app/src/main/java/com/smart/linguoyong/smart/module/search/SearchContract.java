@@ -1,14 +1,15 @@
-package com.smart.linguoyong.smart.mvp.search;
+package com.smart.linguoyong.smart.module.search;
 
-import com.smart.linguoyong.smart.base.BasePresenter;
+import com.smart.linguoyong.data.bean.SearchResultBean;
 import com.smart.linguoyong.smart.base.BaseView;
-import com.smart.linguoyong.smart.bean.SearchTagBean;
-import com.smart.linguoyong.smart.main.MainContract;
-
+import com.smart.linguoyong.smart.base.MvpPresenter;
+import com.smart.linguoyong.data.bean.SearchTagBean;
 import java.util.List;
 
 public interface SearchContract {
-    interface View extends BaseView<MainContract.Presenter> {
+    interface View extends BaseView<Presenter> {
+        void showLoading(String msg);
+        void dissmissLoading();
         /**
          * 显示热门标签
          *
@@ -26,9 +27,12 @@ public interface SearchContract {
          * 清除标签
          */
         void clearTagView();
+
+        void startSearch(String key);
+        void showSearchResult(SearchResultBean resultBean);
     }
 
-    interface Presenter extends BasePresenter {
+    interface Presenter extends MvpPresenter {
         /**
          * 搜索
          */
