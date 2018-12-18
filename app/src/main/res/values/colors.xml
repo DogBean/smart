@@ -16,4 +16,10 @@
     <color name="card_view_background">@color/white</color>
 
     <color name="line_bg">#e6e6e6</color>
+
+
+    <color name="google_red">#ea5a4f</color>
+    <color name="google_blue">#6099f5</color>
+    <color name="google_yellow">#edc855</color>
+    <color name="google_green">#5cb171</color>
 </resources>
