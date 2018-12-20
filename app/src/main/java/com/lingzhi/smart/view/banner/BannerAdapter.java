@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.widget.ImageView;
 
+import com.lingzhi.smart.R;
+
 import java.util.List;
 
 /**
@@ -46,13 +48,14 @@ public class BannerAdapter extends PagerAdapter {
         }
         ImageView v = mList.get(position);
         pos = position;
-        v.setScaleType(ImageView.ScaleType.CENTER);
+        v.setScaleType(ImageView.ScaleType.FIT_XY);
         //如果View已经在之前添加到了一个父组件，则必须先remove，否则会抛出IllegalStateException。
         ViewParent vp = v.getParent();
         if (vp != null) {
             ViewGroup parent = (ViewGroup) vp;
             parent.removeView(v);
         }
+        v.setBackgroundResource(R.drawable.shape_banner_background);
         v.setOnClickListener(v1 -> {
             if (mViewPagerOnItemClickListener != null) {
                 mViewPagerOnItemClickListener.onItemClick();

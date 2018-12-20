@@ -44,7 +44,6 @@ android {
     productFlavors {
         mock {
             dimension 'buildType'
-            applicationIdSuffix = ".mock"
         }
         prod {
             dimension 'buildType'

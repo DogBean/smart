@@ -135,10 +135,9 @@ public class BannerView extends RelativeLayout implements BannerAdapter.ViewPage
             ImageView imageView = new ImageView(getContext());
             imageView.setBackgroundResource(R.drawable.shape_banner_background);
 
-            RoundedCorners roundedCorners = new RoundedCorners(10);
+            RoundedCorners roundedCorners = new RoundedCorners(20);
 
             RequestOptions options = new RequestOptions()
-                    .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .apply(RequestOptions.bitmapTransform(roundedCorners))
                     .placeholder(R.drawable.bili_default_image_tv)
