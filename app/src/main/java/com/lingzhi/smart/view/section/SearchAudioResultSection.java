@@ -7,9 +7,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.smart.linguoyong.data.bean.AlbumBean;
-import com.smart.linguoyong.data.bean.AudioBean;
-import com.smart.linguoyong.data.bean.SearchResultBean;
+import com.lingzhi.smart.data.bean.AlbumBean;
+import com.lingzhi.smart.data.bean.AudioBean;
+import com.lingzhi.smart.data.bean.SearchResultBean;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.app.SmartApplication;
 import com.lingzhi.smart.base.RxBus;

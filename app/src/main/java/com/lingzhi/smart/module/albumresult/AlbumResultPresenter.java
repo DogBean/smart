@@ -2,8 +2,8 @@ package com.lingzhi.smart.module.albumresult;
 
 import android.os.SystemClock;
 
-import com.smart.linguoyong.data.bean.AlbumBean;
-import com.smart.linguoyong.data.source.MainRepository;
+import com.lingzhi.smart.data.bean.AlbumBean;
+import com.lingzhi.smart.data.source.MainRepository;
 import com.lingzhi.smart.base.BasePresenter;
 import com.lingzhi.smart.base.RxBus;
 import com.lingzhi.smart.event.AlbumTagEvent;

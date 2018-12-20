@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.smart.linguoyong.data.source.RecommendBean;
+import com.lingzhi.smart.data.source.RecommendBean;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.app.SmartApplication;
 import com.lingzhi.smart.loader.GlideImageLoader;
@@ -31,7 +31,7 @@ public class RegionRecommendHotSection extends StatelessSection {
     private List<RecommendBean> recommends;
 
     public RegionRecommendHotSection(Context context, int rid, List<RecommendBean> recommends) {
-        super(R.layout.layout_region_recommend_head, R.layout.layout_region_recommend_hot_card_item);
+        super(R.layout.layout_region_recommend_head, R.layout.layout_region_recommend_hot_item);
         this.rid = rid;
         this.recommends = recommends;
         this.mContext = context;
@@ -40,7 +40,7 @@ public class RegionRecommendHotSection extends StatelessSection {
 
     @Override
     public int getContentItemsTotal() {
-        return recommends.size();
+        return 1;
     }
 
 
@@ -76,7 +76,7 @@ public class RegionRecommendHotSection extends StatelessSection {
 
     private void startGetMoreActivityById() {
         //todo 获取更多的点击事件 ,
-        Log.e(TAG, "startGetMoreActivityById 获取更多按钮被点击" );
+        Log.e(TAG, "startGetMoreActivityById 获取更多按钮被点击");
 
     }
 

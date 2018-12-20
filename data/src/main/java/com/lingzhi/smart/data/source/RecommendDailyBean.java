@@ -1,4 +1,4 @@
-package com.smart.linguoyong.data.source;
+package com.lingzhi.smart.data.source;
 
 import java.util.List;
 

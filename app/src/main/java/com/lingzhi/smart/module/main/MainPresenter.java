@@ -2,9 +2,9 @@ package com.lingzhi.smart.module.main;
 
 import android.support.annotation.NonNull;
 
-import com.smart.linguoyong.data.source.Banner;
-import com.smart.linguoyong.data.source.MainRepository;
-import com.smart.linguoyong.data.source.RecommendBean;
+import com.lingzhi.smart.data.source.Banner;
+import com.lingzhi.smart.data.source.MainRepository;
+import com.lingzhi.smart.data.source.RecommendBean;
 import com.lingzhi.smart.module.main.MainContract;
 import com.lingzhi.smart.utils.schedulers.BaseSchedulerProvider;
 

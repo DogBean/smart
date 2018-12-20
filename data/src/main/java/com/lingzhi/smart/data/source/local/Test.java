@@ -1,4 +1,4 @@
-package com.smart.linguoyong.data.source.remote;
+package com.lingzhi.smart.data.source.local;
 
 /**
  * @Description :

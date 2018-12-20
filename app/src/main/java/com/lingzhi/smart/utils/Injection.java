@@ -20,7 +20,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 
-import com.smart.linguoyong.data.source.MainRepository;
+import com.lingzhi.smart.data.source.MainRepository;
 import com.lingzhi.smart.app.SmartApplication;
 import com.lingzhi.smart.utils.schedulers.BaseSchedulerProvider;
 import com.lingzhi.smart.utils.schedulers.SchedulerProvider;

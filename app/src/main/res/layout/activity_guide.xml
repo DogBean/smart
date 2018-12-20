@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,28 +10,55 @@
         android:id="@+id/guide_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignWithParentIfMissing="true">
+        android:layout_alignWithParentIfMissing="true" />
 
-        <com.itsronald.widget.ViewPagerIndicator
-            android:id="@+id/guide_view_pager_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:gravity="center_vertical"/>
 
-    </android.support.v4.view.ViewPager>
+    <com.lwj.widget.viewpagerindicator.ViewPagerIndicator
+        android:id="@+id/indicator_circle_line"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="248dp"
+        android:background="@color/transparent"
+        app:vpi_default_color="@color/colorPrimary"
+        app:vpi_distance="60dp"
+        app:vpi_distanceType="BY_RADIUS"
+        app:vpi_indicatorType="CIRCLE_LINE"
+        app:vpi_radius="4dp"
+        app:vpi_selected_color="#FF239AF5" />
 
-    <Button
-        android:id="@+id/guide_btn_start_main"
+    <LinearLayout
+        android:id="@+id/guide_view_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="21dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="进入"
-        android:textSize="20dp"
-        android:visibility="gone"/>
+        android:layout_marginBottom="96dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/guide_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="69dp"
+            android:text="@string/guide_start_experience"
+            android:textSize="20sp"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/guide_btn_start_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_guide_start"
+            android:textSize="20dp"
+            android:visibility="visible" />
+    </LinearLayout>
 
 </RelativeLayout>

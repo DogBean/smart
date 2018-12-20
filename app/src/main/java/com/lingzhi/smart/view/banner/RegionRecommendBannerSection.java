@@ -3,7 +3,7 @@ package com.lingzhi.smart.view.banner;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.smart.linguoyong.data.source.Banner;
+import com.lingzhi.smart.data.source.Banner;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.view.sectioned.StatelessSection;
 

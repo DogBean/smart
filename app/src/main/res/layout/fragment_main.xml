@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent">
+
+        <RelativeLayout
+            android:id="@+id/rl_search"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="33dp"
+            android:background="@drawable/ic_search_background">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="25dp"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/ic_search" />
+        </RelativeLayout>
+    </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/main_swipe_refresh_layout"
@@ -18,20 +44,4 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <RelativeLayout
-        android:id="@+id/rl_search"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:background="@drawable/shap_search_edit"
-        android:layout_width="match_parent"
-        android:layout_height="40dp">
-        <ImageView
-            android:src="@mipmap/tj_search_icon"
-            android:layout_marginLeft="15dp"
-            android:layout_centerVertical="true"
-            android:scaleType="fitXY"
-            android:layout_width="20dp"
-            android:layout_height="20dp" />
-    </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>

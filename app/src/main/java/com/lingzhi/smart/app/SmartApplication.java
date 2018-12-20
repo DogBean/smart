@@ -2,7 +2,7 @@ package com.lingzhi.smart.app;
 
 import android.app.Application;
 
-import com.smart.linguoyong.data.utils.SPUtils;
+import com.lingzhi.smart.data.utils.SPUtils;
 import com.lingzhi.smart.BuildConfig;
 import com.lingzhi.smart.utils.ScreenAdapter;
 import com.lingzhi.smart.utils.ToastUtils;

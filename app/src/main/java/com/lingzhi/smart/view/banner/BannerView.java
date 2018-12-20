@@ -12,8 +12,9 @@ import android.widget.RelativeLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.smart.linguoyong.data.source.Banner;
+import com.lingzhi.smart.data.source.Banner;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.loader.GlideImageLoader;
 import com.lingzhi.smart.utils.DisplayUtil;
@@ -131,11 +132,25 @@ public class BannerView extends RelativeLayout implements BannerAdapter.ViewPage
         }
         points.getChildAt(0).setBackgroundResource(selectRes);
         for (int i = 0; i < bannerList.size(); i++) {
-            ImageView mImageView = new ImageView(getContext());
+            ImageView imageView = new ImageView(getContext());
+            imageView.setBackgroundResource(R.drawable.shape_banner_background);
 
-            new GlideImageLoader().displayImage(getContext(), bannerList.get(i).img, mImageView);
+            RoundedCorners roundedCorners = new RoundedCorners(10);
 
-            imageViewList.add(mImageView);
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .apply(RequestOptions.bitmapTransform(roundedCorners))
+                    .placeholder(R.drawable.bili_default_image_tv)
+                    .dontAnimate();
+
+
+            Glide.with(getContext())
+                    .load(bannerList.get(i).img)
+                    .apply(options)
+                    .into(imageView);
+
+            imageViewList.add(imageView);
         }
         //监听图片轮播，改变指示器状态
 

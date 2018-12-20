@@ -1,4 +1,4 @@
-package com.smart.linguoyong.data.bean;
+package com.lingzhi.smart.data.bean;
 
 /**
  * Created by Dino on 1/25 0025.

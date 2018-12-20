@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.smart.linguoyong.data.bean.SearchResultBean;
+import com.lingzhi.smart.data.bean.SearchResultBean;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.base.RxLazyFragment;
 import com.lingzhi.smart.view.section.SearchAudioResultSection;

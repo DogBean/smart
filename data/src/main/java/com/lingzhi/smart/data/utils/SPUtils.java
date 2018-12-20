@@ -1,4 +1,4 @@
-package com.smart.linguoyong.data.utils;
+package com.lingzhi.smart.data.utils;
 
 import android.annotation.SuppressLint;
 import android.app.Application;

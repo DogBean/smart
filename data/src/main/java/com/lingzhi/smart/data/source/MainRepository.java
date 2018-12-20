@@ -1,4 +1,4 @@
-package com.smart.linguoyong.data.source;
+package com.lingzhi.smart.data.source;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
@@ -6,7 +6,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.smart.linguoyong.data.utils.SPUtils;
+import com.lingzhi.smart.data.utils.SPUtils;
 
 import java.util.ArrayList;
 import java.util.List;

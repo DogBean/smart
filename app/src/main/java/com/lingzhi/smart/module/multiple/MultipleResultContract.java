@@ -17,8 +17,8 @@
 package com.lingzhi.smart.module.multiple;
 
 
-import com.smart.linguoyong.data.source.Banner;
-import com.smart.linguoyong.data.source.RecommendBean;
+import com.lingzhi.smart.data.source.Banner;
+import com.lingzhi.smart.data.source.RecommendBean;
 import com.lingzhi.smart.base.BaseView;
 import com.lingzhi.smart.base.MvpPresenter;
 

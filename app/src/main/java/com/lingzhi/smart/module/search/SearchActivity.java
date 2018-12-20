@@ -18,10 +18,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingTabLayout;
-import com.smart.linguoyong.data.bean.SearchResultBean;
+import com.lingzhi.smart.data.bean.SearchResultBean;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.base.RxBaseActivity;
-import com.smart.linguoyong.data.bean.SearchTagBean;
+import com.lingzhi.smart.data.bean.SearchTagBean;
 import com.lingzhi.smart.base.RxBus;
 import com.lingzhi.smart.event.AlbumTagEvent;
 import com.lingzhi.smart.event.AudioTagEvent;

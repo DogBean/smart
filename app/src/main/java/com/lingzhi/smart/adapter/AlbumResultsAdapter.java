@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
-import com.smart.linguoyong.data.bean.AlbumBean;
+import com.lingzhi.smart.data.bean.AlbumBean;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.view.AbsRecyclerViewAdapter;
 

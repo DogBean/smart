@@ -1,4 +1,4 @@
-package com.smart.linguoyong.data.bean;
+package com.lingzhi.smart.data.bean;
 
 import java.util.ArrayList;
 import java.util.List;

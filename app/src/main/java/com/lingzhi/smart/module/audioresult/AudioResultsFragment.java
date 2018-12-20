@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.smart.linguoyong.data.bean.AudioBean;
+import com.lingzhi.smart.data.bean.AudioBean;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.adapter.AudioResultsAdapter;
 import com.lingzhi.smart.base.RxLazyFragment;

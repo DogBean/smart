@@ -2,9 +2,9 @@ package com.lingzhi.smart.module.audioresult;
 
 import android.os.SystemClock;
 
-import com.smart.linguoyong.data.bean.AlbumBean;
-import com.smart.linguoyong.data.bean.AudioBean;
-import com.smart.linguoyong.data.source.MainRepository;
+import com.lingzhi.smart.data.bean.AlbumBean;
+import com.lingzhi.smart.data.bean.AudioBean;
+import com.lingzhi.smart.data.source.MainRepository;
 import com.lingzhi.smart.base.BasePresenter;
 import com.lingzhi.smart.module.albumresult.AlbumResultContract;
 import com.lingzhi.smart.utils.Injection;

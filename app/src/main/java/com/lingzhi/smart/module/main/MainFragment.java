@@ -12,9 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.smart.linguoyong.data.source.Banner;
-import com.smart.linguoyong.data.source.RecommendBean;
-import com.smart.linguoyong.data.source.RecommendDailyBean;
+import com.lingzhi.smart.data.source.Banner;
+import com.lingzhi.smart.data.source.RecommendBean;
+import com.lingzhi.smart.data.source.RecommendDailyBean;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.app.SmartApplication;
 import com.lingzhi.smart.base.RxBus;
@@ -61,7 +61,7 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     @Override
     public void onResume() {
         super.onResume();
-        if(mPresenter != null){
+        if (mPresenter != null) {
             mPresenter.subscribe();
         }
     }
@@ -71,7 +71,7 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
         super.onPause();
         mSectionedRecyclerViewAdapter.removeAllSections();
         mSectionedRecyclerViewAdapter.notifyDataSetChanged();
-        if(mPresenter!=null){
+        if (mPresenter != null) {
             mPresenter.unsubscribe();
         }
     }
@@ -88,12 +88,14 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     }
 
     @OnClick({R.id.rl_search})
-    public void onClick(View view){
-        if(view.getId() == R.id.rl_search){
-            startActivity(new Intent(getActivity(),SearchActivity.class));
+    public void onClick(View view) {
+        if (view.getId() == R.id.rl_search) {
+            startActivity(new Intent(getActivity(), SearchActivity.class));
         }
     }
+
     protected void initRecyclerView() {
+        mRefreshLayout.setEnabled(false);
         mSectionedRecyclerViewAdapter = new SectionedRecyclerViewAdapter();
 
         GridLayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 2);
@@ -110,8 +112,7 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
         });
 
         mRecyclerView.post(() -> {
-            mRefreshLayout.setRefreshing(true);
-            mIsRefreshing = true;
+
         });
 
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -137,11 +138,12 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
         List<RecommendDailyBean> arrayList = new ArrayList();
         RecommendDailyBean recommendBean = new RecommendDailyBean("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
         RecommendDailyBean recommendBean2 = new RecommendDailyBean("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
+        RecommendDailyBean recommendBean3 = new RecommendDailyBean("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
         arrayList.add(recommendBean);
         arrayList.add(recommendBean2);
+        arrayList.add(recommendBean3);
 
         mSectionedRecyclerViewAdapter.addSection(new RegionRecommendDailySection(getContext(), 0, arrayList));
-
         mRefreshLayout.setRefreshing(false);
         mIsRefreshing = false;
         mSectionedRecyclerViewAdapter.notifyDataSetChanged();

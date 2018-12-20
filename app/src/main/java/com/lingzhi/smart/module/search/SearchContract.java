@@ -1,9 +1,9 @@
 package com.lingzhi.smart.module.search;
 
-import com.smart.linguoyong.data.bean.SearchResultBean;
+import com.lingzhi.smart.data.bean.SearchResultBean;
 import com.lingzhi.smart.base.BaseView;
 import com.lingzhi.smart.base.MvpPresenter;
-import com.smart.linguoyong.data.bean.SearchTagBean;
+import com.lingzhi.smart.data.bean.SearchTagBean;
 import java.util.List;
 
 public interface SearchContract {

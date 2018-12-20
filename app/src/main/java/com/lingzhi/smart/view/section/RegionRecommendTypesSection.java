@@ -28,7 +28,9 @@ public class RegionRecommendTypesSection extends StatelessSection {
     //番剧类型Icons
     private int[] bangumiIcons = new int[]{
             R.drawable.ic_category_t33, R.drawable.ic_category_t32,
-            R.drawable.ic_category_t153, R.drawable.ic_category_t51
+            R.drawable.ic_category_t153,
+            R.drawable.ic_category_t51,
+            R.drawable.ic_category_t51
     };
     //番剧类型titles
     private String[] bangumiTitles = new String[]{"连载动画", "完结动画", "国产动画", "资讯", "官方延伸"};

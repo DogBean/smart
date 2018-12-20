@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.smart.linguoyong.data.bean.AlbumBean;
-import com.smart.linguoyong.data.bean.AudioBean;
+import com.lingzhi.smart.data.bean.AlbumBean;
+import com.lingzhi.smart.data.bean.AudioBean;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.view.AbsRecyclerViewAdapter;
 

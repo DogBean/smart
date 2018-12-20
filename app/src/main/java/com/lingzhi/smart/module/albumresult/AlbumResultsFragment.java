@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.smart.linguoyong.data.bean.AlbumBean;
+import com.lingzhi.smart.data.bean.AlbumBean;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.adapter.AlbumResultsAdapter;
 import com.lingzhi.smart.base.RxLazyFragment;

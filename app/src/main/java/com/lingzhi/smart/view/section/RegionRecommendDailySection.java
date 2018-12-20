@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.smart.linguoyong.data.source.RecommendBean;
-import com.smart.linguoyong.data.source.RecommendDailyBean;
+import com.lingzhi.smart.data.source.RecommendBean;
+import com.lingzhi.smart.data.source.RecommendDailyBean;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.app.SmartApplication;
 import com.lingzhi.smart.loader.GlideImageLoader;
@@ -38,7 +38,7 @@ public class RegionRecommendDailySection extends StatelessSection {
 
     @Override
     public int getContentItemsTotal() {
-        return dailyBeans.size();
+        return 3;
     }
 
     @Override
@@ -56,7 +56,6 @@ public class RegionRecommendDailySection extends StatelessSection {
     @Override
     public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder) {
         HeadViewHolder headViewHolder = (HeadViewHolder) holder;
-
         headViewHolder.mGetMore.setOnClickListener(v -> startGetMoreActivityById());
     }
 

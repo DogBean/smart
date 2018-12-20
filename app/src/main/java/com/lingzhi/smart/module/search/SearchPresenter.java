@@ -2,12 +2,12 @@ package com.lingzhi.smart.module.search;
 
 import android.os.SystemClock;
 
-import com.smart.linguoyong.data.bean.AlbumBean;
-import com.smart.linguoyong.data.bean.AudioBean;
-import com.smart.linguoyong.data.bean.SearchResultBean;
-import com.smart.linguoyong.data.source.MainRepository;
+import com.lingzhi.smart.data.bean.AlbumBean;
+import com.lingzhi.smart.data.bean.AudioBean;
+import com.lingzhi.smart.data.bean.SearchResultBean;
+import com.lingzhi.smart.data.source.MainRepository;
 import com.lingzhi.smart.base.BasePresenter;
-import com.smart.linguoyong.data.bean.SearchTagBean;
+import com.lingzhi.smart.data.bean.SearchTagBean;
 import com.lingzhi.smart.utils.Injection;
 import com.socks.library.KLog;
 
