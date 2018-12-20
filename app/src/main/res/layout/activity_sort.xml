@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.smart.linguoyong.smart.module.sort.SortActivity">
+    tools:context="com.lingzhi.smart.module.sort.SortActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/sort_appbar_layout"
@@ -47,7 +47,7 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <com.smart.linguoyong.smart.view.widget.NoScrollViewPager
+    <com.lingzhi.smart.view.widget.NoScrollViewPager
         android:id="@+id/sort_view_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

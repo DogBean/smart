@@ -1,4 +1,4 @@
-package com.smart.linguoyong.smart;
+package com.lingzhi.smart;
 
 import org.junit.Test;
 

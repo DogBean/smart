@@ -3,7 +3,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              tools:context="com.smart.linguoyong.smart.module.music.MusicPlayerActivity">
+              tools:context="com.lingzhi.smart.module.music.MusicPlayerActivity">
 
     <FrameLayout
         android:id="@+id/music_play_fragment_container"

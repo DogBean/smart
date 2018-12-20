@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
 
-                <com.smart.linguoyong.smart.view.SearchEditText
+                <com.lingzhi.smart.view.SearchEditText
                     android:id="@+id/search_input_tv"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -75,7 +75,7 @@
                         app:tl_textSelectColor="@color/colorPrimary"
                         app:tl_textUnselectColor="@color/font_normal" />
 
-                    <com.smart.linguoyong.smart.view.widget.NoScrollViewPager
+                    <com.lingzhi.smart.view.widget.NoScrollViewPager
                         android:id="@+id/view_pager"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -152,7 +152,7 @@
                             android:text="暂无记录"
                             android:textSize="16sp" />
 
-                        <com.smart.linguoyong.smart.view.WrapLinearLayout
+                        <com.lingzhi.smart.view.WrapLinearLayout
                             android:id="@+id/nearly_search"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -165,7 +165,7 @@
                             app:isFull="false"
                             app:vertical_Space="10dp">
 
-                        </com.smart.linguoyong.smart.view.WrapLinearLayout>
+                        </com.lingzhi.smart.view.WrapLinearLayout>
                     </FrameLayout>
                 </LinearLayout>
 
@@ -199,7 +199,7 @@
                             android:textColor="@color/gray_txt"
                             android:textSize="16sp" />
 
-                        <com.smart.linguoyong.smart.view.WrapLinearLayout
+                        <com.lingzhi.smart.view.WrapLinearLayout
                             android:id="@+id/hot_search"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -212,7 +212,7 @@
                             app:isFull="false"
                             app:vertical_Space="10dp">
 
-                        </com.smart.linguoyong.smart.view.WrapLinearLayout>
+                        </com.lingzhi.smart.view.WrapLinearLayout>
                     </FrameLayout>
                 </LinearLayout>
             </LinearLayout>
