@@ -102,21 +102,12 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
         mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                int daily_listern = mSectionedRecyclerViewAdapter.getSection("Listen").getContentItemsTotal();
-                int daily_recommend = mSectionedRecyclerViewAdapter.getSection("Recommend").getContentItemsTotal();
 
-                if (daily_listern >= 5 && position < 5 + daily_listern) {
+                if (mSectionedRecyclerViewAdapter.getSectionItemViewType(position) == SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER
+                        || "Listen".equals(mSectionedRecyclerViewAdapter.getTagByPosition(position))) {
                     return 3;
-                }
-
-//                if (daily_recommend >= 7 && position < 7 + daily_recommend) {
-//                    return 2;
-//                }
-                switch (mSectionedRecyclerViewAdapter.getSectionItemViewType(position)) {
-                    case SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER:
-                        return 3;
-                    default:
-                        return 1;
+                } else {
+                    return 1;
                 }
             }
         });
@@ -135,8 +126,8 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
 
     @Override
     public void setBannerSection(List<Banner.BannerEntity> bannerEntities) {
-        mSectionedRecyclerViewAdapter.addSection(new RegionRecommendBannerSection(bannerEntities));
-        mSectionedRecyclerViewAdapter.addSection(new RegionRecommendTypesSection(getActivity(), 0));
+        mSectionedRecyclerViewAdapter.addSection("banner", new RegionRecommendBannerSection(bannerEntities));
+        mSectionedRecyclerViewAdapter.addSection("hot", new RegionRecommendTypesSection(getActivity(), 0));
         mSectionedRecyclerViewAdapter.notifyDataSetChanged();
     }
 

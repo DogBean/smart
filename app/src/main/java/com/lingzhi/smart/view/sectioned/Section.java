@@ -23,7 +23,7 @@ public abstract class Section {
   int itemResourceId;
   private Integer loadingResourceId;
   private Integer failedResourceId;
-
+  private String tag;
   /**
    * Package-level constructor
    */
@@ -360,4 +360,15 @@ public abstract class Section {
   public void onBindFailedViewHolder(RecyclerView.ViewHolder holder) {
     // Nothing to bind here.
   }
+
+  //----------------add by cs----------------start--------------
+
+  public String getTag() {
+    return tag;
+  }
+
+  public void setTag(String tag) {
+    this.tag = tag;
+  }
+  //----------------add by cs----------------end--------------
 }

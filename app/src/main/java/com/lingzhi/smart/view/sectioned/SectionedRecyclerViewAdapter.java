@@ -100,6 +100,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
      * @param section section to be added
      */
     public void addSection(String tag, Section section) {
+        section.setTag(tag);
         this.sections.put(tag, section);
         this.sectionViewTypeNumbers.put(tag, viewTypeCount);
         viewTypeCount += VIEW_TYPE_QTY;
@@ -189,6 +190,27 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
 
+    /**
+     * 获取每个section的tag,用来区分不同section，可以根据不同tag做不同处理
+     * @param position
+     * @return
+     */
+    public String getTagByPosition(int position){
+        //currentPos是每部分的开始位置
+        int currentPos = 0;
+        for (Map.Entry<String, Section> entry : sections.entrySet()) {
+            Section section = entry.getValue();
+            if (!section.isVisible()) continue;
+            int sectionTotal = section.getSectionItemsTotal();
+            //如果position在当前部分的条目内
+            if (position >= currentPos && position <= (currentPos + sectionTotal - 1)) {
+                return section.getTag();
+            }
+            //currentPos 将他至于下一部分的开始位置
+            currentPos += sectionTotal;
+        }
+        return "invalid";
+    }
     @Override
     public int getItemViewType(int position) {
         //currentPos是每部分的开始位置

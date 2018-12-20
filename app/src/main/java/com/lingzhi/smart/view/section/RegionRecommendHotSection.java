@@ -40,7 +40,7 @@ public class RegionRecommendHotSection extends StatelessSection {
 
     @Override
     public int getContentItemsTotal() {
-        return 1;
+        return recommends.size();
     }
 
 
