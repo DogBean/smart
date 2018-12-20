@@ -13,4 +13,6 @@
     <!--module music-->
     <string name="music_default_duration">00:00</string>
 
+    <!--module guide-->
+    <string name="guide_start_experience">开始体验</string>
 </resources>

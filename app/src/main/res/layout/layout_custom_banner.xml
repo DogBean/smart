@@ -6,7 +6,9 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/layout_banner_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/general_banner_height" />
+        android:layout_height="@dimen/general_banner_height"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp" />
 
     <LinearLayout
         android:id="@+id/layout_banner_points_group"
