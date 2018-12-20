@@ -191,19 +191,23 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     @Override
     public int getItemViewType(int position) {
+        //currentPos是每部分的开始位置
         int currentPos = 0;
         for (Map.Entry<String, Section> entry : sections.entrySet()) {
             Section section = entry.getValue();
             if (!section.isVisible()) continue;
             int sectionTotal = section.getSectionItemsTotal();
+            //如果position在当前部分的条目内
             if (position >= currentPos && position <= (currentPos + sectionTotal - 1)) {
                 int viewType = sectionViewTypeNumbers.get(entry.getKey());
                 if (section.hasHeader()) {
+                    //这里 postion就是这部分的头部
                     if (position == currentPos) {
                         return viewType;
                     }
                 }
                 if (section.hasFooter()) {
+                    //这里 postion就是这部分的底部
                     if (position == (currentPos + sectionTotal - 1)) {
                         return viewType + 1;
                     }
@@ -219,6 +223,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                         throw new IllegalStateException("Invalid state");
                 }
             }
+            //currentPos 将他至于下一部分的开始位置
             currentPos += sectionTotal;
         }
         throw new IndexOutOfBoundsException("Invalid position");
