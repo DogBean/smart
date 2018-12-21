@@ -13,9 +13,9 @@
 
     <ImageView
         android:id="@+id/item_recommend_daily_img"
-        android:layout_width="167dp"
-        android:layout_height="171dp"
-        android:scaleType="center" />
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/card_image_default_height"
+        android:scaleType="fitXY" />
 
 
 </android.support.v7.widget.CardView>

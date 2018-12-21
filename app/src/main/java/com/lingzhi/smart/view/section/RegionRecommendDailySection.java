@@ -38,7 +38,7 @@ public class RegionRecommendDailySection extends StatelessSection {
 
     @Override
     public int getContentItemsTotal() {
-        return 3;
+        return dailyBeans.size();
     }
 
     @Override

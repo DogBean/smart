@@ -36,7 +36,7 @@ public class SearchEditText extends android.support.v7.widget.AppCompatEditText 
 	 */
 	private void init() {
 		clearDrawable = getResources().getDrawable(R.mipmap.icon_edit_delete);
-		searchDrawable = getResources().getDrawable(R.mipmap.tj_search_icon);
+		searchDrawable = getResources().getDrawable(R.drawable.ic_search);
 
 		setCompoundDrawablesWithIntrinsicBounds(searchDrawable, null,
 				null, null);

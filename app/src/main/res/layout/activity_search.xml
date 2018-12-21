@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -27,15 +29,17 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="20dp"
                     android:layout_toLeftOf="@+id/tv_cancle"
+                    android:background="@drawable/ic_search_background"
                     android:drawablePadding="8dp"
+                    android:gravity="start|center_vertical"
+                    android:hint="请输入关键字"
+                    android:imeOptions="actionSearch"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:gravity="start|center_vertical"
-                    android:imeOptions="actionSearch"
                     android:singleLine="true"
-                    android:hint="请输入关键字"
                     android:textColorHint="@color/gray_bg"
                     android:textSize="16sp" />
+
 
                 <TextView
                     android:id="@+id/tv_cancle"
@@ -46,7 +50,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="20dp"
                     android:text="取消"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/default_big_text_size" />
             </RelativeLayout>
 
             <FrameLayout
@@ -103,33 +107,100 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginBottom="8dp"
                     android:background="@color/white"
-                    android:orientation="vertical"
-                    android:paddingLeft="25dp"
-                    android:paddingRight="25dp">
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/ic_search_hot" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:text="热门搜索"
+                            android:textColor="@color/gray_txt"
+                            android:textSize="@dimen/default_big_text_size"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/hot_nodata"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="暂无热门"
+                            android:textColor="@color/gray_txt"
+                            android:textSize="16sp" />
+
+                        <com.lingzhi.smart.view.WrapLinearLayout
+                            android:id="@+id/hot_search"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="18dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginTop="18dp"
+                            app:grivate="left"
+                            app:horizontal_Space="10dp"
+                            app:isFull="false"
+                            app:vertical_Space="10dp">
+
+                        </com.lingzhi.smart.view.WrapLinearLayout>
+                    </FrameLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="1dp"
+                    android:background="@color/white"
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <TextView
+                        <LinearLayout
+
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:text="历史搜索"
-                            android:textColor="@color/gray_txt"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:layout_height="32dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:src="@drawable/ic_search_history" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="3dp"
+                                android:gravity="center_vertical"
+                                android:text="搜索历史"
+                                android:textColor="@color/gray_txt"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
 
                         <TextView
                             android:id="@+id/clear_nearly_search"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:layout_marginTop="8dp"
                             android:layout_marginBottom="10dp"
+                            android:layout_marginTop="8dp"
                             android:background="?attr/selectableItemBackgroundBorderless"
                             android:drawablePadding="6dp"
                             android:gravity="center"
@@ -155,10 +226,10 @@
                             android:id="@+id/nearly_search"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="18dp"
-                            android:layout_marginRight="8dp"
                             android:layout_marginBottom="18dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:layout_marginTop="18dp"
                             app:grivate="left"
                             app:horizontal_Space="10dp"
                             app:isFull="false"
@@ -168,52 +239,7 @@
                     </FrameLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="vertical"
-                    android:paddingLeft="25dp"
-                    android:paddingRight="25dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="热搜"
-                        android:textColor="@color/gray_txt"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <TextView
-                            android:id="@+id/hot_nodata"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center"
-                            android:text="暂无热门"
-                            android:textColor="@color/gray_txt"
-                            android:textSize="16sp" />
-
-                        <com.lingzhi.smart.view.WrapLinearLayout
-                            android:id="@+id/hot_search"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginTop="18dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_marginBottom="18dp"
-                            app:grivate="left"
-                            app:horizontal_Space="10dp"
-                            app:isFull="false"
-                            app:vertical_Space="10dp">
-
-                        </com.lingzhi.smart.view.WrapLinearLayout>
-                    </FrameLayout>
-                </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
     </RelativeLayout>

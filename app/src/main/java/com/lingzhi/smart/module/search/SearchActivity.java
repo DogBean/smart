@@ -43,7 +43,7 @@ import rx.Subscription;
 import rx.functions.Action1;
 
 
-public class SearchActivity extends RxBaseActivity implements SearchContract.View{
+public class SearchActivity extends RxBaseActivity implements SearchContract.View {
     @BindView(R.id.search_input_tv)
     SearchEditText searchEditText;
     @BindView(R.id.nearly_search)
@@ -119,12 +119,12 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
         mPresenter.getSearchNearlyTag();
     }
 
-    @OnClick({R.id.tv_cancle,R.id.clear_nearly_search})
-    public void onClick(View view){
+    @OnClick({R.id.tv_cancle, R.id.clear_nearly_search})
+    public void onClick(View view) {
         int viewId = view.getId();
-        if(viewId == R.id.tv_cancle){
+        if (viewId == R.id.tv_cancle) {
             finish();
-        }else if(viewId == R.id.clear_nearly_search){
+        } else if (viewId == R.id.clear_nearly_search) {
             mPresenter.clearSearchNearlyTag();
         }
     }
@@ -141,13 +141,14 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
 
     @Override
     public void showSearchHotTag(List<SearchTagBean> tags) {
-        if(tags == null) {
+        if (tags == null) {
             return;
         }
         hotSearch.removeAllViews();
         for (SearchTagBean tag : tags) {
             TextView textView = getBaseTextView();
             textView.setText(tag.getElement());
+            textView.setTextSize(18);
             hotSearch.addView(textView);
             hot_nodata.setVisibility(View.GONE);
         }
@@ -159,6 +160,7 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
         for (String tag : tags) {
             TextView textView = getBaseTextView();
             textView.setText(tag);
+            textView.setTextSize(18);
             nearlySearch.addView(textView);
             nearly_nodata.setVisibility(View.GONE);
         }
@@ -180,9 +182,9 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
 
     @Override
     public void showSearchResult(SearchResultBean resultBean) {
-        if(resultBean == null){
+        if (resultBean == null) {
             setEmptyLayout();
-        }else {
+        } else {
             hideSearchAnim();
             multipleResultFragment.setResult(resultBean);
         }
@@ -192,6 +194,7 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
     public void setPresenter(SearchContract.Presenter presenter) {
         mPresenter = new SearchPresenter(this);
     }
+
     private TextView getBaseTextView() {
         TextView textView = new TextView(this);
         textView.setBackgroundResource(R.drawable.search_tv_bg_shape);
@@ -205,6 +208,7 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
         });
         return textView;
     }
+
     public void finishTask() {
         titles = new ArrayList<>();
         fragments = new ArrayList<>();
@@ -242,6 +246,7 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
             }
         });
     }
+
     private void measureTabLayoutTextWidth(int position) {
         String title = titles.get(position);
         TextView titleView = mSlidingTabLayout.getTitleView(position);
@@ -249,6 +254,7 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
         float textWidth = paint.measureText(title);
         mSlidingTabLayout.setIndicatorWidth(textWidth / 3);
     }
+
     private static class SearchTabAdapter extends FragmentStatePagerAdapter {
         private List<String> titles;
         private List<Fragment> fragments;
@@ -258,6 +264,7 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
             this.titles = titles;
             this.fragments = fragments;
         }
+
         @Override
         public Fragment getItem(int position) {
             return fragments.get(position);
@@ -273,20 +280,24 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
             return fragments.size();
         }
     }
-    private void showTagLayout(){
+
+    private void showTagLayout() {
         fl_result.setVisibility(View.GONE);
         ll_search_tag.setVisibility(View.VISIBLE);
     }
-    private void hideTagLayout(){
+
+    private void hideTagLayout() {
         fl_result.setVisibility(View.VISIBLE);
         ll_search_tag.setVisibility(View.GONE);
     }
+
     private void showSearchAnim() {
         hideTagLayout();
         mLoadingView.setVisibility(View.VISIBLE);
         mSearchLayout.setVisibility(View.GONE);
         mAnimationDrawable.start();
     }
+
     private void hideSearchAnim() {
         mLoadingView.setVisibility(View.GONE);
         mSearchLayout.setVisibility(View.VISIBLE);
