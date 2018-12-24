@@ -1,11 +1,17 @@
 package com.lingzhi.smart.module.music;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +21,24 @@ import android.widget.TextView;
 
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.base.RxLazyFragment;
+import com.lingzhi.smart.module.main.MainActivity;
+import com.lingzhi.smart.module.music.event.PlayListNowEvent;
+import com.lingzhi.smart.module.music.event.PlaySongEvent;
+import com.lingzhi.smart.module.music.model.PlayList;
 import com.lingzhi.smart.module.music.model.Song;
 import com.lingzhi.smart.module.music.player.IPlayback;
 import com.lingzhi.smart.module.music.player.PlayMode;
 import com.lingzhi.smart.module.music.player.PlaybackService;
-import com.lingzhi.smart.module.music.source.AppRepository;
+import com.lingzhi.smart.utils.DisplayUtil;
+import com.lingzhi.smart.utils.FastBlurUtil;
 import com.lingzhi.smart.view.widget.ShadowImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * @Description:
@@ -35,11 +50,10 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
     private static final long UPDATE_PROGRESS_INTERVAL = 1000;
 
     @BindView(R.id.image_view_album)
-    ShadowImageView imageViewAlbum;
+    ImageView imageViewAlbum;
+
     @BindView(R.id.text_view_name)
     TextView textViewName;
-    @BindView(R.id.text_view_artist)
-    TextView textViewArtist;
     @BindView(R.id.text_view_progress)
     TextView textViewProgress;
     @BindView(R.id.text_view_duration)
@@ -55,62 +69,17 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
     ImageView buttonFavoriteToggle;
 
 
-    private IPlayback mPlayer;
-
     private Handler mHandler = new Handler();
 
     private MusicPlayerContract.Presenter mPresenter;
-
-    private Runnable mProgressCallback = new Runnable() {
-        @Override
-        public void run() {
-            if (isDetached()) return;
-
-            if (mPlayer.isPlaying()) {
-                int progress = (int) (seekBarProgress.getMax()
-                        * ((float) mPlayer.getProgress() / (float) getCurrentSongDuration()));
-                updateProgressTextWithDuration(mPlayer.getProgress());
-                if (progress >= 0 && progress <= seekBarProgress.getMax()) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        seekBarProgress.setProgress(progress, true);
-                    } else {
-                        seekBarProgress.setProgress(progress);
-                    }
-                    mHandler.postDelayed(this, UPDATE_PROGRESS_INTERVAL);
-                }
-            }
-        }
-    };
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        seekBarProgress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if (fromUser) {
-                    updateProgressTextWithProgress(progress);
-                }
-            }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                mHandler.removeCallbacks(mProgressCallback);
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                seekTo(getDuration(seekBar.getProgress()));
-                if (mPlayer.isPlaying()) {
-                    mHandler.removeCallbacks(mProgressCallback);
-                    mHandler.post(mProgressCallback);
-                }
-            }
-        });
-
-        new MusicPlayerPresenter(getActivity(), AppRepository.getInstance(), this).subscribe();
+        new MusicPlayerPresenter(getActivity(), this).subscribe();
     }
 
     private void updateProgressTextWithProgress(int progress) {
@@ -118,8 +87,41 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
         textViewProgress.setText(TimeUtils.formatDuration(targetDuration));
     }
 
-    private void seekTo(int duration) {
-        mPlayer.seekTo(duration);
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @OnClick(R.id.button_play_toggle)
+    public void onPlayToggleAction(View view) {
+
+
+    }
+
+    @OnClick(R.id.button_play_mode_toggle)
+    public void onPlayModeToggleAction(View view) {
+        PlayMode current = PreferenceManager.lastPlayMode(getActivity());
+        PlayMode newMode = PlayMode.switchNextMode(current);
+        PreferenceManager.setPlayMode(getActivity(), newMode);
+        updatePlayMode(newMode);
+    }
+
+    //上一首
+    @OnClick(R.id.button_play_last)
+    public void onPlayLastAction(View view) {
+
+    }
+
+    //下一首
+    @OnClick(R.id.button_play_next)
+    public void onPlayNextAction(View view) {
+
     }
 
     @Nullable
@@ -137,14 +139,58 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
     }
 
     private int getCurrentSongDuration() {
-        Song currentSong = mPlayer.getPlayingSong();
-        int duration = 0;
-        if (currentSong != null) {
-            duration = currentSong.getDuration();
-        }
-        return duration;
+//        Song currentSong = mPlayer.getPlayingSong();
+//        int duration = 0;
+//        if (currentSong != null) {
+//            duration = currentSong.getDuration();
+//        }
+        return 0;
     }
 
+
+    @Override
+    protected Subscription subscribeEvents() {
+        return RxBus.getInstance().toObservable()
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnNext(new Action1<Object>() {
+                    @Override
+                    public void call(Object o) {
+                        if (o instanceof PlaySongEvent) {
+                            onPlaySongEvent((PlaySongEvent) o);
+                        } else if (o instanceof PlayListNowEvent) {
+                            onPlayListNowEvent((PlayListNowEvent) o);
+                        }
+                    }
+                })
+                .subscribe(RxBus.defaultSubscriber());
+    }
+
+    private void onPlaySongEvent(PlaySongEvent event) {
+        Song song = event.song;
+        playSong(song);
+    }
+
+    private void onPlayListNowEvent(PlayListNowEvent event) {
+        PlayList playList = event.playList;
+        int playIndex = event.playIndex;
+        playSong(playList, playIndex);
+    }
+
+    private void playSong(Song song) {
+        PlayList playList = new PlayList(song);
+        playSong(playList, 0);
+    }
+
+    private void playSong(PlayList playList, int playIndex) {
+        if (playList == null) return;
+
+        playList.setPlayMode(PreferenceManager.lastPlayMode(getActivity()));
+        // boolean result =
+
+        Song song = playList.getCurrentSong();
+        onSongUpdated(song);
+
+    }
 
     @Override
     public void handleError(Throwable error) {
@@ -153,15 +199,14 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
 
     @Override
     public void onPlaybackServiceBound(PlaybackService service) {
-        mPlayer = service;
-        mPlayer.registerCallback(this);
+
     }
 
     @Override
     public void onPlaybackServiceUnbound() {
-        mPlayer.unregisterCallback(this);
-        mPlayer = null;
+
     }
+
 
     @Override
     public void onSongSetAsFavorite(@NonNull Song song) {
@@ -172,18 +217,14 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
     @Override
     public void onSongUpdated(@Nullable Song song) {
         if (song == null) {
-            imageViewAlbum.cancelRotateAnimation();
-            buttonPlayToggle.setImageResource(R.drawable.ic_play);
+            buttonPlayToggle.setImageResource(R.drawable.ic_play_music);
             seekBarProgress.setProgress(0);
             updateProgressTextWithProgress(0);
-            seekTo(0);
-            mHandler.removeCallbacks(mProgressCallback);
             return;
         }
 
         // Step 1: Song name and artist
         textViewName.setText(song.getDisplayName());
-        textViewArtist.setText(song.getArtist());
         // Step 2: favorite
         buttonFavoriteToggle.setImageResource(song.isFavorite() ? R.drawable.ic_favorite_yes : R.drawable.ic_favorite_no);
         // Step 3: Duration
@@ -197,13 +238,8 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
         } else {
             imageViewAlbum.setImageBitmap(AlbumUtils.getCroppedBitmap(bitmap));
         }
-        imageViewAlbum.pauseRotateAnimation();
-        mHandler.removeCallbacks(mProgressCallback);
-        if (mPlayer.isPlaying()) {
-            imageViewAlbum.startRotateAnimation();
-            mHandler.post(mProgressCallback);
-            buttonPlayToggle.setImageResource(R.drawable.ic_pause);
-        }
+
+        buttonPlayToggle.setImageResource(R.drawable.ic_pause_music);
     }
 
     @Override
@@ -212,24 +248,24 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
             playMode = PlayMode.getDefault();
         }
         switch (playMode) {
-        case LIST:
-            buttonPlayModeToggle.setImageResource(R.drawable.ic_play_mode_list);
-            break;
-        case LOOP:
-            buttonPlayModeToggle.setImageResource(R.drawable.ic_play_mode_loop);
-            break;
-        case SHUFFLE:
-            buttonPlayModeToggle.setImageResource(R.drawable.ic_play_mode_shuffle);
-            break;
-        case SINGLE:
-            buttonPlayModeToggle.setImageResource(R.drawable.ic_play_mode_single);
-            break;
+            case LIST:
+                buttonPlayModeToggle.setImageResource(R.drawable.ic_music_play_mode_recycle);
+                break;
+            case LOOP:
+                buttonPlayModeToggle.setImageResource(R.drawable.ic_play_mode_loop);
+                break;
+            case SHUFFLE:
+                buttonPlayModeToggle.setImageResource(R.drawable.ic_music_play_random);
+                break;
+            case SINGLE:
+                buttonPlayModeToggle.setImageResource(R.drawable.ic_music_play_mode_single);
+                break;
         }
     }
 
     @Override
     public void updatePlayToggle(boolean play) {
-        buttonPlayToggle.setImageResource(play ? R.drawable.ic_pause : R.drawable.ic_play);
+        buttonPlayToggle.setImageResource(play ? R.drawable.ic_pause_music : R.drawable.ic_play_music);
     }
 
     @Override
@@ -239,7 +275,7 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
 
     @Override
     public void setPresenter(MusicPlayerContract.Presenter presenter) {
-
+        mPresenter = presenter;
     }
 
     @Override
@@ -260,13 +296,62 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
     @Override
     public void onPlayStatusChanged(boolean isPlaying) {
         updatePlayToggle(isPlaying);
-        if (isPlaying) {
-            imageViewAlbum.resumeRotateAnimation();
-            mHandler.removeCallbacks(mProgressCallback);
-            mHandler.post(mProgressCallback);
-        } else {
-            imageViewAlbum.pauseRotateAnimation();
-            mHandler.removeCallbacks(mProgressCallback);
+    }
+
+    private Drawable getForegroundDrawable(int musicPicRes) {
+        /*得到屏幕的宽高比，以便按比例切割图片一部分*/
+        final float widthHeightSize = (float) (DisplayUtil.getScreenWidth(getContext())
+                * 1.0 / DisplayUtil.getScreenHeight(getContext()) * 1.0);
+
+        Bitmap bitmap = getForegroundBitmap(musicPicRes);
+        int cropBitmapWidth = (int) (widthHeightSize * bitmap.getHeight());
+        int cropBitmapWidthX = (int) ((bitmap.getWidth() - cropBitmapWidth) / 2.0);
+
+        /*切割部分图片*/
+        Bitmap cropBitmap = Bitmap.createBitmap(bitmap, cropBitmapWidthX, 0, cropBitmapWidth,
+                bitmap.getHeight());
+        /*缩小图片*/
+        Bitmap scaleBitmap = Bitmap.createScaledBitmap(cropBitmap, bitmap.getWidth() / 50, bitmap
+                .getHeight() / 50, false);
+        /*模糊化*/
+        final Bitmap blurBitmap = FastBlurUtil.doBlur(scaleBitmap, 8, true);
+
+        final Drawable foregroundDrawable = new BitmapDrawable(blurBitmap);
+        /*加入灰色遮罩层，避免图片过亮影响其他控件*/
+        foregroundDrawable.setColorFilter(Color.GRAY, PorterDuff.Mode.MULTIPLY);
+        return foregroundDrawable;
+    }
+
+
+    private Bitmap getForegroundBitmap(int musicPicRes) {
+        int screenWidth = DisplayUtil.getScreenWidth(getContext());
+        int screenHeight = DisplayUtil.getScreenHeight(getContext());
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+
+        BitmapFactory.decodeResource(getResources(), musicPicRes, options);
+        int imageWidth = options.outWidth;
+        int imageHeight = options.outHeight;
+
+        if (imageWidth < screenWidth && imageHeight < screenHeight) {
+            return BitmapFactory.decodeResource(getResources(), musicPicRes);
         }
+
+        int sample = 2;
+        int sampleX = imageWidth / DisplayUtil.getScreenWidth(getContext());
+        int sampleY = imageHeight / DisplayUtil.getScreenHeight(getContext());
+
+        if (sampleX > sampleY && sampleY > 1) {
+            sample = sampleX;
+        } else if (sampleY > sampleX && sampleX > 1) {
+            sample = sampleY;
+        }
+
+        options.inJustDecodeBounds = false;
+        options.inSampleSize = sample;
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+
+        return BitmapFactory.decodeResource(getResources(), musicPicRes, options);
     }
 }

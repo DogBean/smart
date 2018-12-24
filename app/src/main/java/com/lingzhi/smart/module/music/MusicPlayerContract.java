@@ -40,8 +40,6 @@ public interface MusicPlayerContract {
 
         void retrieveLastPlayMode();
 
-        void setSongAsFavorite(Song song, boolean favorite);
-
         void bindPlaybackService();
 
         void unbindPlaybackService();

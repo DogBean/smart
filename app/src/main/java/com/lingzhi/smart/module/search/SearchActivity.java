@@ -104,7 +104,6 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
         });
         mLoadingView.setImageResource(R.drawable.anim_search_loading);
         mAnimationDrawable = (AnimationDrawable) mLoadingView.getDrawable();
-        finishTask();
     }
 
     @Override
@@ -185,6 +184,7 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
         if (resultBean == null) {
             setEmptyLayout();
         } else {
+            finishTask();
             hideSearchAnim();
             multipleResultFragment.setResult(resultBean);
         }

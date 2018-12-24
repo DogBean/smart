@@ -1,8 +1,12 @@
 package com.lingzhi.smart.base;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
+import com.lingzhi.smart.R;
 import com.lingzhi.smart.app.AppManager;
+import com.lingzhi.smart.module.music.QuickControlsFragment;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
 
 import java.util.ArrayList;
@@ -15,6 +19,8 @@ import rx.Subscription;
 public abstract class RxBaseActivity extends RxAppCompatActivity {
     private Unbinder bind;
     private List<Subscription> subscriptions = new ArrayList<>();
+    private QuickControlsFragment fragment; //底部播放控制栏
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +92,25 @@ public abstract class RxBaseActivity extends RxAppCompatActivity {
         AppManager.getAppManager().finishActivity(this);
         unsubscribeRxbus();
     }
+
+    /**
+     * @param show 显示或关闭底部播放控制栏
+     */
+    protected void showQuickControl(boolean show) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (show) {
+            if (fragment == null) {
+                fragment = QuickControlsFragment.newInstance();
+                ft.add(R.id.bottom_container, fragment).commitAllowingStateLoss();
+            } else {
+                ft.show(fragment).commitAllowingStateLoss();
+            }
+        } else {
+            if (fragment != null)
+                ft.hide(fragment).commitAllowingStateLoss();
+        }
+    }
+
 
 
     protected void subscribeRxbus(){}

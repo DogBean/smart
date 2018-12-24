@@ -31,9 +31,11 @@ public interface MainContract {
 
     interface View extends BaseView<Presenter> {
 
-        void setBannerSection(List<Banner.BannerEntity> bannerEntities);
+        void banner(List<Banner.BannerEntity> bannerEntities);
 
         void setRecommedSection(List<RecommendBean> recommendBeans);
+
+        void finishTask();
 
 
     }

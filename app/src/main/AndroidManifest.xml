@@ -29,6 +29,17 @@
             android:screenOrientation="portrait" />
         <activity android:name=".module.music.MusicPlayerActivity" />
         <activity android:name=".module.guide.GuideActivity" />
+
+        <service android:name=".module.music.player.PlaybackService">
+            <intent-filter>
+                <action android:name="io.github.ryanhoo.music.ACTION.PLAY_TOGGLE" />
+                <action android:name="io.github.ryanhoo.music.ACTION.PLAY_NEXT" />
+                <action android:name="io.github.ryanhoo.music.ACTION.PLAY_LAST" />
+                <action android:name="io.github.ryanhoo.music.ACTION.STOP_SERVICE" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".module.playList.PlayListActivity"></activity>
     </application>
 
 </manifest>

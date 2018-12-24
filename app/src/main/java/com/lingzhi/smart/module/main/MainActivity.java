@@ -1,14 +1,10 @@
 package com.lingzhi.smart.module.main;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.base.RxBaseActivity;
 import com.lingzhi.smart.module.guide.GuideActivity;
-import com.lingzhi.smart.module.main.MainFragment;
-import com.lingzhi.smart.module.main.MainPresenter;
-import com.lingzhi.smart.module.search.SearchActivity;
 import com.lingzhi.smart.utils.Injection;
 import com.lingzhi.smart.utils.Navigator;
 import com.lingzhi.smart.utils.SPUtils;
@@ -45,6 +41,8 @@ public class MainActivity extends RxBaseActivity {
                 mMainFragment,
                 false,
                 Injection.provideSchedulerProvider());
+
+        showQuickControl(true);
     }
 
     @Override

@@ -1,5 +1,8 @@
 package com.lingzhi.smart.data.source;
 
+import com.lingzhi.smart.data.bean.DatedLinkGroup;
+import com.lingzhi.smart.data.source.remote.Resp;
+
 import java.util.List;
 
 import io.reactivex.Flowable;
@@ -8,7 +11,7 @@ import io.reactivex.Observable;
 public interface TasksDataSource {
 
 
-    Flowable<Banner> getBanner();
+    Flowable<Resp<DatedLinkGroup>> getBanner();
 
     Flowable<List<RecommendBean>> getRecommendList();
 

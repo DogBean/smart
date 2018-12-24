@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_play_view"
+        android:layout_width="match_parent"
+        android:layout_height="23dp"
+        android:background="@drawable/shape_buttom_control_bg"/>
+
+    <ImageView
+        android:id="@+id/image_play_control"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_play_music" />
+
+</LinearLayout>

@@ -15,7 +15,6 @@ import android.view.ViewGroup;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.data.source.Banner;
 import com.lingzhi.smart.data.source.RecommendBean;
-import com.lingzhi.smart.data.source.RecommendDailyBean;
 import com.lingzhi.smart.app.SmartApplication;
 import com.lingzhi.smart.base.RxBus;
 import com.lingzhi.smart.base.RxLazyFragment;
@@ -50,6 +49,8 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     SwipeRefreshLayout mRefreshLayout;
     private boolean mIsRefreshing = false;
 
+    private List<RecommendBean> listernBeans = new ArrayList<>();
+    private List<RecommendBean> recommendBeans = new ArrayList<>();
     private List<Banner.BannerEntity> bannerEntities = new ArrayList<>();
 
     private SectionedRecyclerViewAdapter mSectionedRecyclerViewAdapter;
@@ -62,7 +63,7 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     public void onResume() {
         super.onResume();
         if (mPresenter != null) {
-            mPresenter.subscribe();
+//            mPresenter.subscribe();
         }
     }
 
@@ -72,7 +73,7 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
         mSectionedRecyclerViewAdapter.removeAllSections();
         mSectionedRecyclerViewAdapter.notifyDataSetChanged();
         if (mPresenter != null) {
-            mPresenter.unsubscribe();
+//            mPresenter.unsubscribe();
         }
     }
 
@@ -102,7 +103,6 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
         mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-
                 if (mSectionedRecyclerViewAdapter.getSectionItemViewType(position) == SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER
                         || "Listen".equals(mSectionedRecyclerViewAdapter.getTagByPosition(position))) {
                     return 3;
@@ -110,9 +110,6 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
                     return 1;
                 }
             }
-        });
-
-        mRecyclerView.post(() -> {
         });
 
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -125,29 +122,24 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     }
 
     @Override
-    public void setBannerSection(List<Banner.BannerEntity> bannerEntities) {
-        mSectionedRecyclerViewAdapter.addSection("banner", new RegionRecommendBannerSection(bannerEntities));
-        mSectionedRecyclerViewAdapter.addSection("hot", new RegionRecommendTypesSection(getActivity(), 0));
-        mSectionedRecyclerViewAdapter.notifyDataSetChanged();
+    public void banner(List<Banner.BannerEntity> bannerEntities) {
+        this.bannerEntities = bannerEntities;
+
     }
 
     @Override
     public void setRecommedSection(List<RecommendBean> recommendBeans) {
-        mSectionedRecyclerViewAdapter.addSection("Listen", new RegionRecommendHotSection(getContext(), 0, recommendBeans));
 
-        List<RecommendDailyBean> arrayList = new ArrayList();
-        RecommendDailyBean recommendBean = new RecommendDailyBean("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
-        RecommendDailyBean recommendBean2 = new RecommendDailyBean("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
-        RecommendDailyBean recommendBean3 = new RecommendDailyBean("http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg");
-        arrayList.add(recommendBean);
-        arrayList.add(recommendBean2);
-        arrayList.add(recommendBean3);
 
-        mSectionedRecyclerViewAdapter.addSection("Recommend", new RegionRecommendDailySection(getContext(), 0, arrayList));
-        mRefreshLayout.setRefreshing(false);
-        mIsRefreshing = false;
+    }
+
+    @Override
+    public void finishTask() {
+        mSectionedRecyclerViewAdapter.addSection("banner", new RegionRecommendBannerSection(bannerEntities));
+        mSectionedRecyclerViewAdapter.addSection("hot", new RegionRecommendTypesSection(getActivity(), 0));
+//        mSectionedRecyclerViewAdapter.addSection("Listen", new RegionRecommendHotSection(getContext(), 0, listernBeans));
+//        mSectionedRecyclerViewAdapter.addSection("Recommend", new RegionRecommendDailySection(getContext(), 0, recommendBeans));
         mSectionedRecyclerViewAdapter.notifyDataSetChanged();
-
     }
 
     private void initRxBus() {

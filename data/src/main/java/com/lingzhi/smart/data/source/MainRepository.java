@@ -6,15 +6,23 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.lingzhi.smart.data.bean.DatedLinkGroup;
+import com.lingzhi.smart.data.source.remote.ApiHelper;
+import com.lingzhi.smart.data.source.remote.Resp;
 import com.lingzhi.smart.data.utils.SPUtils;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 
-import static android.support.v4.util.Preconditions.checkNotNull;
 
 public class MainRepository implements TasksDataSource {
 
@@ -44,18 +52,8 @@ public class MainRepository implements TasksDataSource {
     }
 
 
-    public Flowable<Banner> getBanner() {
-        // mock data
-        Banner banner = new Banner();
-        List<Banner.BannerEntity> banners = new ArrayList<>();
-        banners.add(new Banner.BannerEntity("Title", null, "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
-        banners.add(new Banner.BannerEntity("Title", null, "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
-        banners.add(new Banner.BannerEntity("Title", null, "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
-        banners.add(new Banner.BannerEntity("Title", null, "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
-        banners.add(new Banner.BannerEntity("Title", null, "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
-        banners.add(new Banner.BannerEntity("Title", null, "http://ww4.sinaimg.cn/large/006uZZy8jw1faic1xjab4j30ci08cjrv.jpg"));
-        banner.setTop(banners);
-        return Flowable.just(banner);
+    public Flowable<Resp<DatedLinkGroup>> getBanner() {
+        return ApiHelper.banner();
     }
 
 
@@ -73,6 +71,7 @@ public class MainRepository implements TasksDataSource {
         list.add(bean);
         return Flowable.just(list);
     }
+
 
     @Override
     public Observable<Boolean> insertSearchNearlyTag(String tag) {
@@ -108,6 +107,7 @@ public class MainRepository implements TasksDataSource {
             return Observable.empty();
         }
     }
+
     @Override
     public Observable<Boolean> clearSearchNearlyTag() {
         SPUtils.putString("nearlyTag", "");

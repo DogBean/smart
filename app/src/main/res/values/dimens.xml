@@ -85,10 +85,12 @@
 
 
     <!-- Music -->
-    <dimen name="mp_music_album_size">260dp</dimen>
-    <dimen name="mp_music_seekBar_marginTop">50dp</dimen>
+    <dimen name="mp_music_album_size">184dp</dimen>
+    <dimen name="mp_music_seekBar_marginTop">184dp</dimen>
     <dimen name="mp_music_playControls_marginTop">24dp</dimen>
-    <dimen name="mp_music_playControls_marginBottom">8dp</dimen>
+    <dimen name="mp_music_title_marginTop">37dp</dimen>
+    <dimen name="mp_music_album_marginTop">40dp</dimen>
+    <dimen name="mp_music_playControls_marginBottom">138dp</dimen>
 
     <!-- Common -->
     <dimen name="mp_divider_line">1px</dimen>
@@ -98,7 +100,7 @@
     <dimen name="mp_divider_xlarge">24dp</dimen>
 
     <dimen name="mp_padding_small">4dp</dimen>
-    <dimen name="mp_padding_normal">8dp</dimen>
+    <dimen name="mp_padding_normal">10dp</dimen>
     <dimen name="mp_padding_large">16dp</dimen>
     <dimen name="mp_padding_xlarge">24dp</dimen>
 

@@ -52,4 +52,6 @@ ext {
     FlycoTabLayoutVersion = '2.0.0'
     daggerVersion = '2.0'
     ViewPagerIndicatorVersion = '0.1.0'
+    retrofitVersion = "2.3.0"
+    loggingVersion = "3.9.0"
 }

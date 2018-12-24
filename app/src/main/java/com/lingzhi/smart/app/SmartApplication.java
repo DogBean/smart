@@ -6,6 +6,7 @@ import com.lingzhi.smart.data.utils.SPUtils;
 import com.lingzhi.smart.BuildConfig;
 import com.lingzhi.smart.utils.ScreenAdapter;
 import com.lingzhi.smart.utils.ToastUtils;
+import com.lingzhi.smart.utils.Utils;
 import com.socks.library.KLog;
 
 /**
@@ -25,8 +26,9 @@ public class SmartApplication extends Application {
         ScreenAdapter.init(this, 375, ScreenAdapter.MATCH_BASE_WIDTH, ScreenAdapter.MATCH_UNIT_DP);
         //sp初始化
         SPUtils.init(this);
-        KLog.init(BuildConfig.DEBUG,"SmartTag");
+        KLog.init(BuildConfig.DEBUG, "SmartTag");
         ToastUtils.init(this);
+        Utils.init(this);
     }
 
 

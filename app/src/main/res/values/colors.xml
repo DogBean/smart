@@ -10,7 +10,9 @@
     <color name="gray_bg">#EEEEEE</color>
     <color name="gray_txt">#9A9898</color>
     <color name="black">#000000</color>
-
+    <color name="white_text">#fafafa</color>
+    <color name="menu_item_white">#FFFFFF</color>
+    <color name="text_color">#FF000000</color>
 
 
     <color name="font_normal">#555555</color>
@@ -27,4 +29,5 @@
     <color name="google_blue">#6099f5</color>
     <color name="google_yellow">#edc855</color>
     <color name="google_green">#5cb171</color>
+    <color name="listTextColor">#FF7272</color>
 </resources>

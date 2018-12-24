@@ -83,7 +83,6 @@ public class SearchPresenter extends BasePresenter implements SearchContract.Pre
 
     @Override
     public void getSearchHotTag(String key) {
-        mView.showLoading("正在加载...");
         DisposableObserver<Integer> disposableObserver = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> e) throws Exception {
