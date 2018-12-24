@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lingzhi.smart.R;
@@ -79,20 +80,8 @@ public class SearchAlbumResultSection extends StatelessSection {
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
         AlbumBean bean = dailyBeans.getAlbumBeanList().get(position);
         new GlideImageLoader().displayImage(context, bean.getImageUrl(), itemViewHolder.mulitImageSearchAlbum);
-        itemViewHolder.mulitTvSearchGo.setText(String.valueOf(bean.getContentNum()));
+        itemViewHolder.tvNums.setText(String.valueOf(bean.getContentNum()));
         itemViewHolder.mulitTvSearchAlbum.setText(bean.getName());
-//        if (position == 2) {
-//            itemViewHolder.ll_load_more.setVisibility(View.VISIBLE);
-//            itemViewHolder.tv_more.setText(context.getString(R.string.load_more_album, dailyBeans.getAlbumTotal()));
-//        } else {
-//            itemViewHolder.ll_load_more.setVisibility(View.GONE);
-//        }
-//        itemViewHolder.ll_load_more.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                RxBus.getInstance().post(new AlbumTagEvent());
-//            }
-//        });
     }
 
 
@@ -114,7 +103,9 @@ public class SearchAlbumResultSection extends StatelessSection {
         @BindView(R.id.mulit_tv_search_album)
         TextView mulitTvSearchAlbum;
         @BindView(R.id.mulit_tv_search_go)
-        TextView mulitTvSearchGo;
+        LinearLayout mulitTvSearchGo;
+        @BindView(R.id.item_nums)
+        TextView tvNums;
 
         public ItemViewHolder(View itemView) {
             super(itemView);

@@ -33,8 +33,8 @@ public class ApiClient {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create());
 
-
         mOkHttpClientBuilder = new OkHttpClient.Builder();
+        mOkHttpClientBuilder.addInterceptor(new CommonInterceptor());
         mOkHttpClientBuilder.readTimeout(6, TimeUnit.SECONDS);
         mOkHttpClientBuilder.connectTimeout(15, TimeUnit.SECONDS);
         if (BuildConfig.DEBUG) {
@@ -42,7 +42,7 @@ public class ApiClient {
                     new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
                         @Override
                         public void log(String message) {
-                            Log.i(TAG, "net message: " + message);
+                            Log.e(TAG, "net message: " + message);
                         }
                     }).setLevel(HttpLoggingInterceptor.Level.BODY)
             );

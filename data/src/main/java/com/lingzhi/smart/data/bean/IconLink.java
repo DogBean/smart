@@ -5,7 +5,6 @@ public final class IconLink extends Resource {
 
     private String back;     // intent when backward button is clicked
 
-    private int duration = 0;    // the icon show time duration
 
     public String getGo() {
         return go;
@@ -23,11 +22,5 @@ public final class IconLink extends Resource {
         this.back = back;
     }
 
-    public int getDuration() {
-        return duration;
-    }
 
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
 }

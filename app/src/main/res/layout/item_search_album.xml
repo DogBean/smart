@@ -28,17 +28,37 @@
     </LinearLayout>
 
 
-    <TextView
+    <LinearLayout
         android:id="@+id/mulit_tv_search_go"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:drawableLeft="@drawable/ic_search_play_nums"
-        android:drawableRight="@drawable/ic_search_go"
-        android:paddingLeft="3dp"
-        android:paddingRight="10dp"
-        android:text="400" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_search_nums" />
+
+        <TextView
+            android:id="@+id/item_nums"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:text="400" />
+
+        <ImageView
+            android:scaleType="fitXY"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/ic_search_go" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>

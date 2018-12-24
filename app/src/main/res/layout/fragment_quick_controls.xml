@@ -5,11 +5,34 @@
     android:layout_gravity="center_horizontal"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/ll_play_view"
         android:layout_width="match_parent"
         android:layout_height="23dp"
-        android:background="@drawable/shape_buttom_control_bg"/>
+        android:background="@drawable/shape_buttom_control_bg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="小学一年级英语"
+            android:textSize="9sp" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_control_list" />
+
+    </RelativeLayout>
 
     <ImageView
         android:id="@+id/image_play_control"
@@ -17,6 +40,7 @@
         android:layout_height="38dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_play_music" />
 
 </LinearLayout>

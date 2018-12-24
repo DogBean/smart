@@ -8,6 +8,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lingzhi.smart.R;
+import com.lingzhi.smart.data.bean.DatedLinkGroup;
+import com.lingzhi.smart.data.bean.IconLink;
+import com.lingzhi.smart.loader.GlideImageLoader;
 import com.lingzhi.smart.view.AbsRecyclerViewAdapter;
 
 
@@ -19,13 +22,13 @@ import com.lingzhi.smart.view.AbsRecyclerViewAdapter;
  */
 
 public class RegionRecommendTypesAdapter extends AbsRecyclerViewAdapter {
-    private int[] icons;
-    private String[] titles;
+    private DatedLinkGroup mData;
+    private IconLink[] links;
 
-    public RegionRecommendTypesAdapter(RecyclerView recyclerView, int[] icons, String[] titles) {
+    public RegionRecommendTypesAdapter(RecyclerView recyclerView, DatedLinkGroup data) {
         super(recyclerView);
-        this.icons = icons;
-        this.titles = titles;
+        this.mData = data;
+        links = data.getLinks();
     }
 
 
@@ -41,8 +44,10 @@ public class RegionRecommendTypesAdapter extends AbsRecyclerViewAdapter {
     public void onBindViewHolder(ClickableViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
             ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-            itemViewHolder.mIcon.setImageResource(icons[position]);
-            itemViewHolder.mTitle.setText(titles[position]);
+
+            new GlideImageLoader().displayImage(getContext(), links[position].getIcon(), itemViewHolder.mIcon);
+
+            itemViewHolder.mTitle.setText(links[position].getName());
         }
         super.onBindViewHolder(holder, position);
     }
@@ -50,7 +55,7 @@ public class RegionRecommendTypesAdapter extends AbsRecyclerViewAdapter {
 
     @Override
     public int getItemCount() {
-        return icons.length;
+        return links.length;
     }
 
 

@@ -25,15 +25,12 @@ public interface MusicPlayerContract {
 
         void onPlaybackServiceUnbound();
 
-        void onSongSetAsFavorite(@NonNull Song song);
-
         void onSongUpdated(@Nullable Song song);
 
         void updatePlayMode(PlayMode playMode);
 
         void updatePlayToggle(boolean play);
 
-        void updateFavoriteToggle(boolean favorite);
     }
 
     interface Presenter extends MvpPresenter {

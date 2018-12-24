@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:text="今日必聼"
-        android:textColor="@color/font_normal"
-        android:textSize="@dimen/default_big_text_size" />
+        android:text="今日必听"
+        android:textColor="#373636"
+        android:textSize="@dimen/default_tiny_text_size" />
 
 
     <TextView

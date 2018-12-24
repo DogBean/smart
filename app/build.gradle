@@ -132,4 +132,5 @@ dependencies {
 
     implementation 'com.github.ksoichiro:android-observablescrollview:1.6.0'
     implementation 'com.nineoldandroids:library:2.4.0'
+    implementation "com.blankj:rxbus:1.5"
 }

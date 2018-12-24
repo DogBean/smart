@@ -9,36 +9,42 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lingzhi.smart.data.bean.Resource;
+import com.lingzhi.smart.data.bean.ResourceList;
 import com.lingzhi.smart.data.source.RecommendBean;
 import com.lingzhi.smart.data.source.RecommendDailyBean;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.app.SmartApplication;
 import com.lingzhi.smart.loader.GlideImageLoader;
+import com.lingzhi.smart.utils.Injection;
+import com.lingzhi.smart.utils.Navigator;
 import com.lingzhi.smart.view.sectioned.StatelessSection;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 public class RegionRecommendDailySection extends StatelessSection {
     private static final String TAG = SmartApplication.TAG;
     private int rid;
     private Context context;
-    private List<RecommendDailyBean> dailyBeans;
+    private ResourceList resources;
 
 
-    public RegionRecommendDailySection(Context context, int rid, List<RecommendDailyBean> dailyBeans) {
+    public RegionRecommendDailySection(Context context, ResourceList resources) {
         super(R.layout.layout_region_recommend_head, R.layout.layout_region_recommend_daily_card_item);
         this.rid = rid;
-        this.dailyBeans = dailyBeans;
+        this.resources = resources;
         this.context = context;
     }
 
 
     @Override
     public int getContentItemsTotal() {
-        return dailyBeans.size();
+        return resources.getChildren().length;
     }
 
     @Override
@@ -66,12 +72,15 @@ public class RegionRecommendDailySection extends StatelessSection {
     @Override
     public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-        RecommendDailyBean bean = dailyBeans.get(position);
-        new GlideImageLoader().displayImage(context, bean.image, itemViewHolder.mImageView);
+        Resource resource = resources.getChildren()[position];
+
+        new GlideImageLoader().displayImage(context, resource.getIcon(), itemViewHolder.mImageView);
+
+        itemViewHolder.mTitle.setText(resource.getName());
         itemViewHolder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e(TAG, "每日推荐 item 被点击");
+
             }
         });
     }
@@ -92,6 +101,8 @@ public class RegionRecommendDailySection extends StatelessSection {
 
         @BindView(R.id.item_recommend_daily_img)
         ImageView mImageView;
+        @BindView(R.id.item_recommend_daily_title)
+        TextView mTitle;
 
         public ItemViewHolder(View itemView) {
             super(itemView);

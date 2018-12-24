@@ -9,7 +9,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/single_item_type"
+            android:id="@+id/single_item_type_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -20,19 +20,22 @@
             android:textSize="@dimen/default_small_text_size" />
 
         <ImageView
+            android:layout_gravity="center_vertical"
             android:layout_width="1px"
             android:layout_height="11dp"
-            android:layout_marginLeft="18dp"
+            android:layout_marginLeft="13dp"
             android:background="@color/font_normal" />
 
         <TextView
-            android:id="@+id/single_item_type_title"
-            android:layout_width="wrap_content"
+            android:id="@+id/single_item_type_name"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="18dp"
+            android:layout_marginLeft="14dp"
+            android:ellipsize="end"
+            android:maxWidth="@dimen/mp_divider_large"
+            android:singleLine="true"
             android:text="三字经"
             android:textColor="@color/font_normal"
             android:textSize="@dimen/default_small_text_size" />

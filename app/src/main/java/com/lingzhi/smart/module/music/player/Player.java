@@ -2,31 +2,21 @@ package com.lingzhi.smart.module.music.player;
 
 import android.media.MediaPlayer;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.lingzhi.smart.module.music.model.PlayList;
 import com.lingzhi.smart.module.music.model.Song;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
 
-/**
- * Created with Android Studio.
- * User: ryan.hoo.j@gmail.com
- * Date: 9/5/16
- * Time: 5:57 PM
- * Desc: Player
- */
 public class Player implements IPlayback, MediaPlayer.OnCompletionListener {
 
     private static final String TAG = "Player";
 
     private static volatile Player sInstance;
 
-    private MediaPlayer mPlayer;
 
     private PlayList mPlayList;
     // Default size 2: for service and UI
@@ -36,9 +26,7 @@ public class Player implements IPlayback, MediaPlayer.OnCompletionListener {
     private boolean isPaused;
 
     private Player() {
-        mPlayer = new MediaPlayer();
         mPlayList = new PlayList();
-        mPlayer.setOnCompletionListener(this);
     }
 
     public static Player getInstance() {
@@ -63,23 +51,12 @@ public class Player implements IPlayback, MediaPlayer.OnCompletionListener {
     @Override
     public boolean play() {
         if (isPaused) {
-            mPlayer.start();
             notifyPlayStatusChanged(true);
             return true;
         }
         if (mPlayList.prepare()) {
             Song song = mPlayList.getCurrentSong();
-            try {
-                mPlayer.reset();
-                mPlayer.setDataSource(song.getPath());
-                mPlayer.prepare();
-                mPlayer.start();
-                notifyPlayStatusChanged(true);
-            } catch (IOException e) {
-                Log.e(TAG, "play: ", e);
-                notifyPlayStatusChanged(false);
-                return false;
-            }
+            notifyPlayStatusChanged(true);
             return true;
         }
         return false;
@@ -142,23 +119,20 @@ public class Player implements IPlayback, MediaPlayer.OnCompletionListener {
 
     @Override
     public boolean pause() {
-        if (mPlayer.isPlaying()) {
-            mPlayer.pause();
-            isPaused = true;
-            notifyPlayStatusChanged(false);
-            return true;
-        }
-        return false;
+        isPaused = true;
+        notifyPlayStatusChanged(false);
+        return true;
+
     }
 
     @Override
     public boolean isPlaying() {
-        return mPlayer.isPlaying();
+        return !isPaused;
     }
 
     @Override
     public int getProgress() {
-        return mPlayer.getCurrentPosition();
+        return 0;
     }
 
     @Nullable
@@ -167,21 +141,6 @@ public class Player implements IPlayback, MediaPlayer.OnCompletionListener {
         return mPlayList.getCurrentSong();
     }
 
-    @Override
-    public boolean seekTo(int progress) {
-        if (mPlayList.getSongs().isEmpty()) return false;
-
-        Song currentSong = mPlayList.getCurrentSong();
-        if (currentSong != null) {
-            if (currentSong.getDuration() <= progress) {
-                onCompletion(mPlayer);
-            } else {
-                mPlayer.seekTo(progress);
-            }
-            return true;
-        }
-        return false;
-    }
 
     @Override
     public void setPlayMode(PlayMode playMode) {
@@ -213,9 +172,7 @@ public class Player implements IPlayback, MediaPlayer.OnCompletionListener {
     @Override
     public void releasePlayer() {
         mPlayList = null;
-        mPlayer.reset();
-        mPlayer.release();
-        mPlayer = null;
+
         sInstance = null;
     }
 

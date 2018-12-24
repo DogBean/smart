@@ -147,7 +147,7 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
         for (SearchTagBean tag : tags) {
             TextView textView = getBaseTextView();
             textView.setText(tag.getElement());
-            textView.setTextSize(18);
+            textView.setTextSize(12);
             hotSearch.addView(textView);
             hot_nodata.setVisibility(View.GONE);
         }
@@ -159,7 +159,7 @@ public class SearchActivity extends RxBaseActivity implements SearchContract.Vie
         for (String tag : tags) {
             TextView textView = getBaseTextView();
             textView.setText(tag);
-            textView.setTextSize(18);
+            textView.setTextSize(12);
             nearlySearch.addView(textView);
             nearly_nodata.setVisibility(View.GONE);
         }

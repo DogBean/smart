@@ -17,10 +17,13 @@
 package com.lingzhi.smart.module.main;
 
 
+import com.lingzhi.smart.data.bean.DatedLinkGroup;
+import com.lingzhi.smart.data.bean.ResourceList;
 import com.lingzhi.smart.data.source.Banner;
 import com.lingzhi.smart.data.source.RecommendBean;
 import com.lingzhi.smart.base.BaseView;
 import com.lingzhi.smart.base.MvpPresenter;
+import com.lingzhi.smart.data.source.remote.Resp;
 
 import java.util.List;
 
@@ -33,7 +36,11 @@ public interface MainContract {
 
         void banner(List<Banner.BannerEntity> bannerEntities);
 
-        void setRecommedSection(List<RecommendBean> recommendBeans);
+        void category(DatedLinkGroup groud);
+
+        void requisite(ResourceList requisite);
+
+        void recommend(ResourceList recommends);
 
         void finishTask();
 

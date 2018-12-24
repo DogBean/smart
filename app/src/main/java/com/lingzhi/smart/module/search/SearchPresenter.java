@@ -55,15 +55,15 @@ public class SearchPresenter extends BasePresenter implements SearchContract.Pre
                     public void onNext(Integer value) {
                         SearchResultBean searchResultBean = new SearchResultBean();
                         ArrayList<AlbumBean> albumBeans = new ArrayList<>();
-                        albumBeans.add(new AlbumBean("1","http://e.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697e542494057fbb2fb4316d81e.jpg","八神专辑",12,1111));
-                        albumBeans.add(new AlbumBean("1","http://e.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697e542494057fbb2fb4316d81e.jpg","八神专辑",12,1111));
-                        albumBeans.add(new AlbumBean("1","http://e.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697e542494057fbb2fb4316d81e.jpg","八神专辑",12,1111));
+                        albumBeans.add(new AlbumBean("1", "http://e.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697e542494057fbb2fb4316d81e.jpg", "八神专辑", 12, 1111));
+                        albumBeans.add(new AlbumBean("1", "http://e.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697e542494057fbb2fb4316d81e.jpg", "八神专辑", 12, 1111));
+                        albumBeans.add(new AlbumBean("1", "http://e.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697e542494057fbb2fb4316d81e.jpg", "八神专辑", 12, 1111));
                         searchResultBean.setAlbumBeanList(albumBeans);
                         ArrayList<AudioBean> audioBeans = new ArrayList<>();
-                        audioBeans.add(new AudioBean("1","http://e.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697e542494057fbb2fb4316d81e.jpg","","英语听力测试",1232,"20:23"));
-                        audioBeans.add(new AudioBean("1","http://e.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697e542494057fbb2fb4316d81e.jpg","","英语听力测试",1232,"20:23"));
-                        audioBeans.add(new AudioBean("1","http://e.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697e542494057fbb2fb4316d81e.jpg","","英语听力测试",1232,"20:23"));
-                        audioBeans.add(new AudioBean("1","http://e.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697e542494057fbb2fb4316d81e.jpg","","英语听力测试",1232,"20:23"));
+                        audioBeans.add(new AudioBean("1", "http://e.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697e542494057fbb2fb4316d81e.jpg", "", "英语听力测试", 1232, "20:23"));
+                        audioBeans.add(new AudioBean("1", "http://e.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697e542494057fbb2fb4316d81e.jpg", "", "英语听力测试", 1232, "20:23"));
+                        audioBeans.add(new AudioBean("1", "http://e.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697e542494057fbb2fb4316d81e.jpg", "", "英语听力测试", 1232, "20:23"));
+                        audioBeans.add(new AudioBean("1", "http://e.hiphotos.baidu.com/image/pic/item/a1ec08fa513d2697e542494057fbb2fb4316d81e.jpg", "", "英语听力测试", 1232, "20:23"));
                         searchResultBean.setAudioBeanList(audioBeans);
                         mView.showSearchResult(searchResultBean);
                     }
@@ -86,9 +86,7 @@ public class SearchPresenter extends BasePresenter implements SearchContract.Pre
         DisposableObserver<Integer> disposableObserver = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> e) throws Exception {
-                SystemClock.sleep(1000);
-                e.onNext(1);
-                e.onComplete();
+
             }
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -96,13 +94,13 @@ public class SearchPresenter extends BasePresenter implements SearchContract.Pre
                     @Override
                     public void onNext(Integer value) {
                         ArrayList<SearchTagBean> list = new ArrayList<>();
-                        list.add(new SearchTagBean("语文",90,"ssss"));
-                        list.add(new SearchTagBean("英文",80,"ssss"));
-                        list.add(new SearchTagBean("数学",70,"ssss"));
-                        list.add(new SearchTagBean("历史",850,"ssss"));
-                        list.add(new SearchTagBean("小猪",70,"ssss"));
-                        list.add(new SearchTagBean("pis",60,"ssss"));
-                        list.add(new SearchTagBean("八神",95,"ssss"));
+                        list.add(new SearchTagBean("语文", 90, "ssss"));
+                        list.add(new SearchTagBean("英文", 80, "ssss"));
+                        list.add(new SearchTagBean("数学", 70, "ssss"));
+                        list.add(new SearchTagBean("历史", 850, "ssss"));
+                        list.add(new SearchTagBean("小猪", 70, "ssss"));
+                        list.add(new SearchTagBean("pis", 60, "ssss"));
+                        list.add(new SearchTagBean("八神", 95, "ssss"));
                         mView.showSearchHotTag(list);
                     }
 

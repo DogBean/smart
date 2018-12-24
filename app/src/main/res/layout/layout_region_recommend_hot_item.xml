@@ -3,20 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/item_type_cover"
+    <LinearLayout
+        android:id="@+id/item_type_play_all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:background="@color/cardview_dark_background"
-        android:src="@drawable/bili_default_image_tv" />
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/default_general_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin">
+
+        <ImageView
+            android:id="@+id/item_type_cover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_play_music" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/item_type_play"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="5dp"
+            android:text="全部播放"
+            android:textColor="#989898"
+            android:textSize="9sp" />
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:layout_centerVertical="true"
         android:id="@+id/item_type_recycle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/item_type_cover" />
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/item_type_play_all" />
 
 
 </RelativeLayout>

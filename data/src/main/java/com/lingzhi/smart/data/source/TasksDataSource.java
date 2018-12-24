@@ -1,6 +1,7 @@
 package com.lingzhi.smart.data.source;
 
 import com.lingzhi.smart.data.bean.DatedLinkGroup;
+import com.lingzhi.smart.data.bean.ResourceList;
 import com.lingzhi.smart.data.source.remote.Resp;
 
 import java.util.List;
@@ -22,16 +23,22 @@ public interface TasksDataSource {
      * @return
      */
     Observable<Boolean> insertSearchNearlyTag(String tag);
+
     /**
      * 最近搜索标签
      *
      * @return
      */
     Observable<List<String>> getSearchNearlyTag();
+
     /**
      * 清除最近搜索标签
      *
      * @return
      */
     Observable<Boolean> clearSearchNearlyTag();
+
+    Observable<Boolean> insertRequisite(ResourceList resourceList);
+
+    Observable<ResourceList> getRequisite();
 }

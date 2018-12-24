@@ -5,11 +5,7 @@ import android.support.annotation.Nullable;
 import com.lingzhi.smart.module.music.model.PlayList;
 import com.lingzhi.smart.module.music.model.Song;
 
-/**
- * @Description:
- * @Author Guoyong.Lin
- * @Time 2018/12/17
- */
+
 public interface IPlayback {
 
     void setPlayList(PlayList list);
@@ -33,8 +29,6 @@ public interface IPlayback {
     int getProgress();
 
     Song getPlayingSong();
-
-    boolean seekTo(int progress);
 
     void setPlayMode(PlayMode playMode);
 

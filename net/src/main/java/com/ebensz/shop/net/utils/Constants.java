@@ -14,6 +14,8 @@ public interface Constants {
     String PARAM_REQUEST_TYPE = "usercenter";
     String PARAM_USER_AGENT = "User-Agent";
     String PARAM_AUTHORIZATION = "Authorization";
-    String PARAM_DID = "Did";
+    String TOKEN = "token";
+    String NONC = "nonc";
+    String SIGNATURE = "signature";
 
 }

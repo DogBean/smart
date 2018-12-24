@@ -1,10 +1,10 @@
 package com.lingzhi.smart.data.bean;
 
-class Resource {
+public class Resource {
     private long id;
 
     /**
-     * category id.
+     * topic id.
      */
     private int cid;
 
@@ -17,9 +17,21 @@ class Resource {
 
     private String name;
 
+    public String getOname() {
+        return oname;
+    }
+
+    private String oname;
+
     private String desc;
 
     private String durl;
+
+    public long getDuration() {
+        return duration;
+    }
+
+    private long duration;
 
     public long getId() {
         return id;

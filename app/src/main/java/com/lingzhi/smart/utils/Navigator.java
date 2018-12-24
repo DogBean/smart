@@ -6,8 +6,8 @@ import android.content.Intent;
 import com.lingzhi.smart.module.guide.GuideActivity;
 import com.lingzhi.smart.module.main.MainActivity;
 import com.lingzhi.smart.module.music.MusicPlayerActivity;
+import com.lingzhi.smart.module.requisite.RequisiteActivity;
 import com.lingzhi.smart.module.sort.SortActivity;
-
 
 
 /**
@@ -42,6 +42,13 @@ public class Navigator {
     public static void navigateToMain(Context context) {
         if (context != null) {
             context.startActivity(new Intent(context, MainActivity.class));
+        }
+    }
+
+    public static void navigateRequisite(Context context) {
+        if (context != null) {
+            Intent intentToLaunch = RequisiteActivity.getCallingIntent(context);
+            context.startActivity(intentToLaunch);
         }
     }
 }

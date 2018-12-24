@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.base.RxBus;
+import com.lingzhi.smart.data.bean.DatedLinkGroup;
 import com.lingzhi.smart.view.sectioned.RegionRecommendTypesAdapter;
 import com.lingzhi.smart.view.sectioned.StatelessSection;
 
@@ -23,22 +24,13 @@ import butterknife.ButterKnife;
 
 public class RegionRecommendTypesSection extends StatelessSection {
     private Context mContext;
-    private int rid;
+    private DatedLinkGroup mCategorys;
 
-    //番剧类型Icons
-    private int[] bangumiIcons = new int[]{
-            R.drawable.ic_category_t33, R.drawable.ic_category_t32,
-            R.drawable.ic_category_t153,
-            R.drawable.ic_category_t51,
-            R.drawable.ic_category_t51
-    };
-    //番剧类型titles
-    private String[] bangumiTitles = new String[]{"连载动画", "完结动画", "国产动画", "资讯", "官方延伸"};
 
-    public RegionRecommendTypesSection(Context context, int rid) {
+    public RegionRecommendTypesSection(Context context, DatedLinkGroup categorys) {
         super(R.layout.layout_region_recommend_types, R.layout.layout_home_recommend_empty);
         this.mContext = context;
-        this.rid = rid;
+        mCategorys = categorys;
     }
 
 
@@ -76,12 +68,10 @@ public class RegionRecommendTypesSection extends StatelessSection {
 
     private void setRecyclerAdapter(TypesViewHolder typesViewHolder) {
         RegionRecommendTypesAdapter mAdapter = null;
-        switch (rid) {
-            case 0:
-                typesViewHolder.mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 4));
-                mAdapter = new RegionRecommendTypesAdapter(typesViewHolder.mRecyclerView, bangumiIcons, bangumiTitles);
-                break;
-        }
+
+        typesViewHolder.mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 4));
+        mAdapter = new RegionRecommendTypesAdapter(typesViewHolder.mRecyclerView, mCategorys);
+
         typesViewHolder.mRecyclerView.setAdapter(mAdapter);
         assert mAdapter != null;
         mAdapter.setOnItemClickListener((position, holder) -> RxBus.getInstance().post(position));

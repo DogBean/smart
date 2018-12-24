@@ -9,12 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.lingzhi.smart.data.bean.Resource;
+import com.lingzhi.smart.data.bean.ResourceList;
 import com.lingzhi.smart.data.source.RecommendBean;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.app.SmartApplication;
 import com.lingzhi.smart.loader.GlideImageLoader;
+import com.lingzhi.smart.utils.Injection;
+import com.lingzhi.smart.utils.Navigator;
+import com.lingzhi.smart.utils.Utils;
 import com.lingzhi.smart.view.sectioned.StatelessSection;
 
 
@@ -22,25 +28,25 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 
 public class RegionRecommendHotSection extends StatelessSection {
     private static final String TAG = SmartApplication.TAG;
     private Context mContext;
-    private int rid;
-    private List<RecommendBean> recommends;
+    Resource[] resources;
 
-    public RegionRecommendHotSection(Context context, int rid, List<RecommendBean> recommends) {
+    public RegionRecommendHotSection(Context context, ResourceList requisite) {
         super(R.layout.layout_region_recommend_head, R.layout.layout_region_recommend_hot_item);
-        this.rid = rid;
-        this.recommends = recommends;
+        this.resources = requisite.getChildren();
         this.mContext = context;
     }
 
 
     @Override
     public int getContentItemsTotal() {
-        return recommends.size();
+        return 1;
     }
 
 
@@ -53,10 +59,13 @@ public class RegionRecommendHotSection extends StatelessSection {
     @Override
     public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-        RecommendBean recommendBean = recommends.get(position);
-        new GlideImageLoader().displayImage(mContext, recommendBean.cover(), itemViewHolder.mImageCover);
-
-        itemViewHolder.mRecycleView.setAdapter(new SingleAdapter(recommendBean.getRecommendList()));
+        itemViewHolder.mRecycleView.setAdapter(new SingleAdapter(resources));
+        itemViewHolder.mPlayAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e(TAG, "onClick: -------------------------");
+            }
+        });
         itemViewHolder.mRecycleView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
     }
 
@@ -76,13 +85,38 @@ public class RegionRecommendHotSection extends StatelessSection {
 
     private void startGetMoreActivityById() {
         //todo 获取更多的点击事件 ,
-        Log.e(TAG, "startGetMoreActivityById 获取更多按钮被点击");
+        Injection.provideMainRepository().getRequisite().subscribe(new Observer<ResourceList>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(ResourceList resourceList) {
+                if (resourceList != null) {
+                    Navigator.navigateRequisite(mContext);
+                }
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, "navigator error ", e);
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
 
     }
 
     static class SingleItemHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.single_item_type_title)
         TextView mTitle;
+
+        @BindView(R.id.single_item_type_name)
+        TextView mName;
 
         @BindView(R.id.single_item_type_time)
         TextView mPlayTime;
@@ -96,11 +130,11 @@ public class RegionRecommendHotSection extends StatelessSection {
 
     public class SingleAdapter extends RecyclerView.Adapter<SingleItemHolder> {
 
-        public SingleAdapter(List<RecommendBean.PlayBean> playBeans) {
-            this.playBeans = playBeans;
+        public SingleAdapter(Resource[] resources) {
+            this.resources = resources;
         }
 
-        private List<RecommendBean.PlayBean> playBeans;
+        private Resource[] resources;
 
         @NonNull
         @Override
@@ -111,19 +145,21 @@ public class RegionRecommendHotSection extends StatelessSection {
 
         @Override
         public void onBindViewHolder(@NonNull SingleItemHolder holder, int position) {
-            if (playBeans == null || playBeans.isEmpty()) {
+            if (resources == null || resources.length == 0) {
                 Log.e(SmartApplication.TAG, "playBeans is null or empty");
                 return;
             }
 
-            RecommendBean.PlayBean playBean = playBeans.get(position);
-            holder.mPlayTime.setText(String.valueOf(playBean.playtime));
-            holder.mTitle.setText(playBean.title);
+            Resource resource = resources[position];
+            holder.mPlayTime.setText(Utils.formatSeconds(resource.getDuration()));
+            holder.mTitle.setText(resource.getOname());
+            holder.mName.setText(resource.getName());
+
         }
 
         @Override
         public int getItemCount() {
-            return playBeans == null ? 0 : playBeans.size();
+            return resources == null ? 0 : 3;
         }
     }
 
@@ -144,6 +180,9 @@ public class RegionRecommendHotSection extends StatelessSection {
 
         @BindView(R.id.item_type_recycle)
         RecyclerView mRecycleView;
+
+        @BindView(R.id.item_type_play_all)
+        LinearLayout mPlayAll;
 
 
         public ItemViewHolder(View itemView) {

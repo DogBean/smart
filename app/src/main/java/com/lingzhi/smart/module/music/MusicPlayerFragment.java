@@ -20,6 +20,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.lingzhi.smart.R;
+import com.lingzhi.smart.app.SmartApplication;
 import com.lingzhi.smart.base.RxLazyFragment;
 import com.lingzhi.smart.module.main.MainActivity;
 import com.lingzhi.smart.module.music.event.PlayListNowEvent;
@@ -29,6 +30,7 @@ import com.lingzhi.smart.module.music.model.Song;
 import com.lingzhi.smart.module.music.player.IPlayback;
 import com.lingzhi.smart.module.music.player.PlayMode;
 import com.lingzhi.smart.module.music.player.PlaybackService;
+import com.lingzhi.smart.module.music.player.Player;
 import com.lingzhi.smart.utils.DisplayUtil;
 import com.lingzhi.smart.utils.FastBlurUtil;
 import com.lingzhi.smart.view.widget.ShadowImageView;
@@ -65,9 +67,10 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
     ImageView buttonPlayModeToggle;
     @BindView(R.id.button_play_toggle)
     ImageView buttonPlayToggle;
-    @BindView(R.id.button_favorite_toggle)
-    ImageView buttonFavoriteToggle;
+    @BindView(R.id.button_list_toggle)
+    ImageView button_list_toggle;
 
+    private Player mPlayer;
 
     private Handler mHandler = new Handler();
 
@@ -78,13 +81,20 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
 
-
+        mPlayer = Player.getInstance();
+        mPlayer.registerCallback(this);
         new MusicPlayerPresenter(getActivity(), this).subscribe();
     }
 
     private void updateProgressTextWithProgress(int progress) {
         int targetDuration = getDuration(progress);
         textViewProgress.setText(TimeUtils.formatDuration(targetDuration));
+    }
+
+    @Override
+    public void onDestroyView() {
+        mPlayer.unregisterCallback(this);
+        super.onDestroyView();
     }
 
     @Override
@@ -98,12 +108,14 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
         super.onStop();
     }
 
+    //播放
     @OnClick(R.id.button_play_toggle)
     public void onPlayToggleAction(View view) {
 
 
     }
 
+    // 播放模式
     @OnClick(R.id.button_play_mode_toggle)
     public void onPlayModeToggleAction(View view) {
         PlayMode current = PreferenceManager.lastPlayMode(getActivity());
@@ -123,6 +135,13 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
     public void onPlayNextAction(View view) {
 
     }
+
+    // 列表
+    @OnClick(R.id.button_list_toggle)
+    public void onOpenListAction(View view) {
+
+    }
+
 
     @Nullable
     @Override
@@ -186,7 +205,6 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
 
         playList.setPlayMode(PreferenceManager.lastPlayMode(getActivity()));
         // boolean result =
-
         Song song = playList.getCurrentSong();
         onSongUpdated(song);
 
@@ -207,13 +225,6 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
 
     }
 
-
-    @Override
-    public void onSongSetAsFavorite(@NonNull Song song) {
-        buttonFavoriteToggle.setEnabled(true);
-        updateFavoriteToggle(song.isFavorite());
-    }
-
     @Override
     public void onSongUpdated(@Nullable Song song) {
         if (song == null) {
@@ -225,9 +236,7 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
 
         // Step 1: Song name and artist
         textViewName.setText(song.getDisplayName());
-        // Step 2: favorite
-        buttonFavoriteToggle.setImageResource(song.isFavorite() ? R.drawable.ic_favorite_yes : R.drawable.ic_favorite_no);
-        // Step 3: Duration
+
         textViewDuration.setText(TimeUtils.formatDuration(song.getDuration()));
         // Step 4: Keep these things updated
         // - Album rotation
@@ -266,11 +275,6 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
     @Override
     public void updatePlayToggle(boolean play) {
         buttonPlayToggle.setImageResource(play ? R.drawable.ic_pause_music : R.drawable.ic_play_music);
-    }
-
-    @Override
-    public void updateFavoriteToggle(boolean favorite) {
-        buttonFavoriteToggle.setImageResource(favorite ? R.drawable.ic_favorite_yes : R.drawable.ic_favorite_no);
     }
 
     @Override

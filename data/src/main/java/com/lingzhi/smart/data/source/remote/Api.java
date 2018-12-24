@@ -2,6 +2,9 @@ package com.lingzhi.smart.data.source.remote;
 
 
 import com.lingzhi.smart.data.bean.DatedLinkGroup;
+import com.lingzhi.smart.data.bean.ResourceList;
+
+import java.util.List;
 
 import io.reactivex.Flowable;
 import retrofit2.http.Body;
@@ -21,12 +24,14 @@ public interface Api {
     @GET("/v1/smart/banner")
     Flowable<Resp<DatedLinkGroup>> banner();
 
-    @GET("/v1/smart/category/menu")
-    Flowable<Resp<DatedLinkGroup>> mainCategory();
+    @GET("/v1/smart/topic")
+    Flowable<Resp<DatedLinkGroup>> topic();
 
+
+    @GET("/v1/smart/requisite")
+    Flowable<Resp<ResourceList>> requisite();
 
     @GET("/v1/smart/recommend")
-    Flowable<Resp<DatedLinkGroup>> mainRecommend();
-
+    Flowable<Resp<ResourceList>> recommend();
 
 }

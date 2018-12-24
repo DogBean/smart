@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lingzhi.smart.R;
+import com.lingzhi.smart.data.bean.DatedLinkGroup;
+import com.lingzhi.smart.data.bean.ResourceList;
 import com.lingzhi.smart.data.source.Banner;
 import com.lingzhi.smart.data.source.RecommendBean;
 import com.lingzhi.smart.app.SmartApplication;
@@ -52,7 +54,9 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     private List<RecommendBean> listernBeans = new ArrayList<>();
     private List<RecommendBean> recommendBeans = new ArrayList<>();
     private List<Banner.BannerEntity> bannerEntities = new ArrayList<>();
-
+    ResourceList recommends = new ResourceList();
+    private DatedLinkGroup categorys = new DatedLinkGroup();
+    ResourceList requisite = new ResourceList();
     private SectionedRecyclerViewAdapter mSectionedRecyclerViewAdapter;
 
     public static MainFragment newInstance() {
@@ -63,7 +67,7 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     public void onResume() {
         super.onResume();
         if (mPresenter != null) {
-//            mPresenter.subscribe();
+            mPresenter.subscribe();
         }
     }
 
@@ -73,7 +77,7 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
         mSectionedRecyclerViewAdapter.removeAllSections();
         mSectionedRecyclerViewAdapter.notifyDataSetChanged();
         if (mPresenter != null) {
-//            mPresenter.unsubscribe();
+            mPresenter.unsubscribe();
         }
     }
 
@@ -128,17 +132,29 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     }
 
     @Override
-    public void setRecommedSection(List<RecommendBean> recommendBeans) {
-
-
+    public void category(DatedLinkGroup groud) {
+        categorys = groud;
     }
+
+    @Override
+    public void requisite(ResourceList requisite) {
+        this.requisite = requisite;
+    }
+
+    @Override
+    public void recommend(ResourceList recommends) {
+        this.recommends = recommends;
+    }
+
 
     @Override
     public void finishTask() {
         mSectionedRecyclerViewAdapter.addSection("banner", new RegionRecommendBannerSection(bannerEntities));
-        mSectionedRecyclerViewAdapter.addSection("hot", new RegionRecommendTypesSection(getActivity(), 0));
-//        mSectionedRecyclerViewAdapter.addSection("Listen", new RegionRecommendHotSection(getContext(), 0, listernBeans));
-//        mSectionedRecyclerViewAdapter.addSection("Recommend", new RegionRecommendDailySection(getContext(), 0, recommendBeans));
+        //分类
+        mSectionedRecyclerViewAdapter.addSection("hot", new RegionRecommendTypesSection(getActivity(), categorys));
+        // 每日必听
+        mSectionedRecyclerViewAdapter.addSection("Listen", new RegionRecommendHotSection(getContext(), requisite));
+        mSectionedRecyclerViewAdapter.addSection("Recommend", new RegionRecommendDailySection(getContext(), recommends));
         mSectionedRecyclerViewAdapter.notifyDataSetChanged();
     }
 

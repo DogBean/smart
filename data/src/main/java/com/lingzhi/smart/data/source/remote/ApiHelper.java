@@ -2,6 +2,9 @@ package com.lingzhi.smart.data.source.remote;
 
 import com.ebensz.shop.net.ApiClient;
 import com.lingzhi.smart.data.bean.DatedLinkGroup;
+import com.lingzhi.smart.data.bean.ResourceList;
+
+import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -15,11 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 public class ApiHelper {
     private static Api browseApi;
     private static Api musicApi;
-    public static String BASE_URL = "http://192.168.0.156:8080";
-
-    public static final String FORMATE = "json";
-    public static final String BASE = "http://tingapi.ting.baidu.com/v1/restserver/ting?from=android&version=5.6.5.6&format=" + FORMATE;
-
+    public static String BASE_URL = "http://192.168.4.152:8080";
 
     private static Api getMusicApi() {
         if (musicApi == null) {
@@ -35,6 +34,13 @@ public class ApiHelper {
         return browseApi;
     }
 
+    public static Flowable<Resp<DatedLinkGroup>> topic() {
+        return getApi()
+                .topic()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
     public static Flowable<Resp<DatedLinkGroup>> banner() {
         return getApi()
                 .banner()
@@ -42,4 +48,18 @@ public class ApiHelper {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+
+    public static Flowable<Resp<ResourceList>> requisite() {
+        return getApi()
+                .requisite()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Flowable<Resp<ResourceList>> recommend() {
+        return getApi()
+                .recommend()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
 }

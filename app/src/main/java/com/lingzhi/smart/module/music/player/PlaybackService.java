@@ -151,11 +151,6 @@ public class PlaybackService extends Service implements IPlayback, IPlayback.Cal
     }
 
     @Override
-    public boolean seekTo(int progress) {
-        return mPlayer.seekTo(progress);
-    }
-
-    @Override
     public void setPlayMode(PlayMode playMode) {
         mPlayer.setPlayMode(playMode);
     }

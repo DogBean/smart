@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -34,7 +35,7 @@ public class AlbumResultsAdapter extends AbsRecyclerViewAdapter {
     public AbsRecyclerViewAdapter.ClickableViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         bindContext(parent.getContext());
         return new ItemViewHolder(LayoutInflater.from(getContext()).
-                inflate(R.layout.item_search_zj, parent, false));
+                inflate(R.layout.item_search_album, parent, false));
     }
 
 
@@ -49,8 +50,13 @@ public class AlbumResultsAdapter extends AbsRecyclerViewAdapter {
                     .load(itemsBean.getImageUrl()).apply(new RequestOptions().placeholder(R.mipmap.ic_launcher)).into(itemViewHolder.mImage);
 
             itemViewHolder.mTitle.setText(itemsBean.getName());
-            itemViewHolder.mContentNum.setText(String.valueOf(itemsBean.getContentNum()));
             itemViewHolder.mPlayNum.setText(String.valueOf(itemsBean.getPlayNum()));
+            itemViewHolder.mGo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
         }
         super.onBindViewHolder(holder, position);
     }
@@ -66,15 +72,15 @@ public class AlbumResultsAdapter extends AbsRecyclerViewAdapter {
 
         ImageView mImage;
         TextView mTitle;
-        TextView mContentNum;
         TextView mPlayNum;
+        LinearLayout mGo;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
-            mImage = $(R.id.item_img);
-            mTitle = $(R.id.tv_name);
-            mContentNum = $(R.id.tv_content_num);
-            mPlayNum = $(R.id.tv_play_num);
+            mImage = $(R.id.mulit_image_search_album);
+            mTitle = $(R.id.mulit_tv_search_album);
+            mPlayNum = $(R.id.item_nums);
+            mGo = $(R.id.mulit_tv_search_go);
         }
     }
 }
