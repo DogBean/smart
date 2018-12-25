@@ -5,6 +5,7 @@ import com.ebensz.shop.net.https.Authorization;
 import com.ebensz.shop.net.utils.ApiConstants;
 import com.ebensz.shop.net.utils.AppUtils;
 import com.ebensz.shop.net.utils.Constants;
+import com.ebensz.shop.net.utils.SPUtils;
 import com.ebensz.shop.net.utils.UUIDGenerator;
 import com.ebensz.shop.net.utils.Utils;
 
@@ -24,7 +25,7 @@ public class CommonInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request old = chain.request();
 
-        String token = UUIDGenerator.generator();
+        String token = SPUtils.getInstance().getString(Constants.TOKEN);
         String nonc = UUIDGenerator.generator();
         String signature = Utils.getSignature(token, nonc);
 

@@ -1,5 +1,6 @@
 package com.lingzhi.smart.module.guide;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lingzhi.smart.R;
+import com.lingzhi.smart.module.login.LoginActivity;
 import com.lingzhi.smart.utils.Navigator;
 import com.lingzhi.smart.utils.SPUtils;
 import com.lwj.widget.viewpagerindicator.ViewPagerIndicator;
@@ -54,8 +56,11 @@ public class GuideActivity extends AppCompatActivity {
 
     @OnClick({R.id.guide_btn_start_main})
     public void startMain() {
-        SPUtils.getInstance().put(IS_FIRST, false);
-        Navigator.navigateToMain(this);
+
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+
         finish();
     }
 

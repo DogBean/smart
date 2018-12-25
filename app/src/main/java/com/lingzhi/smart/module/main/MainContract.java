@@ -18,7 +18,10 @@ package com.lingzhi.smart.module.main;
 
 
 import com.lingzhi.smart.data.bean.DatedLinkGroup;
+import com.lingzhi.smart.data.bean.IconLink;
+import com.lingzhi.smart.data.bean.ResourceGroup;
 import com.lingzhi.smart.data.bean.ResourceList;
+import com.lingzhi.smart.data.bean.Song;
 import com.lingzhi.smart.data.source.Banner;
 import com.lingzhi.smart.data.source.RecommendBean;
 import com.lingzhi.smart.base.BaseView;
@@ -38,9 +41,9 @@ public interface MainContract {
 
         void category(DatedLinkGroup groud);
 
-        void requisite(ResourceList requisite);
+        void requisite(ResourceGroup<Song> requisite);
 
-        void recommend(ResourceList recommends);
+        void recommend(ResourceGroup<IconLink> recommends);
 
         void finishTask();
 

@@ -4,14 +4,16 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.lingzhi.smart.R;
+import com.lingzhi.smart.app.SmartApplication;
 import com.lingzhi.smart.module.music.model.Song;
 import com.lingzhi.smart.module.music.player.IPlayback;
 import com.lingzhi.smart.module.music.player.Player;
@@ -27,12 +29,17 @@ import butterknife.Unbinder;
  * Created by Guoyong.Lin on 2018/12/17
  **/
 public class QuickControlsFragment extends MusicBaseFragment implements IPlayback.Callback {
+    private static final String TAG = SmartApplication.TAG;
 
     @BindView(R.id.ll_play_view)
     RelativeLayout viewPlay;
     @BindView(R.id.image_play_control)
-    ImageView viewPlayControl;
+    ImageView mPlayPause;
     Unbinder unbinder;
+    @BindView(R.id.playbar_info)
+    TextView mTitle;
+    @BindView(R.id.play_list)
+    ImageView mPlayList;
 
     public static QuickControlsFragment newInstance() {
         return new QuickControlsFragment();
@@ -40,7 +47,6 @@ public class QuickControlsFragment extends MusicBaseFragment implements IPlaybac
 
     private Context mContext;
 
-    private Player mPlayer;
 
     @Nullable
     @Override
@@ -48,14 +54,26 @@ public class QuickControlsFragment extends MusicBaseFragment implements IPlaybac
         View rootView = inflater.inflate(R.layout.fragment_quick_controls, container, false);
         mContext = getContext();
         unbinder = ButterKnife.bind(this, rootView);
-        mPlayer = Player.getInstance();
-        mPlayer.registerCallback(this);
+
         return rootView;
+    }
+
+
+    @Override
+    public void onResume() {
+        Player.getInstance().registerCallback(this);
+        updateNowPlayingCard();
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        Player.getInstance().unregisterCallback(this);
+        super.onPause();
     }
 
     @Override
     public void onDestroyView() {
-        mPlayer.unregisterCallback(this);
         super.onDestroyView();
         unbinder.unbind();
     }
@@ -65,14 +83,18 @@ public class QuickControlsFragment extends MusicBaseFragment implements IPlaybac
         Navigator.navigateToMusicPlay(getContext());
     }
 
+
     @Override
     public void onSwitchLast(@Nullable Song last) {
+        Log.d(TAG, "onSwitchLast song:" + (last == null ? null : last.toString()));
+        updateNowPlayingCard();
 
     }
 
     @Override
     public void onSwitchNext(@Nullable Song next) {
-
+        Log.d(TAG, "onSwitchLast song:" + (next == null ? null : next.toString()));
+        updateNowPlayingCard();
     }
 
     @Override
@@ -82,6 +104,25 @@ public class QuickControlsFragment extends MusicBaseFragment implements IPlaybac
 
     @Override
     public void onPlayStatusChanged(boolean isPlaying) {
+        updateTrackInfo();
+    }
 
+    public void updateTrackInfo() {
+        updateState();
+    }
+
+    public void updateNowPlayingCard() {
+        Song playingSong = Player.getInstance().getPlayingSong();
+        if (playingSong != null) {
+            mTitle.setText(playingSong.getDisplayName());
+        }
+    }
+
+    public void updateState() {
+        if (Player.getInstance().isPlaying()) {
+            mPlayPause.setImageResource(R.drawable.ic_pause_music);
+        } else {
+            mPlayPause.setImageResource(R.drawable.ic_play_music);
+        }
     }
 }

@@ -1,7 +1,9 @@
 package com.lingzhi.smart.data.source;
 
 import com.lingzhi.smart.data.bean.DatedLinkGroup;
+import com.lingzhi.smart.data.bean.ResourceGroup;
 import com.lingzhi.smart.data.bean.ResourceList;
+import com.lingzhi.smart.data.bean.Song;
 import com.lingzhi.smart.data.source.remote.Resp;
 
 import java.util.List;
@@ -38,7 +40,7 @@ public interface TasksDataSource {
      */
     Observable<Boolean> clearSearchNearlyTag();
 
-    Observable<Boolean> insertRequisite(ResourceList resourceList);
+    Observable<Boolean> insertRequisite(ResourceGroup<Song> resourceList);
 
-    Observable<ResourceList> getRequisite();
+    Observable<ResourceGroup> getRequisite();
 }

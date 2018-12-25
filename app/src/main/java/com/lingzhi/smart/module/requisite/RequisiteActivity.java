@@ -19,7 +19,9 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCal
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.app.SmartApplication;
+import com.lingzhi.smart.data.bean.ResourceGroup;
 import com.lingzhi.smart.data.bean.ResourceList;
+import com.lingzhi.smart.data.bean.Song;
 import com.lingzhi.smart.module.music.MusicPlayerActivity;
 import com.lingzhi.smart.module.playList.PlayListActivity;
 import com.lingzhi.smart.utils.CommonUtils;
@@ -95,30 +97,30 @@ public class RequisiteActivity extends AppCompatActivity implements ObservableSc
         recyclerView.setAdapter(mSectionedRecyclerViewAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-        Injection.provideMainRepository().getRequisite().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<ResourceList>() {
-            @Override
-            public void onSubscribe(Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(ResourceList resourceList) {
-                mSectionedRecyclerViewAdapter.addSection(new RequisiteSession(RequisiteActivity.this, resourceList));
-                mSectionedRecyclerViewAdapter.notifyDataSetChanged();
-                recyclerView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                Log.e(SmartApplication.TAG, "onError: ", e);
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        });
+//        Injection.provideMainRepository().getRequisite().subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<ResourceGroup<Song>>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(ResourceGroup<Song> resourceList) {
+//                mSectionedRecyclerViewAdapter.addSection(new RequisiteSession(RequisiteActivity.this, resourceList));
+//                mSectionedRecyclerViewAdapter.notifyDataSetChanged();
+//                recyclerView.setVisibility(View.VISIBLE);
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                Log.e(SmartApplication.TAG, "onError: ", e);
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//
+//            }
+//        });
 
     }
 

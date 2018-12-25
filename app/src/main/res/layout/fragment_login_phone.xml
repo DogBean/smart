@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_title">
+
+    <ImageView
+        android:id="@+id/login_iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:padding="10dp"
+        android:src="@drawable/back"/>
+
+    <com.lingzhi.smart.view.widget.RoundTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="25sp"
+        android:text="@string/enter_phone"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="@drawable/login_edit_shape"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:textColor="@color/color_common_text"
+            android:text="@string/phone_prefix"/>
+        <EditText
+            android:id="@+id/login_et_phone"
+            android:layout_marginLeft="5dp"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:letterSpacing="0.1"
+            android:background="@null"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:textColor="@color/color_common_text"
+            android:textSize="25sp"/>
+    </LinearLayout>
+
+    <com.lingzhi.smart.view.widget.RoundTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/user_agreement"/>
+
+    <ImageButton
+        android:id="@+id/login_ib_sendmsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/next_fail"/>
+
+
+</LinearLayout>

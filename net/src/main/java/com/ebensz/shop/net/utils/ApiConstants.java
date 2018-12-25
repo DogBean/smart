@@ -1,7 +1,7 @@
 package com.ebensz.shop.net.utils;
 
 public class ApiConstants {
-    public static final String TAG = "EAccount";
+    public static final String TAG = "Net";
 
     private static String userAgent = null;
 

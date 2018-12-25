@@ -1,7 +1,9 @@
 package com.lingzhi.smart.module.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,9 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.data.bean.DatedLinkGroup;
+import com.lingzhi.smart.data.bean.IconLink;
+import com.lingzhi.smart.data.bean.ResourceGroup;
 import com.lingzhi.smart.data.bean.ResourceList;
+import com.lingzhi.smart.data.bean.Song;
 import com.lingzhi.smart.data.source.Banner;
 import com.lingzhi.smart.data.source.RecommendBean;
 import com.lingzhi.smart.app.SmartApplication;
@@ -54,9 +60,9 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     private List<RecommendBean> listernBeans = new ArrayList<>();
     private List<RecommendBean> recommendBeans = new ArrayList<>();
     private List<Banner.BannerEntity> bannerEntities = new ArrayList<>();
-    ResourceList recommends = new ResourceList();
+    ResourceGroup<IconLink> recommends = new ResourceGroup<IconLink>();
     private DatedLinkGroup categorys = new DatedLinkGroup();
-    ResourceList requisite = new ResourceList();
+    ResourceGroup<Song> requisite = new ResourceGroup<Song>();
     private SectionedRecyclerViewAdapter mSectionedRecyclerViewAdapter;
 
     public static MainFragment newInstance() {
@@ -137,12 +143,12 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     }
 
     @Override
-    public void requisite(ResourceList requisite) {
+    public void requisite(ResourceGroup<Song> requisite) {
         this.requisite = requisite;
     }
 
     @Override
-    public void recommend(ResourceList recommends) {
+    public void recommend(ResourceGroup<IconLink> recommends) {
         this.recommends = recommends;
     }
 

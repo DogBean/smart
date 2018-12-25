@@ -16,13 +16,7 @@ import com.lingzhi.smart.module.music.model.PlayList;
 import com.lingzhi.smart.module.music.model.Song;
 
 
-/**
- * Created with Android Studio.
- * User: ryan.hoo.j@gmail.com
- * Date: 9/12/16
- * Time: 4:27 PM
- * Desc: PlayService
- */
+
 public class PlaybackService extends Service implements IPlayback, IPlayback.Callback {
 
     private static final String ACTION_PLAY_TOGGLE = "io.github.ryanhoo.music.ACTION.PLAY_TOGGLE";

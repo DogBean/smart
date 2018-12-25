@@ -9,20 +9,20 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.lingzhi.smart.R;
-import com.lingzhi.smart.app.SmartApplication;
 import com.lingzhi.smart.base.RxLazyFragment;
-import com.lingzhi.smart.module.main.MainActivity;
 import com.lingzhi.smart.module.music.event.PlayListNowEvent;
 import com.lingzhi.smart.module.music.event.PlaySongEvent;
 import com.lingzhi.smart.module.music.model.PlayList;
@@ -33,11 +33,11 @@ import com.lingzhi.smart.module.music.player.PlaybackService;
 import com.lingzhi.smart.module.music.player.Player;
 import com.lingzhi.smart.utils.DisplayUtil;
 import com.lingzhi.smart.utils.FastBlurUtil;
-import com.lingzhi.smart.view.widget.ShadowImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -49,6 +49,7 @@ import rx.functions.Action1;
  */
 public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerContract.View, IPlayback.Callback {
 
+    private static final String TAG = "MusicPlayerFragment";
     private static final long UPDATE_PROGRESS_INTERVAL = 1000;
 
     @BindView(R.id.image_view_album)
@@ -69,6 +70,9 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
     ImageView buttonPlayToggle;
     @BindView(R.id.button_list_toggle)
     ImageView button_list_toggle;
+    @BindView(R.id.rootLayout)
+    RelativeLayout mRootLayout;
+    Unbinder unbinder;
 
     private Player mPlayer;
 
@@ -84,6 +88,9 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
         mPlayer = Player.getInstance();
         mPlayer.registerCallback(this);
         new MusicPlayerPresenter(getActivity(), this).subscribe();
+
+        Drawable foregroundDrawable = getForegroundDrawable(R.drawable.default_record_album);
+        mRootLayout.setBackground(foregroundDrawable);
     }
 
     private void updateProgressTextWithProgress(int progress) {
@@ -91,10 +98,12 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
         textViewProgress.setText(TimeUtils.formatDuration(targetDuration));
     }
 
+
     @Override
     public void onDestroyView() {
         mPlayer.unregisterCallback(this);
         super.onDestroyView();
+        unbinder.unbind();
     }
 
     @Override
@@ -111,6 +120,8 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
     //播放
     @OnClick(R.id.button_play_toggle)
     public void onPlayToggleAction(View view) {
+        Log.e(TAG, "onPlayToggleAction button_play_toggle");
+
 
 
     }
@@ -127,26 +138,28 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
     //上一首
     @OnClick(R.id.button_play_last)
     public void onPlayLastAction(View view) {
-
+        Log.e(TAG, "onPlayLastAction: onPlayLastAction");
     }
 
     //下一首
     @OnClick(R.id.button_play_next)
     public void onPlayNextAction(View view) {
-
+        Log.e(TAG, "onPlayNextAction button_play_next");
     }
 
     // 列表
     @OnClick(R.id.button_list_toggle)
     public void onOpenListAction(View view) {
-
+        Log.e(TAG, "onOpenListAction button_list_toggle");
     }
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_music, container, false);
+        View view = inflater.inflate(R.layout.fragment_music, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        return view;
     }
 
     private void updateProgressTextWithDuration(int duration) {
@@ -158,12 +171,12 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
     }
 
     private int getCurrentSongDuration() {
-//        Song currentSong = mPlayer.getPlayingSong();
-//        int duration = 0;
-//        if (currentSong != null) {
-//            duration = currentSong.getDuration();
-//        }
-        return 0;
+        Song currentSong = mPlayer.getPlayingSong();
+        int duration = 0;
+        if (currentSong != null) {
+            duration = currentSong.getDuration();
+        }
+        return duration;
     }
 
 
@@ -261,7 +274,7 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
                 buttonPlayModeToggle.setImageResource(R.drawable.ic_music_play_mode_recycle);
                 break;
             case LOOP:
-                buttonPlayModeToggle.setImageResource(R.drawable.ic_play_mode_loop);
+                buttonPlayModeToggle.setImageResource(R.drawable.ic_music_list);
                 break;
             case SHUFFLE:
                 buttonPlayModeToggle.setImageResource(R.drawable.ic_music_play_random);

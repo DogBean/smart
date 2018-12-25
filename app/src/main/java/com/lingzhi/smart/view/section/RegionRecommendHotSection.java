@@ -13,7 +13,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lingzhi.smart.data.bean.Resource;
+import com.lingzhi.smart.data.bean.ResourceGroup;
 import com.lingzhi.smart.data.bean.ResourceList;
+import com.lingzhi.smart.data.bean.Song;
 import com.lingzhi.smart.data.source.RecommendBean;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.app.SmartApplication;
@@ -35,11 +37,11 @@ import io.reactivex.disposables.Disposable;
 public class RegionRecommendHotSection extends StatelessSection {
     private static final String TAG = SmartApplication.TAG;
     private Context mContext;
-    Resource[] resources;
+    Song[] songs;
 
-    public RegionRecommendHotSection(Context context, ResourceList requisite) {
+    public RegionRecommendHotSection(Context context, ResourceGroup<Song> requisite) {
         super(R.layout.layout_region_recommend_head, R.layout.layout_region_recommend_hot_item);
-        this.resources = requisite.getChildren();
+        this.songs =  requisite.getChildren();
         this.mContext = context;
     }
 
@@ -59,7 +61,7 @@ public class RegionRecommendHotSection extends StatelessSection {
     @Override
     public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-        itemViewHolder.mRecycleView.setAdapter(new SingleAdapter(resources));
+        itemViewHolder.mRecycleView.setAdapter(new SingleAdapter(songs));
         itemViewHolder.mPlayAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,22 +87,22 @@ public class RegionRecommendHotSection extends StatelessSection {
 
     private void startGetMoreActivityById() {
         //todo 获取更多的点击事件 ,
-        Injection.provideMainRepository().getRequisite().subscribe(new Observer<ResourceList>() {
+        Injection.provideMainRepository().getRequisite().subscribe(new Observer<ResourceGroup>() {
             @Override
             public void onSubscribe(Disposable d) {
 
             }
 
             @Override
-            public void onNext(ResourceList resourceList) {
-                if (resourceList != null) {
+            public void onNext(ResourceGroup resourceGroup) {
+                if (resourceGroup != null) {
                     Navigator.navigateRequisite(mContext);
                 }
             }
 
             @Override
             public void onError(Throwable e) {
-                Log.e(TAG, "navigator error ", e);
+
             }
 
             @Override
@@ -130,11 +132,11 @@ public class RegionRecommendHotSection extends StatelessSection {
 
     public class SingleAdapter extends RecyclerView.Adapter<SingleItemHolder> {
 
-        public SingleAdapter(Resource[] resources) {
-            this.resources = resources;
+        public SingleAdapter(Song[] songs) {
+            this.songs = songs;
         }
 
-        private Resource[] resources;
+        private Song[] songs;
 
         @NonNull
         @Override
@@ -145,12 +147,12 @@ public class RegionRecommendHotSection extends StatelessSection {
 
         @Override
         public void onBindViewHolder(@NonNull SingleItemHolder holder, int position) {
-            if (resources == null || resources.length == 0) {
+            if (songs == null || songs.length == 0) {
                 Log.e(SmartApplication.TAG, "playBeans is null or empty");
                 return;
             }
 
-            Resource resource = resources[position];
+            Song resource = songs[position];
             holder.mPlayTime.setText(Utils.formatSeconds(resource.getDuration()));
             holder.mTitle.setText(resource.getOname());
             holder.mName.setText(resource.getName());
@@ -159,7 +161,7 @@ public class RegionRecommendHotSection extends StatelessSection {
 
         @Override
         public int getItemCount() {
-            return resources == null ? 0 : 3;
+            return songs == null ? 0 : 3;
         }
     }
 

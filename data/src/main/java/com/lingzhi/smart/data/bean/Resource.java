@@ -1,43 +1,41 @@
 package com.lingzhi.smart.data.bean;
 
 public class Resource {
-    private long id;
+    private int id;
 
     /**
-     * topic id.
+     * category id.
      */
     private int cid;
 
     /**
-     * parent catetory id.
+     * organization id.
      */
-    private int pcid;
+    private int oid;
+
+    /**
+     * organization name.
+     */
+    private String oname;
+
+    /**
+     * organization.
+     */
+    private String org;
 
     private String icon;
 
     private String name;
 
-    public String getOname() {
-        return oname;
-    }
-
-    private String oname;
-
     private String desc;
 
     private String durl;
 
-    public long getDuration() {
-        return duration;
-    }
-
-    private long duration;
-
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -49,12 +47,28 @@ public class Resource {
         this.cid = cid;
     }
 
-    public int getPcid() {
-        return pcid;
+    public int getOid() {
+        return oid;
     }
 
-    public void setPcid(int pcid) {
-        this.pcid = pcid;
+    public void setOid(int oid) {
+        this.oid = oid;
+    }
+
+    public String getOname() {
+        return oname;
+    }
+
+    public void setOname(String oname) {
+        this.oname = oname;
+    }
+
+    public String getOrg() {
+        return org;
+    }
+
+    public void setOrg(String org) {
+        this.org = org;
     }
 
     public String getIcon() {

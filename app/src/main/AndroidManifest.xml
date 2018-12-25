@@ -39,7 +39,12 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".module.playList.PlayListActivity" />
+        <activity android:name=".module.playList.PlayListActivity">
+
+        </activity>
+        <activity android:name=".module.esp.EsptouchDemoActivity"></activity>
+
+        <activity android:name=".module.login.LoginActivity"></activity>
         <activity android:name=".module.requisite.RequisiteActivity"></activity>
     </application>
 

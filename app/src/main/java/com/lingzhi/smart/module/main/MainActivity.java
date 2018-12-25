@@ -1,7 +1,11 @@
 package com.lingzhi.smart.module.main;
 
 import android.os.Bundle;
+import android.util.Log;
 
+import com.ebensz.shop.net.socket.INettyClient;
+import com.ebensz.shop.net.socket.NettyClient;
+import com.ebensz.shop.net.utils.Packet;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.base.RxBaseActivity;
 import com.lingzhi.smart.module.guide.GuideActivity;
@@ -43,6 +47,7 @@ public class MainActivity extends RxBaseActivity {
                 Injection.provideSchedulerProvider());
 
         showQuickControl(true);
+
     }
 
     @Override

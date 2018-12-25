@@ -74,7 +74,9 @@ public class RegionRecommendTypesSection extends StatelessSection {
 
         typesViewHolder.mRecyclerView.setAdapter(mAdapter);
         assert mAdapter != null;
-        mAdapter.setOnItemClickListener((position, holder) -> RxBus.getInstance().post(position));
+        mAdapter.setOnItemClickListener((position, holder) ->{}
+//                RxBus.getInstance().post(position)
+        );
     }
 
 

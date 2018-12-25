@@ -12,7 +12,9 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.data.bean.Resource;
+import com.lingzhi.smart.data.bean.ResourceGroup;
 import com.lingzhi.smart.data.bean.ResourceList;
+import com.lingzhi.smart.data.bean.Song;
 import com.lingzhi.smart.utils.Utils;
 import com.lingzhi.smart.view.sectioned.StatelessSection;
 
@@ -28,7 +30,7 @@ public class RequisiteSession extends StatelessSection {
     private Context mContext;
     private final Resource[] resources;
 
-    public RequisiteSession(Context context, ResourceList resourceList) {
+    public RequisiteSession(Context context, ResourceGroup<Song> resourceList) {
         super(R.layout.layout_region_requisite_head, R.layout.layout_region_requisite_item);
         resources = resourceList.getChildren();
         this.mContext = context;
@@ -69,7 +71,7 @@ public class RequisiteSession extends StatelessSection {
 
         itemViewHolder.singleItemTypeTitle.setText(resource.getOname());
         itemViewHolder.singleItemTypeName.setText(resource.getName());
-        itemViewHolder.tvPlayTime.setText(Utils.formatSeconds(resource.getDuration()));
+//        itemViewHolder.tvPlayTime.setText(Utils.formatSeconds(resource.getDuration()));
     }
 
     static class HeadViewHolder extends RecyclerView.ViewHolder {

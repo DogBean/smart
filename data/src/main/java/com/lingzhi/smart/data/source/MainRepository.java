@@ -7,7 +7,9 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lingzhi.smart.data.bean.DatedLinkGroup;
-import com.lingzhi.smart.data.bean.ResourceList;
+import com.lingzhi.smart.data.bean.IconLink;
+import com.lingzhi.smart.data.bean.ResourceGroup;
+import com.lingzhi.smart.data.bean.Song;
 import com.lingzhi.smart.data.source.remote.ApiHelper;
 import com.lingzhi.smart.data.source.remote.Resp;
 import com.lingzhi.smart.data.utils.SPUtils;
@@ -55,12 +57,16 @@ public class MainRepository implements TasksDataSource {
         return ApiHelper.topic();
     }
 
-    public Flowable<Resp<ResourceList>> requisite() {
+    public Flowable<Resp<ResourceGroup<Song>>> requisite() {
         return ApiHelper.requisite();
     }
 
-    public Flowable<Resp<ResourceList>> recommend() {
+    public Flowable<Resp<ResourceGroup<IconLink>>> recommend() {
         return ApiHelper.recommend();
+    }
+
+    public Flowable<Resp<ResourceGroup<Song>>> album(int cid) {
+        return ApiHelper.album(cid);
     }
 
     public Flowable<List<RecommendBean>> getRecommendList() {
@@ -80,20 +86,16 @@ public class MainRepository implements TasksDataSource {
 
 
     @Override
-    public Observable<Boolean> insertRequisite(ResourceList resourceList) {
-        SPUtils.putString("requisite", new Gson().toJson(resourceList, ResourceList.class));
+    public Observable<Boolean> insertRequisite(ResourceGroup<Song> resourceList) {
+        SPUtils.putString("requisite", new Gson().toJson(resourceList, ResourceGroup.class));
         return Observable.just(true);
     }
 
     @Override
-    public Observable<ResourceList> getRequisite() {
+    public Observable<ResourceGroup> getRequisite() {
         String requisite = SPUtils.getString("requisite");
-        if (!TextUtils.isEmpty(requisite)) {
-            ResourceList resourceList = new Gson().fromJson(requisite, ResourceList.class);
-            return Observable.just(resourceList);
-        } else {
-            return Observable.empty();
-        }
+
+        return Observable.empty();
     }
 
     @Override

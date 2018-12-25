@@ -8,7 +8,9 @@ import com.lingzhi.smart.app.SmartApplication;
 import com.lingzhi.smart.data.bean.DatedLinkGroup;
 import com.lingzhi.smart.data.bean.IconLink;
 import com.lingzhi.smart.data.bean.Resource;
+import com.lingzhi.smart.data.bean.ResourceGroup;
 import com.lingzhi.smart.data.bean.ResourceList;
+import com.lingzhi.smart.data.bean.Song;
 import com.lingzhi.smart.data.source.Banner;
 import com.lingzhi.smart.data.source.MainRepository;
 import com.lingzhi.smart.data.source.remote.Resp;
@@ -68,7 +70,7 @@ public class MainPresenter implements MainContract.Presenter {
                 mMainRepository.getBanner(),
                 mMainRepository.requisite(),
                 mMainRepository.recommend(),
-                (Function4<Resp<DatedLinkGroup>, Resp<DatedLinkGroup>, Resp<ResourceList>, Resp<ResourceList>, Object>)
+                (Function4<Resp<DatedLinkGroup>, Resp<DatedLinkGroup>, Resp<ResourceGroup<Song>>, Resp<ResourceGroup<IconLink>>, Object>)
                         (topic, banner, requisite, recommends) -> {
                             if (topic != null && topic.isSuccess()) {
                                 mView.category(topic.getData());

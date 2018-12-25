@@ -7,6 +7,14 @@ public final class Song extends Resource {
 
     private long albumId;
 
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
+    }
+
     private long duration;
 
     private long size;

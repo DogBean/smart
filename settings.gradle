@@ -1,1 +1,1 @@
-include ':app', ':data', ':net'
+include ':app', ':data', ':net',':esptouch'

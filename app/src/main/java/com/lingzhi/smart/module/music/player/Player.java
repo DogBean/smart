@@ -2,14 +2,23 @@ package com.lingzhi.smart.module.music.player;
 
 import android.media.MediaPlayer;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
+import com.lingzhi.smart.data.source.remote.ApiHelper;
+import com.lingzhi.smart.data.source.remote.Resp;
 import com.lingzhi.smart.module.music.model.PlayList;
 import com.lingzhi.smart.module.music.model.Song;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.functions.Consumer;
 
+/**
+ * @Description:
+ * @Author Guoyong.Lin
+ * @Time 2018/12/18
+ */
 
 public class Player implements IPlayback, MediaPlayer.OnCompletionListener {
 
@@ -215,5 +224,47 @@ public class Player implements IPlayback, MediaPlayer.OnCompletionListener {
         for (Callback callback : mCallbacks) {
             callback.onComplete(song);
         }
+    }
+
+    public void play(int id, com.lingzhi.smart.data.bean.Song song) {
+        ApiHelper.play(id, song.getId()).subscribe(new Consumer<Resp<String>>() {
+            @Override
+            public void accept(Resp<String> stringResp) throws Exception {
+
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+
+            }
+        });
+    }
+
+    public void next(int id, Song song) {
+        ApiHelper.next(id, song.getId()).subscribe(new Consumer<Resp<String>>() {
+            @Override
+            public void accept(Resp<String> stringResp) throws Exception {
+
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+
+            }
+        });
+    }
+
+    public void prev(int id, Song song) {
+        ApiHelper.prev(id, song.getId()).subscribe(new Consumer<Resp<String>>() {
+            @Override
+            public void accept(Resp<String> stringResp) throws Exception {
+
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+
+            }
+        });
     }
 }

@@ -8,13 +8,7 @@ import com.litesuits.orm.db.annotation.Table;
 import com.litesuits.orm.db.annotation.Unique;
 import com.litesuits.orm.db.enums.AssignType;
 
-/**
- * Created with Android Studio.
- * User: ryan.hoo.j@gmail.com
- * Date: 9/2/16
- * Time: 4:01 PM
- * Desc: Song
- */
+
 @Table("song")
 public class Song implements Parcelable {
 
@@ -146,6 +140,21 @@ public class Song implements Parcelable {
         this.duration = in.readInt();
         this.size = in.readInt();
         this.favorite = in.readInt() == 1;
+    }
+
+    @Override
+    public String toString() {
+        return "Song{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", displayName='" + displayName + '\'' +
+                ", artist='" + artist + '\'' +
+                ", album='" + album + '\'' +
+                ", path='" + path + '\'' +
+                ", duration=" + duration +
+                ", size=" + size +
+                ", favorite=" + favorite +
+                '}';
     }
 
     public static final Parcelable.Creator<Song> CREATOR = new Parcelable.Creator<Song>() {
