@@ -10,6 +10,8 @@ import android.graphics.Rect;
 import android.media.MediaMetadataRetriever;
 import android.util.Log;
 
+import com.lingzhi.smart.data.bean.Song;
+
 import java.io.File;
 
 
@@ -26,7 +28,7 @@ public class AlbumUtils {
     private static final String TAG = "AlbumUtils";
 
     public static Bitmap parseAlbum(Song song) {
-        return parseAlbum(new File(song.getPath()));
+        return parseAlbum(new File(song.getIcon()));
     }
 
     public static Bitmap parseAlbum(File file) {

@@ -245,9 +245,9 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
         }
 
         // Step 1: Song name and artist
-        textViewName.setText(song.getDisplayName());
+        textViewName.setText(song.getName());
 
-        textViewDuration.setText(TimeUtils.formatDuration(song.getDuration()));
+        textViewDuration.setText(TimeUtils.formatDuration((int) song.getDuration()));
         // Step 4: Keep these things updated
         // - Album rotation
         // - Progress(textViewProgress & seekBarProgress)

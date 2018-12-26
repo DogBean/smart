@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/color_title"
               android:orientation="vertical">
 
     <ImageView
@@ -14,6 +15,7 @@
         android:src="@drawable/back"/>
 
     <LinearLayout
+        android:orientation="vertical"
         android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -24,6 +26,27 @@
             android:layout_height="wrap_content"
             android:text="设置Wi-Fi"/>
 
+        <EditText
+            android:layout_width="283dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="82dp"
+            android:background="@drawable/ic_esp_edit_bg"
+            android:gravity="center_vertical"
+            android:hint="Wi-Fi名称"/>
 
+        <EditText
+            android:layout_width="283dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ic_esp_edit_bg"
+            android:gravity="center_vertical"
+            android:hint="Wi-Fi密码"/>
+
+        <Button
+            android:layout_width="285dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/ic_esp_pre_next_bg"
+            android:text="下一步"/>
     </LinearLayout>
 </LinearLayout>
