@@ -2,9 +2,8 @@ package com.lingzhi.smart.module.music.player;
 
 import android.support.annotation.Nullable;
 
+import com.lingzhi.smart.data.bean.Song;
 import com.lingzhi.smart.module.music.model.PlayList;
-import com.lingzhi.smart.module.music.model.Song;
-
 
 public interface IPlayback {
 

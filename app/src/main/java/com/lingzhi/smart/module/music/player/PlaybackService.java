@@ -1,21 +1,16 @@
 package com.lingzhi.smart.module.music.player;
 
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
+import com.lingzhi.smart.data.bean.Song;
 import com.lingzhi.smart.module.main.MainActivity;
 import com.lingzhi.smart.module.music.model.PlayList;
-import com.lingzhi.smart.module.music.model.Song;
-
-
 
 public class PlaybackService extends Service implements IPlayback, IPlayback.Callback {
 

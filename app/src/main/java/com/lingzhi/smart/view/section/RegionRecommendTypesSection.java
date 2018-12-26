@@ -5,7 +5,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.base.RxBus;
 import com.lingzhi.smart.data.bean.DatedLinkGroup;
@@ -74,8 +73,9 @@ public class RegionRecommendTypesSection extends StatelessSection {
 
         typesViewHolder.mRecyclerView.setAdapter(mAdapter);
         assert mAdapter != null;
-        mAdapter.setOnItemClickListener((position, holder) ->{}
-//                RxBus.getInstance().post(position)
+        mAdapter.setOnItemClickListener((position, holder) -> {
+                    RxBus.getInstance().post(position);
+                }
         );
     }
 

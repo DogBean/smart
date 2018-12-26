@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 
-import com.lingzhi.smart.module.music.model.Song;
 import com.lingzhi.smart.module.music.player.PlayMode;
 import com.lingzhi.smart.module.music.player.PlaybackService;
 

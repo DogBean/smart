@@ -1,12 +1,9 @@
 package com.lingzhi.smart.module.music;
 
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.lingzhi.smart.base.BasePresenter;
 import com.lingzhi.smart.base.BaseView;
 import com.lingzhi.smart.base.MvpPresenter;
-import com.lingzhi.smart.module.music.model.Song;
 import com.lingzhi.smart.module.music.player.PlayMode;
 import com.lingzhi.smart.module.music.player.PlaybackService;
 

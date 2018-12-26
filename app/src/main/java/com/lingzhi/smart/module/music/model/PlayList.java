@@ -1,14 +1,19 @@
 package com.lingzhi.smart.module.music.model;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.litesuits.orm.db.annotation.*;
+import com.lingzhi.smart.data.bean.Song;
+import com.lingzhi.smart.module.music.player.PlayMode;
+import com.litesuits.orm.db.annotation.Column;
+import com.litesuits.orm.db.annotation.Ignore;
+import com.litesuits.orm.db.annotation.MapCollection;
+import com.litesuits.orm.db.annotation.Mapping;
+import com.litesuits.orm.db.annotation.PrimaryKey;
+import com.litesuits.orm.db.annotation.Table;
 import com.litesuits.orm.db.enums.AssignType;
 import com.litesuits.orm.db.enums.Relation;
-import com.lingzhi.smart.module.music.player.PlayMode;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,8 +23,7 @@ import java.util.Random;
 
 
 
-@Table("playlist")
-public class PlayList implements Parcelable {
+public class PlayList {
 
     // Play List: Favorite
     public static final int NO_POSITION = -1;
@@ -61,7 +65,7 @@ public class PlayList implements Parcelable {
     }
 
     public PlayList(Parcel in) {
-        readFromParcel(in);
+
     }
 
     public int getId() {
@@ -143,53 +147,6 @@ public class PlayList implements Parcelable {
         this.playMode = playMode;
     }
 
-    // Parcelable
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
-        dest.writeString(this.name);
-        dest.writeInt(this.numOfSongs);
-        dest.writeByte(this.favorite ? (byte) 1 : (byte) 0);
-        dest.writeLong(this.createdAt != null ? this.createdAt.getTime() : -1);
-        dest.writeLong(this.updatedAt != null ? this.updatedAt.getTime() : -1);
-        dest.writeTypedList(this.songs);
-        dest.writeInt(this.playingIndex);
-        dest.writeInt(this.playMode == null ? -1 : this.playMode.ordinal());
-    }
-
-    public void readFromParcel(Parcel in) {
-        this.id = in.readInt();
-        this.name = in.readString();
-        this.numOfSongs = in.readInt();
-        this.favorite = in.readByte() != 0;
-        long tmpCreatedAt = in.readLong();
-        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
-        long tmpUpdatedAt = in.readLong();
-        this.updatedAt = tmpUpdatedAt == -1 ? null : new Date(tmpUpdatedAt);
-        this.songs = in.createTypedArrayList(Song.CREATOR);
-        this.playingIndex = in.readInt();
-        int tmpPlayMode = in.readInt();
-        this.playMode = tmpPlayMode == -1 ? null : PlayMode.values()[tmpPlayMode];
-    }
-
-    public static final Creator<PlayList> CREATOR = new Creator<PlayList>() {
-        @Override
-        public PlayList createFromParcel(Parcel source) {
-            return new PlayList(source);
-        }
-
-        @Override
-        public PlayList[] newArray(int size) {
-            return new PlayList[size];
-        }
-    };
-
     // Utils
 
     public int getItemCount() {
@@ -229,7 +186,7 @@ public class PlayList implements Parcelable {
         } else {
             for (Iterator<Song> iterator = songs.iterator(); iterator.hasNext(); ) {
                 Song item = iterator.next();
-                if (song.getPath().equals(item.getPath())) {
+                if (song.getDurl().equals(item.getDurl())) {
                     iterator.remove();
                     numOfSongs = songs.size();
                     return true;
@@ -334,11 +291,4 @@ public class PlayList implements Parcelable {
         return randomIndex;
     }
 
-    public static PlayList fromFolder(@NonNull Folder folder) {
-        PlayList playList = new PlayList();
-        playList.setName(folder.getName());
-        playList.setSongs(folder.getSongs());
-        playList.setNumOfSongs(folder.getNumOfSongs());
-        return playList;
-    }
 }

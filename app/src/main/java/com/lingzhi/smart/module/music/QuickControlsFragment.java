@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.app.SmartApplication;
-import com.lingzhi.smart.module.music.model.Song;
 import com.lingzhi.smart.module.music.player.IPlayback;
 import com.lingzhi.smart.module.music.player.Player;
 import com.lingzhi.smart.utils.Navigator;

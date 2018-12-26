@@ -53,23 +53,14 @@ public class LoginCodeFragment extends BaseFragment {
         ivVerifyCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e(SmartApplication.TAG, "onClick  被电击");
-                ApiHelper.login(new AccountRequest(LoginActivity.phone, pcMsgCode.getPhoneCode())).subscribe(new Consumer<Resp<LoginResult>>() {
-                    @Override
-                    public void accept(Resp<LoginResult> loginResultResp) throws Exception {
-                        if (loginResultResp != null && loginResultResp.isSuccess()) {
-                            LoginResult data = loginResultResp.getData();
-                            String token = data.getToken();
-                            SPUtils.getInstance().put(Constants.TOKEN, token);
-                            startActivity(new Intent(getContext(), EsptouchDemoActivity.class));
-                        }
+                ApiHelper.login(new AccountRequest(LoginActivity.phone, pcMsgCode.getPhoneCode())).subscribe(loginResultResp -> {
+                    if (loginResultResp != null && loginResultResp.isSuccess()) {
+                        LoginResult data = loginResultResp.getData();
+                        String token = data.getToken();
+                        SPUtils.getInstance().put(Constants.TOKEN, token);
+                        startActivity(new Intent(getContext(), EsptouchDemoActivity.class));
                     }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        Log.e(TAG, "accept: " + throwable);
-                    }
-                });
+                }, throwable -> Log.e(TAG, "accept: " + throwable));
             }
         });
     }
@@ -95,14 +86,6 @@ public class LoginCodeFragment extends BaseFragment {
         public void onInput() {
             ivVerifyCode.setBackground(getResources().getDrawable(R.drawable.next_fail));
             ivVerifyCode.setClickable(false);
-        }
-    };
-
-    private View.OnClickListener ivVerifyListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
-
         }
     };
 

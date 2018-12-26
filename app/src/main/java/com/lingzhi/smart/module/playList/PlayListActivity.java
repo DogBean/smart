@@ -35,14 +35,12 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
-
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.data.bean.ResourceGroup;
 import com.lingzhi.smart.data.bean.Song;
-import com.lingzhi.smart.data.source.remote.ApiHelper;
 import com.lingzhi.smart.data.source.remote.Resp;
 import com.lingzhi.smart.module.music.QuickControlsFragment;
 import com.lingzhi.smart.module.music.player.Player;
@@ -368,7 +366,7 @@ public class PlayListActivity extends AppCompatActivity implements ObservableScr
         public void onBindViewHolder(final RecyclerView.ViewHolder itemHolder, final int i) {
             if (itemHolder instanceof ItemViewHolder) {
                 final Song localItem = arraylist.get(i - 1);
-                com.lingzhi.smart.module.music.model.Song playingSong = Player.getInstance().getPlayingSong();
+                Song playingSong = Player.getInstance().getPlayingSong();
                 //判断该条目音乐是否在播放
                 if (playingSong != null && TextUtils.equals(String.valueOf(playingSong.getId()), String.valueOf(localItem.getId()))) {
                     ((ItemViewHolder) itemHolder).title.setTextColor(getResources().getColor(R.color.listTextColor));
@@ -384,7 +382,7 @@ public class PlayListActivity extends AppCompatActivity implements ObservableScr
                 ((ItemViewHolder) itemHolder).itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        play(localItem);
+                        Player.getInstance().play(localItem);
                     }
                 });
             } else if (itemHolder instanceof CommonItemViewHolder) {
@@ -414,12 +412,13 @@ public class PlayListActivity extends AppCompatActivity implements ObservableScr
                 layout.setOnClickListener(this);
             }
 
+            @Override
             public void onClick(View v) {
                 //// TODO: 2016/1/20
                 Log.e(TAG, "播放所有歌曲");
 
                 Song song = arraylist.get(1);
-                play(song);
+                Player.getInstance().play(song);
 
             }
 

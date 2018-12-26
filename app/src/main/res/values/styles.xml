@@ -28,4 +28,13 @@
         <item name="android:textSize">9.0sp</item>
         <item name="android:textColor">@color/menu_item_white</item>
     </style>
+
+
+    <style name="esp_text_big">
+        <item name="android:textSize">23sp</item>
+    </style>
+
+    <style name="esp_text_small">
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

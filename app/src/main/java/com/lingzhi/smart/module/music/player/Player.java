@@ -2,12 +2,11 @@ package com.lingzhi.smart.module.music.player;
 
 import android.media.MediaPlayer;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
+import com.lingzhi.smart.data.bean.Song;
 import com.lingzhi.smart.data.source.remote.ApiHelper;
 import com.lingzhi.smart.data.source.remote.Resp;
 import com.lingzhi.smart.module.music.model.PlayList;
-import com.lingzhi.smart.module.music.model.Song;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -226,7 +225,7 @@ public class Player implements IPlayback, MediaPlayer.OnCompletionListener {
         }
     }
 
-    public void play(int id, com.lingzhi.smart.data.bean.Song song) {
+    public void play(int id, Song song) {
         ApiHelper.play(id, song.getId()).subscribe(new Consumer<Resp<String>>() {
             @Override
             public void accept(Resp<String> stringResp) throws Exception {

@@ -10,8 +10,6 @@ import android.graphics.Rect;
 import android.media.MediaMetadataRetriever;
 import android.util.Log;
 
-import com.lingzhi.smart.module.music.model.Song;
-
 import java.io.File;
 
 

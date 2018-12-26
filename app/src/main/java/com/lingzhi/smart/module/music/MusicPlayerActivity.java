@@ -11,8 +11,6 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.lingzhi.smart.R;
-import com.lingzhi.smart.module.music.event.PlaySongEvent;
-import com.lingzhi.smart.module.music.model.Song;
 
 public class MusicPlayerActivity extends AppCompatActivity {
 
