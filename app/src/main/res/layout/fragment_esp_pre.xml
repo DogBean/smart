@@ -76,6 +76,8 @@
         </RelativeLayout>
 
         <Button
+            android:gravity="center"
+            android:id="@+id/btn_next"
             android:layout_width="285dp"
             android:layout_height="42dp"
             android:layout_marginTop="30dp"

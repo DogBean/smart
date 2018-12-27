@@ -171,7 +171,7 @@ public class MusicPlayerFragment extends RxLazyFragment implements MusicPlayerCo
         Song currentSong = mPlayer.getPlayingSong();
         int duration = 0;
         if (currentSong != null) {
-            duration = currentSong.getDuration();
+            duration = (int) currentSong.getDuration();
         }
         return duration;
     }

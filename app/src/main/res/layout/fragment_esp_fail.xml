@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/color_title"
-              android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_title"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/esp_fail_iv_backphone"
@@ -12,7 +12,7 @@
         android:layout_margin="30dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="10dp"
-        android:src="@drawable/back"/>
+        android:src="@drawable/back" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,15 +24,59 @@
             style="@style/esp_text_big"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="连接网络失败"/>
+            android:text="连接网络失败" />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="55dp"
-            android:src="@drawable/ic_esp_match_fail"/>
+            android:src="@drawable/ic_esp_match_fail" />
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="68dp"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/esp_text_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="可能的原因" />
+
+        <TextView
+            style="@style/esp_text_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="1.Wi-Fi密码输入错误" />
+
+        <TextView
+            style="@style/esp_text_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="2.手机连接的是5G Wi-Fi路由器" />
+
+        <TextView
+            style="@style/esp_text_small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.手机离设备太远" />
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/confirm_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/ic_esp_pre_next_bg"
+        android:text="已确认问题,重新联网"
+        android:textSize="15sp" />
 
 </LinearLayout>

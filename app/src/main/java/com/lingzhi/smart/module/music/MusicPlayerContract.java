@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.lingzhi.smart.base.BaseView;
 import com.lingzhi.smart.base.MvpPresenter;
+import com.lingzhi.smart.data.bean.Song;
 import com.lingzhi.smart.module.music.player.PlayMode;
 import com.lingzhi.smart.module.music.player.PlaybackService;
 

@@ -40,7 +40,10 @@ public class Packet {
     public static final int CMD_GETPLAYSTATUS = 406;
     public static final int CMD_GETNEWESTMESSAGE = 500;
 
-    public static final String NAME_LOGIN = "login";
+    public static final byte[] PING = new byte[]{'p','i','n','g'};
+    public static final byte[] PONG = new byte[]{'p','o','n','g'};
+
+    public static final String NAME_LOGIN = "1";
     public static final String NAME_LOGOUT = "logout";
     public static final String NAME_PLAYURL = "playURL";
     public static final String NAME_PLAYSONE = "playSone";
@@ -195,5 +198,80 @@ public class Packet {
         return new byte[0];
     }
 
+
+
+    public void getCurrentPlaying(byte[] bytes) throws IOException {
+//        ByteArrayInputStream intputStream = new ByteArrayInputStream(bytes);
+//        PacketDataInputStream pint = new PacketDataInputStream(intputStream);
+//        pint.read(bytes,0, 32);
+//        pout.writeString(song,32);
+//        String list,String song
+//        this.content = outputStream.toByteArray();
+//        outputStream.close();
+    }
+
+    public void getPlayMode(int mode) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PacketDataOutputStream pout = new PacketDataOutputStream(outputStream);
+        pout.writeInt(mode);
+        this.content = outputStream.toByteArray();
+        outputStream.close();
+    }
+
+    public void getChildLockStatus(int status) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PacketDataOutputStream pout = new PacketDataOutputStream(outputStream);
+        pout.writeInt(status);
+        this.content = outputStream.toByteArray();
+        outputStream.close();
+    }
+
+    public void getEarLightStatus(int status) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PacketDataOutputStream pout = new PacketDataOutputStream(outputStream);
+        pout.writeInt(status);
+        this.content = outputStream.toByteArray();
+        outputStream.close();
+    }
+
+    public void getLedLightStatus(int status) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PacketDataOutputStream pout = new PacketDataOutputStream(outputStream);
+        pout.writeInt(status);
+        this.content = outputStream.toByteArray();
+        outputStream.close();
+    }
+
+    public void getVolume(int volume) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PacketDataOutputStream pout = new PacketDataOutputStream(outputStream);
+        pout.writeInt(volume);
+        this.content = outputStream.toByteArray();
+        outputStream.close();
+    }
+
+    public void getBattery(int battery) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PacketDataOutputStream pout = new PacketDataOutputStream(outputStream);
+        pout.writeInt(battery);
+        this.content = outputStream.toByteArray();
+        outputStream.close();
+    }
+
+    public void getPlayStatus(int status) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PacketDataOutputStream pout = new PacketDataOutputStream(outputStream);
+        pout.writeInt(status);
+        this.content = outputStream.toByteArray();
+        outputStream.close();
+    }
+
+    public void getNewestMessage(long syncKey) throws IOException {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PacketDataOutputStream pout = new PacketDataOutputStream(outputStream);
+        pout.writeLong(syncKey);
+        this.content = outputStream.toByteArray();
+        outputStream.close();
+    }
 
 }

@@ -29,11 +29,16 @@
     <color name="google_blue">#6099f5</color>
     <color name="google_yellow">#edc855</color>
     <color name="google_green">#5cb171</color>
+
     <color name="listTextColor">#FF7272</color>
+    <color name="listTextNormal">#373636</color>
 
 
     <color name="color_title">#FFDD21</color>
     <color name="color_login_btn">#FFFBEC</color>
     <color name="color_common_text">#555555</color>
     <color name="color_write">#fff</color>
+
+
+    <color name="white_pressed">#FFCFCFCF</color>
 </resources>

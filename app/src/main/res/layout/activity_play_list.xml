@@ -19,12 +19,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            <!--<com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"-->
+                <!--android:id="@+id/recyclerview"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_above="@+id/empty"-->
+                <!--android:visibility="gone" />-->
+
+            <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
                 android:id="@+id/recyclerview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/empty"
-                android:visibility="gone" />
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
             <ImageView
                 android:id="@+id/empty"

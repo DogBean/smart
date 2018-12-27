@@ -35,9 +35,9 @@ public class Navigator {
     }
 
 
-    public static void navigateToMusicPlayList(Context context, int oid, String albumName, String albumPath) {
+    public static void navigateToMusicPlayList(Context context, int oid, String albumName, String albumPath, boolean drag) {
         if (context != null) {
-            Intent intentToLaunch = PlayListActivity.getCallingIntent(context, oid, albumName, albumPath);
+            Intent intentToLaunch = PlayListActivity.getCallingIntent(context, oid, albumName, albumPath, drag);
             context.startActivity(intentToLaunch);
         }
     }

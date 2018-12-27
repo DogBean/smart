@@ -1,5 +1,7 @@
 package com.lingzhi.smart.module.music.event;
 
+import com.lingzhi.smart.data.bean.Song;
+
 /**
  * Created with Android Studio.
  * User: ryan.hoo.j@gmail.com

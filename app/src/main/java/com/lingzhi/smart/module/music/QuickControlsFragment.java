@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.app.SmartApplication;
+import com.lingzhi.smart.base.RxLazyFragment;
+import com.lingzhi.smart.data.bean.Song;
 import com.lingzhi.smart.module.music.player.IPlayback;
 import com.lingzhi.smart.module.music.player.Player;
 import com.lingzhi.smart.utils.Navigator;
@@ -27,7 +29,7 @@ import butterknife.Unbinder;
 /**
  * Created by Guoyong.Lin on 2018/12/17
  **/
-public class QuickControlsFragment extends MusicBaseFragment implements IPlayback.Callback {
+public class QuickControlsFragment extends RxLazyFragment implements IPlayback.Callback {
     private static final String TAG = SmartApplication.TAG;
 
     @BindView(R.id.ll_play_view)
@@ -113,7 +115,7 @@ public class QuickControlsFragment extends MusicBaseFragment implements IPlaybac
     public void updateNowPlayingCard() {
         Song playingSong = Player.getInstance().getPlayingSong();
         if (playingSong != null) {
-            mTitle.setText(playingSong.getDisplayName());
+            mTitle.setText(playingSong.getName());
         }
     }
 

@@ -8,6 +8,7 @@ import com.lingzhi.smart.data.bean.ResourceGroup;
 import com.lingzhi.smart.data.bean.ResourceList;
 import com.lingzhi.smart.data.bean.Song;
 import com.lingzhi.smart.data.request.AccountRequest;
+import com.lingzhi.smart.data.request.AlbumRequest;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ import io.reactivex.schedulers.Schedulers;
 public class ApiHelper {
     private static Api browseApi;
     private static Api musicApi;
-    public static String BASE_URL = "http://192.168.4.152:8080";
+    public static String BASE_URL = "http://47.106.230.10:80";
 
     private static Api getMusicApi() {
         if (musicApi == null) {
@@ -72,6 +73,13 @@ public class ApiHelper {
     public static Flowable<Resp<ResourceGroup<Song>>> album(int cid) {
         return getApi()
                 .album(cid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public static Flowable<Resp> updateAlbum(AlbumRequest request) {
+        return getApi()
+                .updateAlbum(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }

@@ -40,4 +40,9 @@
     <style name="esp_text_small">
         <item name="android:textSize">12sp</item>
     </style>
+
+    <style name="play_list_text_size_small">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">#373636</item>
+    </style>
 </resources>

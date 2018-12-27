@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import io.netty.buffer.ByteBuf;
@@ -37,10 +38,15 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg)
             throws Exception {
-        //channelRead()方法是在数据被接收的时候调用。
-        Packet packet = Packet.parseBytes((byte[]) msg);
-        callListeners(packet);
-        Log.d(TAG, "channelRead receive packet:" + (packet == null ? null : packet.toString()));
+        byte[] bytes = (byte[]) msg;
+        if (Arrays.equals(bytes, Packet.PONG)) {
+            Log.e(TAG, "channelRead receive pong" );
+        } else {
+            //channelRead()方法是在数据被接收的时候调用。
+            Packet packet = Packet.parseBytes(bytes);
+            callListeners(packet);
+            Log.d(TAG, "channelRead receive packet:" + (packet == null ? null : packet.toString()));
+        }
     }
 
     @Override

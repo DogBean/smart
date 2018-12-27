@@ -1,9 +1,7 @@
 package com.lingzhi.smart.module.main;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -13,19 +11,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-;
 import com.lingzhi.smart.R;
-import com.lingzhi.smart.data.bean.DatedLinkGroup;
-import com.lingzhi.smart.data.bean.IconLink;
-import com.lingzhi.smart.data.bean.ResourceGroup;
-import com.lingzhi.smart.data.bean.ResourceList;
-import com.lingzhi.smart.data.bean.Song;
-import com.lingzhi.smart.data.source.Banner;
-import com.lingzhi.smart.data.source.RecommendBean;
 import com.lingzhi.smart.app.SmartApplication;
 import com.lingzhi.smart.base.RxBus;
 import com.lingzhi.smart.base.RxLazyFragment;
+import com.lingzhi.smart.data.bean.DatedLinkGroup;
+import com.lingzhi.smart.data.bean.IconLink;
+import com.lingzhi.smart.data.bean.ResourceGroup;
+import com.lingzhi.smart.data.bean.Song;
+import com.lingzhi.smart.data.source.Banner;
+import com.lingzhi.smart.data.source.RecommendBean;
 import com.lingzhi.smart.module.search.SearchActivity;
 import com.lingzhi.smart.utils.Navigator;
 import com.lingzhi.smart.view.banner.RegionRecommendBannerSection;
@@ -44,6 +41,8 @@ import rx.android.schedulers.AndroidSchedulers;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+;
+
 /**
  * Created by Guoyong.Lin on 2018/12/14
  * 首页模块
@@ -55,6 +54,8 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     RecyclerView mRecyclerView;
     @BindView(R.id.main_swipe_refresh_layout)
     SwipeRefreshLayout mRefreshLayout;
+    @BindView(R.id.btn_setting)
+    Button btnSetting;
     private boolean mIsRefreshing = false;
 
     private List<RecommendBean> listernBeans = new ArrayList<>();
@@ -173,7 +174,27 @@ public class MainFragment extends RxLazyFragment implements MainContract.View {
     }
 
     private void performMainType(int type) {
-        Log.e(TAG, "performMainType:" + type);
-        Navigator.navigateToSort(getContext(), type);
+        if (categorys != null) {
+            IconLink[] categorysLinks = categorys.getLinks();
+            IconLink categoryLink = categorysLinks[type];
+            if (categoryLink == null) {
+                Log.e(TAG, "performMainType category link is null");
+                return;
+            }
+
+            Log.d(TAG, "performMainType navigator to playlist:" + categoryLink.toString());
+            Navigator.navigateToMusicPlayList(getContext(), categoryLink.getOid(), categoryLink.getName(), categoryLink.getIcon(), true);
+        } else {
+            Log.e(TAG, "performMainType category is null");
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
+
+    @OnClick(R.id.btn_setting)
+    public void setting() {
     }
 }

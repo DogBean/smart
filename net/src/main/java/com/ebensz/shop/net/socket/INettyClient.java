@@ -14,7 +14,9 @@ public interface INettyClient {
 
     void connect(String host, int port);//1. 建立连接
 
-    void sendMessage(int mt, String msg, long delayed);//2. 发送消息
+    void sendMessage(String msg, long delayed);//2. 发送消息
+
+    void ping(byte[] ping);//2. 发送消息
 
     void sendLogin();//2. 登陆
 

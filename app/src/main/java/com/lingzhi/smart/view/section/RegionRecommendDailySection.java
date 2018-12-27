@@ -86,7 +86,7 @@ public class RegionRecommendDailySection extends StatelessSection {
         itemViewHolder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Navigator.navigateToMusicPlayList(context, albumId, albumName, albumPath);
+                Navigator.navigateToMusicPlayList(context, albumId, albumName, albumPath, false);
             }
         });
     }

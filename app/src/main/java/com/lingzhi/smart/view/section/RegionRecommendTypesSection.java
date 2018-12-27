@@ -14,12 +14,6 @@ import com.lingzhi.smart.view.sectioned.StatelessSection;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by hcc on 2016/10/21 21:15
- * 100332338@qq.com
- * <p>
- * 分区推荐分类section
- */
 
 public class RegionRecommendTypesSection extends StatelessSection {
     private Context mContext;

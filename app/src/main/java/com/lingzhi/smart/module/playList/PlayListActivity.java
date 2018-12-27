@@ -11,6 +11,8 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -26,6 +28,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -41,6 +44,8 @@ import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.lingzhi.smart.R;
 import com.lingzhi.smart.data.bean.ResourceGroup;
 import com.lingzhi.smart.data.bean.Song;
+import com.lingzhi.smart.data.request.AlbumRequest;
+import com.lingzhi.smart.data.source.remote.ApiHelper;
 import com.lingzhi.smart.data.source.remote.Resp;
 import com.lingzhi.smart.module.music.QuickControlsFragment;
 import com.lingzhi.smart.module.music.player.Player;
@@ -51,12 +56,16 @@ import com.lingzhi.smart.utils.Injection;
 import com.lingzhi.smart.utils.NetworkUtils;
 import com.lingzhi.smart.utils.Utils;
 import com.nineoldandroids.view.ViewHelper;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
+import com.yanzhenjie.recyclerview.swipe.touch.OnItemMoveListener;
+import com.yanzhenjie.recyclerview.swipe.touch.OnItemStateChangedListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 
 public class PlayListActivity extends AppCompatActivity implements ObservableScrollViewCallbacks {
@@ -65,9 +74,10 @@ public class PlayListActivity extends AppCompatActivity implements ObservableScr
     private static final String ALBUM_ID = "album_id";
     private static final String ALBUM_NAME = "album_name";
     private static final String ALBUM_PATH = "album_path";
+    private static final String SUPPORT_DRAG = "support_drag";
 
     @BindView(R.id.recyclerview)
-    ObservableRecyclerView recyclerView;
+    SwipeMenuRecyclerView recyclerView;
     @BindView(R.id.empty)
     ImageView empty;
     @BindView(R.id.recyclerview_container)
@@ -104,10 +114,11 @@ public class PlayListActivity extends AppCompatActivity implements ObservableScr
     private int mActionBarSize;
     private int mStatusSize;
     private ActionBar actionBar;
-    private ArrayList<Song> adapterList = new ArrayList<>();
+    private ArrayList<Song> adapterList = new ArrayList<Song>();
     private PlaylistDetailAdapter mAdapter;
     private View loadView;
     private int mFlexibleSpaceImageHeight;
+    private boolean drag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +130,7 @@ public class PlayListActivity extends AppCompatActivity implements ObservableScr
         if (getIntent().getExtras() != null) {
             playlsitId = getIntent().getIntExtra(ALBUM_ID, 0);
             albumPath = getIntent().getStringExtra(ALBUM_PATH);
+            drag = getIntent().getBooleanExtra(SUPPORT_DRAG, false);
             playlistName = getIntent().getStringExtra(ALBUM_NAME);
             playlistDetail = getIntent().getStringExtra("playlistDetail");
             playlistCount = getIntent().getStringExtra("playlistcount");
@@ -150,26 +162,17 @@ public class PlayListActivity extends AppCompatActivity implements ObservableScr
             loadView = LayoutInflater.from(this).inflate(R.layout.loading, loadFrameLayout, false);
             loadFrameLayout.addView(loadView);
 
-            Injection.provideMainRepository().album(playlsitId).subscribe(new Consumer<Resp<ResourceGroup<Song>>>() {
-                @Override
-                public void accept(Resp<ResourceGroup<Song>> resourceListResp) throws Exception {
-                    Song[] children = resourceListResp.getData().getChildren();
-                    Collections.addAll(adapterList, children);
-
-                    loadFrameLayout.removeAllViews();
-                    recyclerView.setVisibility(View.VISIBLE);
-                    mAdapter.updateDataSet(adapterList);
-                }
-            }, new Consumer<Throwable>() {
-                @Override
-                public void accept(Throwable throwable) throws Exception {
-                    Log.e(TAG, "accept: ----" + throwable);
-                }
-            });
-
+            Disposable subscribe = Injection.provideMainRepository()
+                    .album(playlsitId)
+                    .subscribe(resourceListResp -> {
+                        Song[] children = resourceListResp.getData().getChildren();
+                        Collections.addAll(adapterList, children);
+                        loadFrameLayout.removeAllViews();
+                        recyclerView.setVisibility(View.VISIBLE);
+                        mAdapter.updateDataSet(adapterList);
+                    }, throwable -> Log.e(TAG, "load AllList error:" + throwable));
         } else {
             tryAgain.setVisibility(View.VISIBLE);
-
         }
     }
 
@@ -191,12 +194,69 @@ public class PlayListActivity extends AppCompatActivity implements ObservableScr
     }
 
     private void setList() {
-        recyclerView.setScrollViewCallbacks(this);
+//        recyclerView.setScrollViewCallbacks(this);
+        recyclerView.setLongPressDragEnabled(drag); // 长按拖拽，默认关闭。
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         mAdapter = new PlaylistDetailAdapter(this, adapterList);
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        recyclerView.setOnItemMoveListener(onItemMoveListener);// 监听拖拽和侧滑删除，更新UI和数据源。
+        recyclerView.setOnItemStateChangedListener(mOnItemStateChangedListener); // 监听Item的手指状态，拖拽、侧
+    }
+
+    /**
+     * 监听拖拽和侧滑删除，更新UI和数据源。
+     */
+    private OnItemMoveListener onItemMoveListener = new OnItemMoveListener() {
+        @Override
+        public boolean onItemMove(RecyclerView.ViewHolder srcHolder, RecyclerView.ViewHolder targetHolder) {
+            // 不同的ViewType不能拖拽换位置。
+            if (srcHolder.getItemViewType() != targetHolder.getItemViewType()) return false;
+
+            int fromPosition = srcHolder.getAdapterPosition();
+            int toPosition = targetHolder.getAdapterPosition();
+
+            Collections.swap(adapterList, fromPosition, toPosition);
+            mAdapter.notifyItemMoved(fromPosition, toPosition);
+
+            return true;// 返回true表示处理了并可以换位置，返回false表示你没有处理并不能换位置。
+        }
+
+        @Override
+        public void onItemDismiss(RecyclerView.ViewHolder srcHolder) {
+            int position = srcHolder.getAdapterPosition();
+            adapterList.remove(position);
+            mAdapter.notifyItemRemoved(position);
+            Toast.makeText(PlayListActivity.this, "现在的第" + position + "条被删除。", Toast.LENGTH_SHORT).show();
+        }
+
+    };
+
+    @Override
+    protected void onStop() {
+
+        Song[] songs = adapterList.toArray(new Song[]{});
+        ResourceGroup<Song> group = new ResourceGroup<>();
+        group.setChildren(songs);
+        ApiHelper.updateAlbum(new AlbumRequest(playlsitId, group)).subscribe(new Consumer<Resp>() {
+            @Override
+            public void accept(Resp resp) throws Exception {
+
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable) throws Exception {
+                Log.e(TAG, "update album fail:" + throwable);
+            }
+        });
+        super.onStop();
+    }
+
+    @Override
+    protected void onPause() {
+
+        super.onPause();
     }
 
     private void setAlbumart() {
@@ -292,11 +352,6 @@ public class PlayListActivity extends AppCompatActivity implements ObservableScr
             actionBar.setBackgroundDrawable(null);
         }
         if (scrollY > mFlexibleSpaceImageHeight - mActionBarSize - mStatusSize) {
-
-//            if(mBlurDrawable != null){
-//                mBlurDrawable.setColorFilter(Color.parseColor("#79000000"), PorterDuff.Mode.SRC_OVER);
-//                actionBar.setBackgroundDrawable(mBlurDrawable);
-//            }
         }
 
         float a = (float) scrollY / (mFlexibleSpaceImageHeight - mActionBarSize - mStatusSize);
@@ -327,11 +382,12 @@ public class PlayListActivity extends AppCompatActivity implements ObservableScr
 
     }
 
-    public static Intent getCallingIntent(Context context, int albumId, String albumName, String albumPath) {
+    public static Intent getCallingIntent(Context context, int albumId, String albumName, String albumPath, boolean drag) {
         Intent intent = new Intent(context, PlayListActivity.class);
         intent.putExtra(ALBUM_ID, albumId);
         intent.putExtra(ALBUM_NAME, albumName);
         intent.putExtra(ALBUM_PATH, albumPath);
+        intent.putExtra(SUPPORT_DRAG, drag);
         return intent;
     }
 
@@ -374,9 +430,26 @@ public class PlayListActivity extends AppCompatActivity implements ObservableScr
                     ((ItemViewHolder) itemHolder).playState.setImageResource(R.drawable.ic_playing);
                     ((ItemViewHolder) itemHolder).trackNumber.setVisibility(View.GONE);
                 } else {
+                    ((ItemViewHolder) itemHolder).title.setTextColor(getResources().getColor(R.color.listTextNormal));
                     ((ItemViewHolder) itemHolder).playState.setVisibility(View.GONE);
                     ((ItemViewHolder) itemHolder).trackNumber.setVisibility(View.VISIBLE);
+                    ((ItemViewHolder) itemHolder).trackNumber.setText(String.valueOf(i));
                 }
+
+                //判断该条目是否在 默认分类中
+
+                if (true) {
+                    ((ItemViewHolder) itemHolder).addList.setImageResource(R.drawable.ic_add_list);
+                } else {
+                    ((ItemViewHolder) itemHolder).addList.setImageResource(R.drawable.ic_rm_song);
+                }
+                ((ItemViewHolder) itemHolder).addList.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+
                 ((ItemViewHolder) itemHolder).title.setText(localItem.getName());
                 ((ItemViewHolder) itemHolder).time.setText(Utils.formatSeconds(localItem.getDuration()));
                 ((ItemViewHolder) itemHolder).itemView.setOnClickListener(new View.OnClickListener() {
@@ -416,9 +489,10 @@ public class PlayListActivity extends AppCompatActivity implements ObservableScr
             public void onClick(View v) {
                 //// TODO: 2016/1/20
                 Log.e(TAG, "播放所有歌曲");
-
-                Song song = arraylist.get(1);
-                Player.getInstance().play(song);
+                if (arraylist.size() > 1) {
+                    Song song = arraylist.get(1);
+                    Player.getInstance().play(song);
+                }
 
             }
 
@@ -426,7 +500,7 @@ public class PlayListActivity extends AppCompatActivity implements ObservableScr
 
         public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             protected TextView title, trackNumber, time;
-            ImageView playState;
+            ImageView playState, addList;
 
             public ItemViewHolder(View view) {
                 super(view);
@@ -434,6 +508,7 @@ public class PlayListActivity extends AppCompatActivity implements ObservableScr
                 this.playState = (ImageView) view.findViewById(R.id.play_state);
                 this.time = view.findViewById(R.id.song_time);
                 this.trackNumber = view.findViewById(R.id.trackNumber);
+                this.addList = view.findViewById(R.id.btn_add_to_list);
                 view.setOnClickListener(this);
             }
 
@@ -446,6 +521,27 @@ public class PlayListActivity extends AppCompatActivity implements ObservableScr
 
         }
     }
+
+    /**
+     * Item的拖拽/侧滑删除时，手指状态发生变化监听。
+     */
+    private OnItemStateChangedListener mOnItemStateChangedListener = new OnItemStateChangedListener() {
+        @Override
+        public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
+            if (actionState == OnItemStateChangedListener.ACTION_STATE_DRAG) {
+
+                // 拖拽的时候背景就透明了，这里我们可以添加一个特殊背景。
+                viewHolder.itemView.setBackgroundColor(
+                        ContextCompat.getColor(PlayListActivity.this, R.color.white_pressed));
+            } else if (actionState == OnItemStateChangedListener.ACTION_STATE_SWIPE) {
+            } else if (actionState == OnItemStateChangedListener.ACTION_STATE_IDLE) {
+
+                // 在手松开的时候还原背景。
+                ViewCompat.setBackground(viewHolder.itemView,
+                        ContextCompat.getDrawable(PlayListActivity.this, R.drawable.select_white));
+            }
+        }
+    };
 
 
 }

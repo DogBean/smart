@@ -8,11 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lingzhi.smart.R;
+import com.lingzhi.smart.base.RxLazyFragment;
 
 /**
  * Created by Guoyong.Lin on 2018/12/26
  **/
-public class EspSettingFragment extends Fragment {
+public class EspSettingFragment extends RxLazyFragment {
 
     @Nullable
     @Override

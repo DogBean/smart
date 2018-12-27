@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.lingzhi.smart"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lingzhi.smart">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!--配网权限-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".app.SmartApplication"
@@ -18,34 +24,35 @@
         android:theme="@style/AppTheme">
         <activity android:name=".module.main.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".module.search.SearchActivity"/>
+        <activity android:name=".module.search.SearchActivity" />
         <activity
             android:name=".module.sort.SortActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".module.music.MusicPlayerActivity"/>
-        <activity android:name=".module.guide.GuideActivity"/>
+            android:screenOrientation="portrait" />
+        <activity android:name=".module.music.MusicPlayerActivity" />
+        <activity android:name=".module.guide.GuideActivity" />
+        <activity android:name=".module.playList.PlayListActivity"></activity>
+        <activity android:name=".module.esp.EsptouchDemoActivity">
+
+        </activity>
+        <activity android:name=".module.login.LoginActivity" />
+        <activity android:name=".module.requisite.RequisiteActivity" />
+        <activity android:name=".module.esp.EsptounchActivity">
+
+        </activity>
 
         <service android:name=".module.music.player.PlaybackService">
             <intent-filter>
-                <action android:name="io.github.ryanhoo.music.ACTION.PLAY_TOGGLE"/>
-                <action android:name="io.github.ryanhoo.music.ACTION.PLAY_NEXT"/>
-                <action android:name="io.github.ryanhoo.music.ACTION.PLAY_LAST"/>
-                <action android:name="io.github.ryanhoo.music.ACTION.STOP_SERVICE"/>
+                <action android:name="io.github.ryanhoo.music.ACTION.PLAY_TOGGLE" />
+                <action android:name="io.github.ryanhoo.music.ACTION.PLAY_NEXT" />
+                <action android:name="io.github.ryanhoo.music.ACTION.PLAY_LAST" />
+                <action android:name="io.github.ryanhoo.music.ACTION.STOP_SERVICE" />
             </intent-filter>
         </service>
-
-        <activity android:name=".module.playList.PlayListActivity">
-        </activity>
-        <activity android:name=".module.esp.EsptouchDemoActivity"/>
-        <activity android:name=".module.login.LoginActivity"/>
-        <activity android:name=".module.requisite.RequisiteActivity"/>
-        <activity android:name=".module.esp.EsptounchActivity">
-        </activity>
     </application>
 
 </manifest>

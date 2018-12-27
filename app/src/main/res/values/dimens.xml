@@ -2,7 +2,7 @@
 <resources>
 
     <!--banner height size-->
-    <dimen name="general_banner_height">194dp</dimen>
+    <dimen name="general_banner_height">130dp</dimen>
 
 
     <dimen name="region_recommend_icon_size">40dp</dimen>

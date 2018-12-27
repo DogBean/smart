@@ -11,12 +11,11 @@
         android:layout_marginRight="15dp" />
 
     <LinearLayout
+        android:layout_centerHorizontal="true"
         android:id="@+id/layout_banner_points_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/layout_banner_viewpager"
-        android:layout_alignParentEnd="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="@dimen/default_general_margin"
         android:layout_marginEnd="@dimen/default_general_margin"
         android:orientation="horizontal"

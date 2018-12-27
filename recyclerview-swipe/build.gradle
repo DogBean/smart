@@ -1,0 +1,19 @@
+apply plugin: 'com.android.library'
+android {
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+    }
+    resourcePrefix 'recycler_swipe_'
+}
+
+dependencies {
+    implementation "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+}
+

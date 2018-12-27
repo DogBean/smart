@@ -3,6 +3,7 @@ package com.lingzhi.smart.module.music.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.lingzhi.smart.data.bean.Song;
 import com.litesuits.orm.db.annotation.*;
 import com.litesuits.orm.db.enums.AssignType;
 import com.litesuits.orm.db.enums.Relation;
@@ -19,7 +20,7 @@ import java.util.List;
  * Desc: Folder
  */
 @Table("folder")
-public class Folder implements Parcelable {
+public class Folder {
 
     public static final String COLUMN_NAME = "name";
 
@@ -44,9 +45,6 @@ public class Folder implements Parcelable {
         // Empty
     }
 
-    public Folder(Parcel in) {
-        readFromParcel(in);
-    }
 
     public int getId() {
         return id;
@@ -101,40 +99,5 @@ public class Folder implements Parcelable {
         this.createdAt = createdAt;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
-        dest.writeString(this.name);
-        dest.writeString(this.path);
-        dest.writeInt(this.numOfSongs);
-        dest.writeTypedList(this.songs);
-        dest.writeLong(this.createdAt != null ? this.createdAt.getTime() : -1);
-    }
-
-    private void readFromParcel(Parcel in) {
-        this.id = in.readInt();
-        this.name = in.readString();
-        this.path = in.readString();
-        this.numOfSongs = in.readInt();
-        this.songs = in.createTypedArrayList(Song.CREATOR);
-        long tmpCreatedAt = in.readLong();
-        this.createdAt = tmpCreatedAt == -1 ? null : new Date(tmpCreatedAt);
-    }
-
-    public static final Creator<Folder> CREATOR = new Creator<Folder>() {
-        @Override
-        public Folder createFromParcel(Parcel source) {
-            return new Folder(source);
-        }
-
-        @Override
-        public Folder[] newArray(int size) {
-            return new Folder[size];
-        }
-    };
 }

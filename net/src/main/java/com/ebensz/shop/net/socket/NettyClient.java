@@ -8,9 +8,12 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.ebensz.shop.net.utils.ApiConstants;
+import com.ebensz.shop.net.utils.Constants;
 import com.ebensz.shop.net.utils.Packet;
+import com.ebensz.shop.net.utils.SPUtils;
 import com.ebensz.shop.net.utils.SignUtil;
 import com.ebensz.shop.net.utils.UUIDGenerator;
+import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
 import java.net.InetSocketAddress;
@@ -51,6 +54,7 @@ public class NettyClient implements INettyClient {
     private NettyClientHandler nettyClientHandler;
     private final String ACTION_SEND_TYPE = "action_send_type";
     private final String ACTION_SEND_MSG = "action_send_msg";
+    private final String ACTION_SEND_PING = "action_send_ping";
     private final int MESSAGE_INIT = 0x1;
     private final int MESSAGE_CONNECT = 0x2;
     private final int MESSAGE_SEND = 0x3;
@@ -95,11 +99,18 @@ public class NettyClient implements INettyClient {
                 }
                 case MESSAGE_SEND: {
                     String sendMsg = msg.getData().getString(ACTION_SEND_MSG);
+                    byte[] ping = msg.getData().getByteArray(ACTION_SEND_PING);
+                    Packet packet = new Gson().fromJson(sendMsg, Packet.class);
                     int cmd = msg.getData().getInt(ACTION_SEND_TYPE);
                     try {
                         if (channel != null && channel.isOpen()) {
-                            channel.writeAndFlush(constructMessage(sendMsg)).sync();
-                            Log.d(TAG, "send succeed " + constructMessage(sendMsg));
+                            if (ping != null && ping.length > 0) {
+                                Log.e(TAG, "send ping");
+                                channel.writeAndFlush(ping).sync();
+                            } else {
+                                channel.writeAndFlush(packet.toBytes()).sync();
+                                Log.e(TAG, "send succeed " + constructMessage(sendMsg));
+                            }
                         } else {
                             throw new Exception("channel is null | closed");
                         }
@@ -124,7 +135,7 @@ public class NettyClient implements INettyClient {
 
                             ByteArrayOutputStream bout = new ByteArrayOutputStream();
                             PacketDataOutputStream out = new PacketDataOutputStream(bout);
-                            String token = UUIDGenerator.generator();
+                            String token = "1";//SPUtils.getInstance().getString(Constants.TOKEN);
                             String nonc = UUIDGenerator.generator();
                             String sign = SignUtil.getSign(token, nonc);
                             out.writeString(token, 32);
@@ -193,16 +204,25 @@ public class NettyClient implements INettyClient {
     }
 
     @Override
-    public void sendMessage(int cmd, String msg, long delayed) {
+    public void sendMessage(String msg, long delayed) {
         if (TextUtils.isEmpty(msg))
             return;
         Message message = new Message();
         Bundle bundle = new Bundle();
         message.what = MESSAGE_SEND;
         bundle.putString(ACTION_SEND_MSG, msg);
-        bundle.putInt(ACTION_SEND_TYPE, cmd);
         message.setData(bundle);
         mWorkHandler.sendMessageDelayed(message, delayed);
+    }
+
+    @Override
+    public void ping(byte[] ping) {
+        Message message = new Message();
+        Bundle bundle = new Bundle();
+        message.what = MESSAGE_SEND;
+        bundle.putByteArray(ACTION_SEND_PING, ping);
+        message.setData(bundle);
+        mWorkHandler.sendMessageDelayed(message, 0);
     }
 
     @Override
